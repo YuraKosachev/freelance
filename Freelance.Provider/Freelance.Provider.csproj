@@ -87,7 +87,24 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Context\FreelanceDbContext.cs" />
     <Compile Include="EntityModels\IdentityModels.cs" />
+    <Compile Include="EntityModels\LoginProviderModel.cs" />
+    <Compile Include="EntityModels\VerifyCodeProviderModel.cs" />
+    <Compile Include="Interfaces\IAccountProvider.cs" />
+    <Compile Include="Migrations\201703200643126_initial.cs" />
+    <Compile Include="Migrations\201703200643126_initial.Designer.cs">
+      <DependentUpon>201703200643126_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703200826391_customazing_User_added_setting_UserSurname.cs" />
+    <Compile Include="Migrations\201703200826391_customazing_User_added_setting_UserSurname.Designer.cs">
+      <DependentUpon>201703200826391_customazing_User_added_setting_UserSurname.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703200846083_customazing_identity_tables.cs" />
+    <Compile Include="Migrations\201703200846083_customazing_identity_tables.Designer.cs">
+      <DependentUpon>201703200846083_customazing_identity_tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\AccountProvider.cs" />
     <Compile Include="Providers\FreelanceUserManager.cs" />
     <Compile Include="Providers\FreelanceSignInManager.cs" />
   </ItemGroup>
@@ -95,7 +112,17 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703200643126_initial.resx">
+      <DependentUpon>201703200643126_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703200826391_customazing_User_added_setting_UserSurname.resx">
+      <DependentUpon>201703200826391_customazing_User_added_setting_UserSurname.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703200846083_customazing_identity_tables.resx">
+      <DependentUpon>201703200846083_customazing_identity_tables.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

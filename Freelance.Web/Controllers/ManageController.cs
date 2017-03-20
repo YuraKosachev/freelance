@@ -21,6 +21,7 @@ namespace Freelance.Web.Controllers
 
         public ManageController()
         {
+         
         }
 
         public ManageController(FreelanceUserManager userManager, FreelanceSignInManager signInManager)

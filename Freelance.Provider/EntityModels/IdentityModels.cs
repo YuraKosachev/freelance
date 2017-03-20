@@ -11,6 +11,8 @@ namespace Freelance.Provider.EntityModels
 {
     public class User : IdentityUser
     {
+      
+        public string UserSurname { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
