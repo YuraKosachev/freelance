@@ -84,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Context\FreelanceDbContext.cs" />
     <Compile Include="EntityModels\IdentityModels.cs" />
     <Compile Include="EntityModels\LoginProviderModel.cs" />
