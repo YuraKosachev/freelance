@@ -91,12 +91,18 @@ namespace Freelance.Web.Controllers
         }
         private void SetUserName(string name,bool isRegistred)
         {
-               Session["UserName"] = isRegistred ? Service.GetUserFirstName(name) : name;
-            
+           Session["UserName"] = isRegistred ? Service.GetUserFirstName(name) : name; 
         }
         private void ClearSession()
         {
-           Session["UserName"] = null;
+            Session["UserName"] = null;
+        }
+        //return roles dictionary for dropdownlist
+        private IDictionary<string, string> GetRoles() {
+            var roles = new Dictionary<string, string>();
+            roles.Add("client", "Клиент");
+            roles.Add("freelancer", "Фрилансер");
+            return roles;
         }
         //
         // GET: /Account/VerifyCode
@@ -136,7 +142,7 @@ namespace Freelance.Web.Controllers
                 ReturnUrl = model.ReturnUrl
             };
 
-            var result = await Service.TwoFactorSignInAsync(verify);//SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await Service.TwoFactorSignInAsync(verify);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -157,13 +163,8 @@ namespace Freelance.Web.Controllers
         {
 
             //Delete this
-            var roles = new Dictionary<string, string>();
-            roles.Add("client", "Клиент");
-            roles.Add("freelancer", "Фрилансер");
-            var register = new RegisterViewModel {
-                Roles = roles
-            };
-            return View(register);
+            
+            return View(new RegisterViewModel{ Roles = GetRoles() });
         }
 
         //
@@ -195,17 +196,8 @@ namespace Freelance.Web.Controllers
                 }
                 AddErrors(result);
             }
-            //Delete this
             
-            var roles = new Dictionary<string,string>();
-            roles.Add("client", "Клиент");
-            roles.Add("freelancer", "Фрилансер");
-            var register = new RegisterViewModel
-            {
-                Roles = roles
-            };
-            //
-            // Появление этого сообщения означает наличие ошибки; повторное отображение формы
+            model.Roles = GetRoles();
             return View(model);
         }
 
