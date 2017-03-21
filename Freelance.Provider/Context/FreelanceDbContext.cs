@@ -23,7 +23,7 @@ namespace Freelance.Provider.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().ToTable("User").Property(property=>property.UserName).HasColumnName("UserLogin");
             modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim");
             modelBuilder.Entity<IdentityRole>().ToTable("Role");
             modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");

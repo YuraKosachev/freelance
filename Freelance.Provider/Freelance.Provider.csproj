@@ -102,6 +102,18 @@
     <Compile Include="Migrations\201703200846083_customazing_identity_tables.Designer.cs">
       <DependentUpon>201703200846083_customazing_identity_tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703210752321_renamed_property_UserName_to_UserLogin.cs" />
+    <Compile Include="Migrations\201703210752321_renamed_property_UserName_to_UserLogin.Designer.cs">
+      <DependentUpon>201703210752321_renamed_property_UserName_to_UserLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703210801547_added_new_property_UserFirstName_into_table_User.cs" />
+    <Compile Include="Migrations\201703210801547_added_new_property_UserFirstName_into_table_User.Designer.cs">
+      <DependentUpon>201703210801547_added_new_property_UserFirstName_into_table_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703211248459_added_roles.cs" />
+    <Compile Include="Migrations\201703211248459_added_roles.Designer.cs">
+      <DependentUpon>201703211248459_added_roles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AccountProvider.cs" />
@@ -121,6 +133,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703200846083_customazing_identity_tables.resx">
       <DependentUpon>201703200846083_customazing_identity_tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703210752321_renamed_property_UserName_to_UserLogin.resx">
+      <DependentUpon>201703210752321_renamed_property_UserName_to_UserLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703210801547_added_new_property_UserFirstName_into_table_User.resx">
+      <DependentUpon>201703210801547_added_new_property_UserFirstName_into_table_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703211248459_added_roles.resx">
+      <DependentUpon>201703211248459_added_roles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

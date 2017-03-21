@@ -12,6 +12,7 @@ namespace Freelance.Provider.EntityModels
     public class User : IdentityUser
     {
       
+        public string UserFirstName { get; set; }
         public string UserSurname { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

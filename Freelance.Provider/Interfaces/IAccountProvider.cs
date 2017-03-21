@@ -25,7 +25,9 @@ namespace Freelance.Provider.Interfaces
         Task<bool> SendTwoFactorCodeAsync(string provider);
         Task<SignInStatus> ExternalSignInAsync(ExternalLoginInfo loginInfo, bool isPersistent);
         Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo loginInfo);
+        Task<IdentityResult> AddToRoleAsync(string userId, string role);
         Task<IdentityResult> CreateAsync(User user);
+        string GetUserFirstName(string name);
         IOwinContext Context { get; set; }
     }
 }

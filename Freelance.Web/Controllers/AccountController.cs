@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -14,24 +15,26 @@ using Freelance.Provider.Providers;
 using Freelance.Provider.EntityModels;
 using Freelance.Provider.Interfaces;
 
+
 namespace Freelance.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
         
-        private IAccountProvider _provider;
+
+        private IAccountProvider _service;
 
         public IAccountProvider Service {
             get
             {
-                _provider.Context = HttpContext.GetOwinContext();
-                return _provider;
+                _service.Context =  HttpContext.GetOwinContext();
+                return _service;
 
             }
             private set
             {
-                _provider = value;
+                _service = value;
             }
         }
 
@@ -39,7 +42,8 @@ namespace Freelance.Web.Controllers
         {
             Service = new AccountProvider();
         }
-        
+
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -68,9 +72,12 @@ namespace Freelance.Web.Controllers
                 RememberMe = model.RememberMe
             };
             var result = await Service.PassSignInAsync(user, false);//SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            
             switch (result)
             {
                 case SignInStatus.Success:
+                    
+                    SetUserName(user.Email, isRegistred: true);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -82,7 +89,15 @@ namespace Freelance.Web.Controllers
                     return View(model);
             }
         }
-
+        private void SetUserName(string name,bool isRegistred)
+        {
+               Session["UserName"] = isRegistred ? Service.GetUserFirstName(name) : name;
+            
+        }
+        private void ClearSession()
+        {
+           Session["UserName"] = null;
+        }
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -140,7 +155,15 @@ namespace Freelance.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+
+            //Delete this
+            var roles = new Dictionary<string, string>();
+            roles.Add("client", "Клиент");
+            roles.Add("freelancer", "Фрилансер");
+            var register = new RegisterViewModel {
+                Roles = roles
+            };
+            return View(register);
         }
 
         //
@@ -152,10 +175,15 @@ namespace Freelance.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Name, Email = model.Email, UserSurname = model.Surname };
-                var result = await Service.CreateAsync(user, model.Password);//UserManager.CreateAsync(user, model.Password);
+                var user = new User {UserName = model.Email, Email = model.Email, UserSurname = model.Surname,UserFirstName = model.Name };
+                //model.Role = "freelancer";
+
+                var result = await Service.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                   
+                    SetUserName(user.UserFirstName, isRegistred: false);
+                    await Service.AddToRoleAsync(user.Id, model.Role);
                     await Service.SignInAsync(user, isPersistent: false, rememberBrowser: false);//SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // Дополнительные сведения о том, как включить подтверждение учетной записи и сброс пароля, см. по адресу: http://go.microsoft.com/fwlink/?LinkID=320771
@@ -163,12 +191,20 @@ namespace Freelance.Web.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
-
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-
+            //Delete this
+            
+            var roles = new Dictionary<string,string>();
+            roles.Add("client", "Клиент");
+            roles.Add("freelancer", "Фрилансер");
+            var register = new RegisterViewModel
+            {
+                Roles = roles
+            };
+            //
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
         }

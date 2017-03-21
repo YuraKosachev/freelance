@@ -86,6 +86,9 @@ namespace Freelance.Web.Models
         [Display(Name = "Подтверждение пароля")]
         [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
+        
+        public string Role { get; set; }
+        public IDictionary<string, string> Roles { get; set; }
     }
 
     public class ResetPasswordViewModel

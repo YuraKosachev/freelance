@@ -52,10 +52,20 @@ namespace Freelance.Provider.Providers
                 _userManager = value;
             }
         }
-
+        //For extension method
+        public string GetUserFirstName(string name)
+        {
+            return UserManager.FindByName(name).UserFirstName;
+        }
+        //
+        public Task<IdentityResult> AddToRoleAsync(string userId, string role)
+        {
+            return UserManager.AddToRoleAsync(userId, role);
+        }
         public Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo loginInfo)
         {
-            return AddLoginAsync(userId, loginInfo);
+            
+            return UserManager.AddLoginAsync(userId, loginInfo);
         }
 
         public Task<IdentityResult> ConfirmEmailAsync(string userId, string code)
