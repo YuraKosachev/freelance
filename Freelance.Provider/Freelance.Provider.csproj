@@ -85,10 +85,16 @@
   <ItemGroup>
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
     <Compile Include="Context\FreelanceDbContext.cs" />
+    <Compile Include="EntityModels\Category.cs" />
     <Compile Include="EntityModels\IdentityModels.cs" />
     <Compile Include="EntityModels\LoginProviderModel.cs" />
+    <Compile Include="EntityModels\Profile.cs" />
     <Compile Include="EntityModels\VerifyCodeProviderModel.cs" />
+    <Compile Include="Interfaces\AuthInterfaces\IManagerProvider.cs" />
     <Compile Include="Interfaces\IAccountProvider.cs" />
+    <Compile Include="Interfaces\IManageAccountProvider.cs" />
+    <Compile Include="Interfaces\AuthInterfaces\ISignInManageProvider.cs" />
+    <Compile Include="Interfaces\AuthInterfaces\IUserManageProvider.cs" />
     <Compile Include="Migrations\201703200643126_initial.cs" />
     <Compile Include="Migrations\201703200643126_initial.Designer.cs">
       <DependentUpon>201703200643126_initial.cs</DependentUpon>
@@ -113,11 +119,19 @@
     <Compile Include="Migrations\201703211248459_added_roles.Designer.cs">
       <DependentUpon>201703211248459_added_roles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703220833000_added_admin_role.cs" />
+    <Compile Include="Migrations\201703220833000_added_admin_role.Designer.cs">
+      <DependentUpon>201703220833000_added_admin_role.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AccountProvider.cs" />
-    <Compile Include="Providers\FreelanceUserManager.cs" />
-    <Compile Include="Providers\FreelanceSignInManager.cs" />
+    <Compile Include="Providers\AuthProviders\AuthProvider.cs" />
+    <Compile Include="Providers\AuthProviders\SignInManageProvider.cs" />
+    <Compile Include="Providers\AuthProviders\UserManageProvider.cs" />
+    <Compile Include="Providers\AuthManagers\FreelanceUserManager.cs" />
+    <Compile Include="Providers\AuthManagers\FreelanceSignInManager.cs" />
+    <Compile Include="Providers\ManageAccountProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -141,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703211248459_added_roles.resx">
       <DependentUpon>201703211248459_added_roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703220833000_added_admin_role.resx">
+      <DependentUpon>201703220833000_added_admin_role.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

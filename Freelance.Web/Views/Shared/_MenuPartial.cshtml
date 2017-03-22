@@ -8,10 +8,18 @@
         if (User.IsInRole("freelancer"))
         {
             <li>@Html.ActionLink("Мои профили", "About", "Home")</li>
-            <li>@Html.ActionLink("Обзор работодателей", "Contact", "Home")</li>
+            <li>@Html.ActionLink("Предложения", "Contact", "Home")</li>
 
         }
-        <li>@Html.ActionLink("Обзор фрилансеров", "About", "Home")</li>
+        else if (User.IsInRole("admin"))
+        {
+            <li>@Html.ActionLink("Категории", "Index", "Category")</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink("Обзор фрилансеров", "About", "Home")</li>
+        }
+
     }
     <li>@Html.ActionLink("О программе", "About", "Home")</li>
     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
