@@ -21,9 +21,11 @@ namespace Freelance.Provider.Migrations
             //create roles
             var clientRole = new IdentityRole { Name = "client" };
             var freelancerRole = new IdentityRole { Name = "freelancer" };
+            var adminRole = new IdentityRole { Name = "admin" };
             //add to database
             roleManager.Create(clientRole);
             roleManager.Create(freelancerRole);
+            roleManager.Create(adminRole);
         }
     }
 }

@@ -19,30 +19,10 @@ using Freelance.Provider.Interfaces;
 namespace Freelance.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : AuthController
     {
-        
 
-        private IAccountProvider _service;
-
-        public IAccountProvider Service {
-            get
-            {
-                _service.Context =  HttpContext.GetOwinContext();
-                return _service;
-
-            }
-            private set
-            {
-                _service = value;
-            }
-        }
-
-        public AccountController()
-        {
-            Service = new AccountProvider();
-        }
-
+        public AccountController() : base() { }
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -71,7 +51,7 @@ namespace Freelance.Web.Controllers
                 Password = model.Password,
                 RememberMe = model.RememberMe
             };
-            var result = await Service.PassSignInAsync(user, false);//SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManageService.PassSignInAsync(user, false);//SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             
             switch (result)
             {
@@ -91,7 +71,7 @@ namespace Freelance.Web.Controllers
         }
         private void SetUserName(string name,bool isRegistred)
         {
-           Session["UserName"] = isRegistred ? Service.GetUserFirstName(name) : name; 
+           Session["UserName"] = isRegistred ? UserManageService.GetUserFirstName(name) : name; 
         }
         private void ClearSession()
         {
@@ -102,6 +82,7 @@ namespace Freelance.Web.Controllers
             var roles = new Dictionary<string, string>();
             roles.Add("client", "Клиент");
             roles.Add("freelancer", "Фрилансер");
+            //roles.Add("admin", "Администратор");
             return roles;
         }
         //
@@ -110,7 +91,7 @@ namespace Freelance.Web.Controllers
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Требовать предварительный вход пользователя с помощью имени пользователя и пароля или внешнего имени входа
-            if (!await Service.HasBeenVerifiedAsync())//SignInManager.HasBeenVerifiedAsync())
+            if (!await SignInManageService.HasBeenVerifiedAsync())//SignInManager.HasBeenVerifiedAsync())
             {
                 return View("Error");
             }
@@ -142,7 +123,7 @@ namespace Freelance.Web.Controllers
                 ReturnUrl = model.ReturnUrl
             };
 
-            var result = await Service.TwoFactorSignInAsync(verify);
+            var result = await SignInManageService.TwoFactorSignInAsync(verify);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -179,13 +160,13 @@ namespace Freelance.Web.Controllers
                 var user = new User {UserName = model.Email, Email = model.Email, UserSurname = model.Surname,UserFirstName = model.Name };
                 //model.Role = "freelancer";
 
-                var result = await Service.CreateAsync(user, model.Password);
+                var result = await UserManageService.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                    
                     SetUserName(user.UserFirstName, isRegistred: false);
-                    await Service.AddToRoleAsync(user.Id, model.Role);
-                    await Service.SignInAsync(user, isPersistent: false, rememberBrowser: false);//SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await UserManageService.AddToRoleAsync(user.Id, model.Role);
+                    await SignInManageService.SignInAsync(user, isPersistent: false, rememberBrowser: false);//SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // Дополнительные сведения о том, как включить подтверждение учетной записи и сброс пароля, см. по адресу: http://go.microsoft.com/fwlink/?LinkID=320771
                     // Отправка сообщения электронной почты с этой ссылкой
@@ -210,7 +191,7 @@ namespace Freelance.Web.Controllers
             {
                 return View("Error");
             }
-            var result = await Service.ConfirmEmailAsync(userId, code);//UserManager.ConfirmEmailAsync(userId, code);
+            var result = await UserManageService.ConfirmEmailAsync(userId, code);//UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -231,8 +212,8 @@ namespace Freelance.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await Service.FindByNameAsync(model.Email);//UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await Service.IsEmailConfirmedAsync(user.Id)))//UserManager.IsEmailConfirmedAsync(user.Id)))
+                var user = await UserManageService.FindByNameAsync(model.Email);//UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManageService.IsEmailConfirmedAsync(user.Id)))//UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Не показывать, что пользователь не существует или не подтвержден
                     return View("ForgotPasswordConfirmation");
@@ -277,13 +258,13 @@ namespace Freelance.Web.Controllers
             {
                 return View(model);
             }
-            var user = await Service.FindByNameAsync(model.Email);// UserManager.FindByNameAsync(model.Email);
+            var user = await UserManageService.FindByNameAsync(model.Email);// UserManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Не показывать, что пользователь не существует
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await Service.ResetPasswordAsync(user.Id, model.Code, model.Password);//UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var result = await UserManageService.ResetPasswordAsync(user.Id, model.Code, model.Password);//UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -316,12 +297,12 @@ namespace Freelance.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
-            var userId = await Service.GetVerifiedUserIdAsync();//SignInManager.GetVerifiedUserIdAsync();
+            var userId = await SignInManageService.GetVerifiedUserIdAsync();
             if (userId == null)
             {
                 return View("Error");
             }
-            var userFactors = await Service.GetValidTwoFactorProvidersAsync(userId);
+            var userFactors = await UserManageService.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -339,7 +320,7 @@ namespace Freelance.Web.Controllers
             }
 
             // Создание и отправка маркера
-            if (!await Service.SendTwoFactorCodeAsync(model.SelectedProvider))
+            if (!await SignInManageService.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
                 return View("Error");
             }
@@ -358,7 +339,7 @@ namespace Freelance.Web.Controllers
             }
 
             // Выполнение входа пользователя посредством данного внешнего поставщика входа, если у пользователя уже есть имя входа
-            var result = await Service.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var result = await SignInManageService.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -397,13 +378,13 @@ namespace Freelance.Web.Controllers
                     return View("ExternalLoginFailure");
                 }
                 var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await Service.CreateAsync(user);
+                var result = await UserManageService.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await Service.AddLoginAsync(user.Id, info.Login);//UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManageService.AddLoginAsync(user.Id, info.Login);//UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await Service.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await SignInManageService.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -434,16 +415,8 @@ namespace Freelance.Web.Controllers
 
         
         #region Вспомогательные приложения
-        // Используется для защиты от XSRF-атак при добавлении внешних имен входа
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        
+       
 
         private void AddErrors(IdentityResult result)
         {
