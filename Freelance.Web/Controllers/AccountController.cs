@@ -246,7 +246,7 @@ namespace Freelance.Web.Controllers
         {
             return code == null ? View("Error") : View();
         }
-
+    
         //
         // POST: /Account/ResetPassword
         [HttpPost]

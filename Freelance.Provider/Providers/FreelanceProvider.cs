@@ -7,11 +7,11 @@ using Freelance.Provider.Interfaces;
 using Freelance.Provider.Context;
 using System.Data.Entity;
 using Freelance.Extensions;
-
+using Freelance.Provider.EntityModels;
 namespace Freelance.Provider.Providers
 {
     public abstract class FreelanceProvider<TModel> : IProvider<TModel>, IDisposable
-        where TModel :class
+        where TModel :class,IModel
     {
         private FreelanceDbContext Context { get; set; }
         public FreelanceProvider()
@@ -20,6 +20,7 @@ namespace Freelance.Provider.Providers
         }
         public virtual void Create(TModel item)
         {
+            item.Id = Guid.NewGuid();
             Context.Set<TModel>().Add(item);
             Context.SaveChanges();
         }

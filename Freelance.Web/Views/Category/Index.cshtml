@@ -1,5 +1,7 @@
-﻿@model IEnumerable<Freelance.Web.Models.CategoryViewModel>
+﻿@model PagedList.IPagedList<Freelance.Web.Models.CategoryViewModel>
+@using PagedList.Mvc;
 
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
 }
@@ -11,33 +13,38 @@
 </p>
 <table class="table">
     <tr>
-        
+
         <th>
-            @Html.DisplayNameFor(model => model.NameCategory)
+            Name Category @*@Html.DisplayNameFor(model => model.NameCategory)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DescriptionCategory)
-        </th>
+            Description Category @*@Html.DisplayNameFor(model => model.DescriptionCategory)
+                </th>*@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.CategoryId)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.NameCategory)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DescriptionCategory)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /*id=item.Primar */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.NameCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionCategory)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /*id=item.Primar */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
 
 </table>
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

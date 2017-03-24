@@ -84,9 +84,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
+    <Compile Include="EntityModels\IModel.cs" />
     <Compile Include="Migrations\201703241045261_Added_table_categories.cs" />
     <Compile Include="Migrations\201703241045261_Added_table_categories.Designer.cs">
       <DependentUpon>201703241045261_Added_table_categories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703241251189_Added_key.cs" />
+    <Compile Include="Migrations\201703241251189_Added_key.Designer.cs">
+      <DependentUpon>201703241251189_Added_key.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703241306456_Change_name_key_in_Category.cs" />
+    <Compile Include="Migrations\201703241306456_Change_name_key_in_Category.Designer.cs">
+      <DependentUpon>201703241306456_Change_name_key_in_Category.cs</DependentUpon>
     </Compile>
     <Compile Include="ProviderFactory.cs" />
     <Compile Include="Context\FreelanceDbContext.cs" />
@@ -167,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703241045261_Added_table_categories.resx">
       <DependentUpon>201703241045261_Added_table_categories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703241251189_Added_key.resx">
+      <DependentUpon>201703241251189_Added_key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703241306456_Change_name_key_in_Category.resx">
+      <DependentUpon>201703241306456_Change_name_key_in_Category.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

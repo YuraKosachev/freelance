@@ -4,36 +4,37 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Freelance.Web.Models;
+using PagedList.Mvc;
+using PagedList;
+
+using Freelance.Provider.Interfaces;
+using Freelance.Provider;
+using Freelance.Provider.EntityModels;
+using Freelance.Extensions;
+
 namespace Freelance.Web.Controllers
 {
     [Authorize(Roles = "admin")]
     public class CategoryController : Controller
     {
-        // GET: Category
-        public ActionResult Index()
+        public ICategoryProvider Service { get; set; }
+
+        public CategoryController()
         {
-            //Delete this
-            var list = new List<CategoryViewModel>();
-            list.Add(new CategoryViewModel
-            {
-                CategoryId = Guid.NewGuid(),
-                NameCategory = "сантехник",
-                DescriptionCategory = "Описание сантехника"
+            Service = new ProviderFactory().CategoryProvider;
+        }
+        // GET: Category
+        public ActionResult Index(int? page)
+        {
+            var list = Service.GetList().SetFilterOptions().SetSortOptions().SetPageOptions().Select(model=>new CategoryViewModel {
+                CategoryId = model.Id,
+                DescriptionCategory = model.DescriptionCategory,
+                NameCategory = model.NameCategory
+
             });
-            list.Add(new CategoryViewModel
-            {
-                CategoryId = Guid.NewGuid(),
-                NameCategory = "электрик",
-                DescriptionCategory = "Описание электрика"
-            });
-            list.Add(new CategoryViewModel
-            {
-                CategoryId = Guid.NewGuid(),
-                NameCategory = "столяр",
-                DescriptionCategory = "Описание столяра"
-            });
-            //
-            return View(list);
+
+            
+            return View(list.ToPagedList(1,10));
         }
 
         // GET: Category/Details/5
@@ -52,11 +53,23 @@ namespace Freelance.Web.Controllers
         [HttpPost]
         public ActionResult Create(CategoryViewModel model)
         {
+            //Use mapping  !! delete this 
+            var category = new Category {
+
+                DescriptionCategory = model.DescriptionCategory,
+                NameCategory = model.NameCategory
+            };
+            //
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    Service.Create(category);
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                return View(model);
+
             }
             catch
             {
