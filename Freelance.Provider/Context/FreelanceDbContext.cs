@@ -14,7 +14,7 @@ namespace Freelance.Provider.Context
         public FreelanceDbContext()
             : base("FreelanceConnection", throwIfV1Schema: false)
         { }
-        
+        public DbSet<Category> Categories { get; set; }
 
         public static FreelanceDbContext Create()
         {

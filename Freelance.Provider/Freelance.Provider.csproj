@@ -84,6 +84,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
+    <Compile Include="Migrations\201703241045261_Added_table_categories.cs" />
+    <Compile Include="Migrations\201703241045261_Added_table_categories.Designer.cs">
+      <DependentUpon>201703241045261_Added_table_categories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProviderFactory.cs" />
     <Compile Include="Context\FreelanceDbContext.cs" />
     <Compile Include="EntityModels\Category.cs" />
     <Compile Include="EntityModels\IdentityModels.cs" />
@@ -93,6 +98,9 @@
     <Compile Include="Interfaces\AuthInterfaces\IManagerProvider.cs" />
     <Compile Include="Interfaces\AuthInterfaces\ISignInManageProvider.cs" />
     <Compile Include="Interfaces\AuthInterfaces\IUserManageProvider.cs" />
+    <Compile Include="Interfaces\ICategoryProvider.cs" />
+    <Compile Include="Interfaces\IProvider.cs" />
+    <Compile Include="IProviderFactory.cs" />
     <Compile Include="Migrations\201703200643126_initial.cs" />
     <Compile Include="Migrations\201703200643126_initial.Designer.cs">
       <DependentUpon>201703200643126_initial.cs</DependentUpon>
@@ -128,6 +136,8 @@
     <Compile Include="Providers\AuthProviders\UserManageProvider.cs" />
     <Compile Include="Providers\AuthManagers\FreelanceUserManager.cs" />
     <Compile Include="Providers\AuthManagers\FreelanceSignInManager.cs" />
+    <Compile Include="Providers\CategoryProvider.cs" />
+    <Compile Include="Providers\FreelanceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -155,6 +165,15 @@
     <EmbeddedResource Include="Migrations\201703220833000_added_admin_role.resx">
       <DependentUpon>201703220833000_added_admin_role.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703241045261_Added_table_categories.resx">
+      <DependentUpon>201703241045261_Added_table_categories.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Freelance.Extensions\Freelance.Extensions.csproj">
+      <Project>{6fd24f11-b149-4e6e-8b3b-10b3d674809c}</Project>
+      <Name>Freelance.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

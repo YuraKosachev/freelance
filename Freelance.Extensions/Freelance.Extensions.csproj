@@ -40,7 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AppQuery.cs" />
+    <Compile Include="Interfaces\IAppQuery.cs" />
+    <Compile Include="Interfaces\IFilteringOptions.cs" />
+    <Compile Include="Interfaces\IPagingOptions.cs" />
+    <Compile Include="Interfaces\ISortingOptions.cs" />
+    <Compile Include="QueryProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
