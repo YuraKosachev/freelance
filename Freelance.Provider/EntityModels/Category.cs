@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,12 @@ namespace Freelance.Provider.EntityModels
     {
         [Key]
         public Guid Id { get; set; }
+        [Required]
         public string NameCategory { get; set; }
+        [Required]
         public string DescriptionCategory { get; set; }
+
+        public virtual Profile Profile { get; set; }
 
     }
 }

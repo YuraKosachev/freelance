@@ -17,5 +17,13 @@ namespace Freelance.Provider
                 return new CategoryProvider();
             }
         }
+
+        public IProfileProvider ProfileProvider
+        {
+            get
+            {
+                return new ProfileProvider();
+            }
+        }
     }
 }

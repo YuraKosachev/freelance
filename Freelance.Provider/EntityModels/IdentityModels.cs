@@ -14,6 +14,9 @@ namespace Freelance.Provider.EntityModels
       
         public string UserFirstName { get; set; }
         public string UserSurname { get; set; }
+        //navi setting
+        public virtual ICollection<Profile> Profiles { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

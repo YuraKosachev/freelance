@@ -85,6 +85,8 @@
   <ItemGroup>
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
     <Compile Include="EntityModels\IModel.cs" />
+    <Compile Include="EntityModels\ProfileAugmentedModel.cs" />
+    <Compile Include="Interfaces\IProfileProvider.cs" />
     <Compile Include="Migrations\201703241045261_Added_table_categories.cs" />
     <Compile Include="Migrations\201703241045261_Added_table_categories.Designer.cs">
       <DependentUpon>201703241045261_Added_table_categories.cs</DependentUpon>
@@ -96,6 +98,14 @@
     <Compile Include="Migrations\201703241306456_Change_name_key_in_Category.cs" />
     <Compile Include="Migrations\201703241306456_Change_name_key_in_Category.Designer.cs">
       <DependentUpon>201703241306456_Change_name_key_in_Category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.cs" />
+    <Compile Include="Migrations\201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.Designer.cs">
+      <DependentUpon>201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703251504285_Added_navi_setting_bettwean_Profile_and_User.cs" />
+    <Compile Include="Migrations\201703251504285_Added_navi_setting_bettwean_Profile_and_User.Designer.cs">
+      <DependentUpon>201703251504285_Added_navi_setting_bettwean_Profile_and_User.cs</DependentUpon>
     </Compile>
     <Compile Include="ProviderFactory.cs" />
     <Compile Include="Context\FreelanceDbContext.cs" />
@@ -147,6 +157,7 @@
     <Compile Include="Providers\AuthManagers\FreelanceSignInManager.cs" />
     <Compile Include="Providers\CategoryProvider.cs" />
     <Compile Include="Providers\FreelanceProvider.cs" />
+    <Compile Include="Providers\ProfileProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -182,6 +193,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703241306456_Change_name_key_in_Category.resx">
       <DependentUpon>201703241306456_Change_name_key_in_Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.resx">
+      <DependentUpon>201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703251504285_Added_navi_setting_bettwean_Profile_and_User.resx">
+      <DependentUpon>201703251504285_Added_navi_setting_bettwean_Profile_and_User.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

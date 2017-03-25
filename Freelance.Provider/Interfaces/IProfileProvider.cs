@@ -7,8 +7,7 @@ using Freelance.Provider.EntityModels;
 
 namespace Freelance.Provider.Interfaces
 {
-    public interface ICategoryProvider:IProvider<Category>
+    public interface IProfileProvider:IProvider<Profile>
     {
-        IDictionary<Guid, string> Lookup();
     }
 }

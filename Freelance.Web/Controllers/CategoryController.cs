@@ -53,6 +53,10 @@ namespace Freelance.Web.Controllers
         [HttpPost]
         public ActionResult Create(CategoryViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             //Use mapping  !! delete this 
             var category = new Category {
 
@@ -62,14 +66,8 @@ namespace Freelance.Web.Controllers
             //
             try
             {
-                if (ModelState.IsValid)
-                {
-                    Service.Create(category);
-                    return RedirectToAction("Index");
-                }
-
-                return View(model);
-
+               Service.Create(category);
+               return RedirectToAction("Index");
             }
             catch
             {
@@ -80,18 +78,34 @@ namespace Freelance.Web.Controllers
         // GET: Category/Edit/5
         public ActionResult Edit(Guid id)
         {
-            return View();
+            var category = Service.GetItem(id);
+            
+            return View(new CategoryViewModel {
+                CategoryId = category.Id,
+                NameCategory = category.NameCategory,
+                DescriptionCategory = category.DescriptionCategory
+            });
         }
 
         // POST: Category/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(CategoryViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var category = new Category
+                {
+                    Id=model.CategoryId,
+                    DescriptionCategory = model.DescriptionCategory,
+                    NameCategory = model.NameCategory
+                };
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                    Service.Update(category);
+                    return RedirectToAction("Index");
             }
             catch
             {

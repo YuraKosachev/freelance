@@ -13,7 +13,7 @@ namespace Freelance.Provider.Providers
     public abstract class FreelanceProvider<TModel> : IProvider<TModel>, IDisposable
         where TModel :class,IModel
     {
-        private FreelanceDbContext Context { get; set; }
+        protected FreelanceDbContext Context { get; set; }
         public FreelanceProvider()
         {
             Context = new FreelanceDbContext();

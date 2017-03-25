@@ -9,5 +9,6 @@ namespace Freelance.Provider
     public interface IProviderFactory
     {
         ICategoryProvider CategoryProvider { get; }
+        IProfileProvider ProfileProvider { get; }
     }
 }
