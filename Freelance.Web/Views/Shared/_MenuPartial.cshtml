@@ -2,12 +2,12 @@
 @using Microsoft.AspNet.Identity
 
 <ul class="nav navbar-nav">
-    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
+    <li>@Html.ActionLink("Домой", "Index", "Home")</li>
     @if (Request.IsAuthenticated)
     {
         if (User.IsInRole("freelancer"))
         {
-            <li>@Html.ActionLink("Мои профили", "Index", "Profile")</li>
+            <li>@Html.ActionLink("Мои профили","MyProfiles","Profile")</li>
             <li>@Html.ActionLink("Предложения", "Contact", "Home")</li>
 
         }
@@ -15,12 +15,11 @@
         {
             <li>@Html.ActionLink("Категории", "Index", "Category")</li>
         }
-        else
-        {
-            <li>@Html.ActionLink("Обзор фрилансеров", "About", "Home")</li>
-        }
+        
+            <li>@Html.ActionLink("Обзор профилей", "Index", "Profile")</li>
+        
 
     }
-    <li>@Html.ActionLink("О программе", "About", "Home")</li>
+    @*<li>@Html.ActionLink("О программе", "About", "Home")</li>*@
     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
 </ul>

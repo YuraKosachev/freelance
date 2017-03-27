@@ -16,8 +16,8 @@ namespace Freelance.Provider.EntityModels
         public string NameCategory { get; set; }
         [Required]
         public string DescriptionCategory { get; set; }
-
-        public virtual Profile Profile { get; set; }
+        
+        public virtual ICollection<Profile> Profilies { get; set; }
 
     }
 }

@@ -11,12 +11,15 @@ namespace Freelance.Web.Models
        
         public Guid Id { get; set; }
         public string UserId { get; set; }
-        public string FreelancerName { get; set; } 
+        [Display(Name = "Имя фрилансера")]
+        public string FreelancerName { get; set; }
+        [Display(Name ="Вид работ")]
         public string CategoryName { get; set; }
+        [Display(Name = "Описание профиля")]
         public string DescriptionProfile { get; set; }
-        public TimeSpan TimeFrom { get; set; }
-        public TimeSpan TimeTo { get; set; }
-       
+        [Display(Name = "Время доступности")]
+        public string TimeAvailability { get; set; }
+
     }
     public class ProfileCreateEditViewModel
     {
@@ -29,6 +32,7 @@ namespace Freelance.Web.Models
         [Display(Name ="Описание")]
         [DataType(DataType.MultilineText)]
         public string DescriptionProfile { get; set; }
+        public IDictionary<Guid, string> Categories { get; set; }
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }
     }

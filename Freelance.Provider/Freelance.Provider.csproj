@@ -107,6 +107,22 @@
     <Compile Include="Migrations\201703251504285_Added_navi_setting_bettwean_Profile_and_User.Designer.cs">
       <DependentUpon>201703251504285_Added_navi_setting_bettwean_Profile_and_User.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703271113001_Added_table_Profile.cs" />
+    <Compile Include="Migrations\201703271113001_Added_table_Profile.Designer.cs">
+      <DependentUpon>201703271113001_Added_table_Profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703271217405_Change_key_for_table_category_profile.cs" />
+    <Compile Include="Migrations\201703271217405_Change_key_for_table_category_profile.Designer.cs">
+      <DependentUpon>201703271217405_Change_key_for_table_category_profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703271222473_Change_key.cs" />
+    <Compile Include="Migrations\201703271222473_Change_key.Designer.cs">
+      <DependentUpon>201703271222473_Change_key.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703271303194_FK_to_table_category.cs" />
+    <Compile Include="Migrations\201703271303194_FK_to_table_category.Designer.cs">
+      <DependentUpon>201703271303194_FK_to_table_category.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProviderFactory.cs" />
     <Compile Include="Context\FreelanceDbContext.cs" />
     <Compile Include="EntityModels\Category.cs" />
@@ -199,6 +215,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703251504285_Added_navi_setting_bettwean_Profile_and_User.resx">
       <DependentUpon>201703251504285_Added_navi_setting_bettwean_Profile_and_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703271113001_Added_table_Profile.resx">
+      <DependentUpon>201703271113001_Added_table_Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703271217405_Change_key_for_table_category_profile.resx">
+      <DependentUpon>201703271217405_Change_key_for_table_category_profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703271222473_Change_key.resx">
+      <DependentUpon>201703271222473_Change_key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703271303194_FK_to_table_category.resx">
+      <DependentUpon>201703271303194_FK_to_table_category.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

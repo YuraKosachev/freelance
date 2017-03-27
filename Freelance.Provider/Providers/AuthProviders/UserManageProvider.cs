@@ -25,6 +25,7 @@ namespace Freelance.Provider.Providers
         {
             return Manager.AddToRoleAsync(userId, role);
         }
+       
         public Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo loginInfo)
         {
 

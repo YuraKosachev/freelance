@@ -6,77 +6,127 @@ using System.Web.Mvc;
 using Freelance.Web.Models;
 using PagedList.Mvc;
 using PagedList;
+using Microsoft.AspNet.Identity;
 
+using Freelance.Provider.Providers;
 using Freelance.Provider.Interfaces;
 using Freelance.Provider;
 using Freelance.Provider.EntityModels;
 
 namespace Freelance.Web.Controllers
 {
-    [Authorize(Roles ="freelance")]
+    
     public class ProfileController : Controller
     {
         private ICategoryProvider CategoryService { get; set; }
         private IProfileProvider ProfileService { get; set; }
+        //private IUserManageProvider _userManageService;
+        //public IUserManageProvider UserManageService
+        //{
+        //    get
+        //    {
+        //        _userManageService.Context = HttpContext.GetOwinContext();
+        //        return _userManageService;
+        //    }
+        //    protected set
+        //    {
+        //        _userManageService = value;
+        //    }
+        //}
 
         public ProfileController()
         {
             var factory = new ProviderFactory();
+            //UserManageService = new UserManageProvider();
             CategoryService = factory.CategoryProvider;
             ProfileService = factory.ProfileProvider;
 
         }
-        [Authorize(Roles = "freelance, client")]
+        [Authorize(Roles = "freelancer, client")]
         // GET: Profile
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var list = ProfileService.GetList().Select(m => new ProfileListViewModel {
                 Id = m.Id,
                 CategoryName = m.Category.NameCategory,
-                FreelancerName = String.Format("{0} {1}",m.User.UserFirstName,m.User.UserSurname),
+                FreelancerName = String.Format("{0} {1}", m.User.UserFirstName, m.User.UserSurname),
                 DescriptionProfile = m.DescriptionProfile,
-                TimeFrom = m.TimeFrom,
-                TimeTo = m.TimeTo,
+                TimeAvailability = String.Format("{0} - {1}", m.TimeFrom, m.TimeTo),
                 UserId = m.UserId
             });
             
-            return View(new PagedList<ProfileListViewModel>(list,0,10));
+            return View(new PagedList<ProfileListViewModel>(list,1,10));
         }
+        [Authorize(Roles = "freelancer")]
+        public ActionResult MyProfiles(int? page)
+        {
+            var userId = User.Identity.GetUserId();
+            var list = ProfileService.GetList().Select(m => new ProfileListViewModel
+            {
+                Id = m.Id,
+                CategoryName = m.Category.NameCategory,
+                FreelancerName = String.Format("{0} {1}", m.User.UserFirstName, m.User.UserSurname),
+                DescriptionProfile = m.DescriptionProfile,
+                TimeAvailability = String.Format("{0} - {1}", m.TimeFrom, m.TimeTo),
+                UserId = m.UserId
+            });
 
+            return View(new PagedList<ProfileListViewModel>(list, 1, 10));
+        }
         // GET: Profile/Details/5
-        public ActionResult Details(int id)
+        [Authorize(Roles = "freelancer, client")]
+        public ActionResult Details(Guid id)
         {
             return View();
         }
-
+        [Authorize(Roles = "freelancer")]
         // GET: Profile/Create
         public ActionResult Create()
         {
-            return View();
+            var profile = new ProfileCreateEditViewModel {
+                Categories = CategoryService.Lookup()
+            };
+            return View(profile);
         }
-
+        [Authorize(Roles = "freelancer")]
         // POST: Profile/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProfileCreateEditViewModel model)
         {
-            try
+            if (!ModelState.IsValid)
             {
+                model.Categories = CategoryService.Lookup();
+                return View(model);
+            }
+            //try
+            //{
                 // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                ProfileService.Create(new Profile {
+                    DescriptionProfile = model.DescriptionProfile,
+                    TimeFrom = model.TimeFrom,
+                    TimeTo = model.TimeTo,
+                    UserId = model.UserId,
+                    CategoryId = model.CategoryId,
+                    Category = CategoryService.GetItem(model.CategoryId),
+                    User = UserManageService.FindById(model.UserId)
 
+                });
+
+                return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
+        }
+        [Authorize(Roles = "freelancer")]
         // GET: Profile/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
-
+        [Authorize(Roles = "freelancer")]
         // POST: Profile/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -92,13 +142,13 @@ namespace Freelance.Web.Controllers
                 return View();
             }
         }
-
+        [Authorize(Roles = "freelancer")]
         // GET: Profile/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
-
+        [Authorize(Roles = "freelancer")]
         // POST: Profile/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

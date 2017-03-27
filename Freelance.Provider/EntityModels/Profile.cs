@@ -11,18 +11,22 @@ namespace Freelance.Provider.EntityModels
     public class Profile:IModel
     {
         [Key]
-        [ForeignKey("Category")]
+        //[ForeignKey("Category")]
         public Guid Id { get; set; }
-        //[ForeignKey("User")]
+        [ForeignKey("User")]
         public string UserId { get; set; }
         //[ForeignKey("Category")]
-        //public Guid CategoryId { get; set; }
+        // public Guid CategoryId { get; set; }
+        [ForeignKey("Category")]
+        public Guid CategoryId { get; set; }
         [Required]
         public string DescriptionProfile { get; set; }
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }
         //navi setting
+        [Required]
         public virtual User User { get; set; }
+        [Required]
         public virtual Category Category { get; set; }
     }
 }
