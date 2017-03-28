@@ -85,7 +85,9 @@
   <ItemGroup>
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
     <Compile Include="EntityModels\IModel.cs" />
+    <Compile Include="EntityModels\Offer.cs" />
     <Compile Include="EntityModels\ProfileAugmentedModel.cs" />
+    <Compile Include="Interfaces\IOfferProvider.cs" />
     <Compile Include="Interfaces\IProfileProvider.cs" />
     <Compile Include="Migrations\201703241045261_Added_table_categories.cs" />
     <Compile Include="Migrations\201703241045261_Added_table_categories.Designer.cs">
@@ -122,6 +124,14 @@
     <Compile Include="Migrations\201703271303194_FK_to_table_category.cs" />
     <Compile Include="Migrations\201703271303194_FK_to_table_category.Designer.cs">
       <DependentUpon>201703271303194_FK_to_table_category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703280629496_change_attr_for_dbo_Profile.cs" />
+    <Compile Include="Migrations\201703280629496_change_attr_for_dbo_Profile.Designer.cs">
+      <DependentUpon>201703280629496_change_attr_for_dbo_Profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703281407391_Added_table_offers.cs" />
+    <Compile Include="Migrations\201703281407391_Added_table_offers.Designer.cs">
+      <DependentUpon>201703281407391_Added_table_offers.cs</DependentUpon>
     </Compile>
     <Compile Include="ProviderFactory.cs" />
     <Compile Include="Context\FreelanceDbContext.cs" />
@@ -173,6 +183,7 @@
     <Compile Include="Providers\AuthManagers\FreelanceSignInManager.cs" />
     <Compile Include="Providers\CategoryProvider.cs" />
     <Compile Include="Providers\FreelanceProvider.cs" />
+    <Compile Include="Providers\OfferProvider.cs" />
     <Compile Include="Providers\ProfileProvider.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +238,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703271303194_FK_to_table_category.resx">
       <DependentUpon>201703271303194_FK_to_table_category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703280629496_change_attr_for_dbo_Profile.resx">
+      <DependentUpon>201703280629496_change_attr_for_dbo_Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703281407391_Added_table_offers.resx">
+      <DependentUpon>201703281407391_Added_table_offers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

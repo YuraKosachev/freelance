@@ -1,14 +1,15 @@
 ﻿using Freelance.Provider.Interfaces;
 using Freelance.Provider.EntityModels;
+using Freelance.Extensions;
 
 namespace Freelance.Provider.Providers
 {
     public class ProfileProvider:FreelanceProvider<Profile>,IProfileProvider
     {
         public ProfileProvider() : base() { }
-        //public virtual Extensions.Interfaces.IAppQuery<> GetList()
-        //{
-        //    return new AppQuery<>(Context.Set<TModel>());
-        //}
+        public override Extensions.Interfaces.IAppQuery<Profile> GetList()
+        {
+            return new AppQuery<Profile>(Context.Set<Profile>().Include("Category").Include("User"));
+        }
     }
 }

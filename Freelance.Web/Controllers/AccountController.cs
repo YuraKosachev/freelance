@@ -51,6 +51,8 @@ namespace Freelance.Web.Controllers
                 Password = model.Password,
                 RememberMe = model.RememberMe
             };
+
+
             var result = await SignInManageService.PassSignInAsync(user, false);//SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             
             switch (result)
@@ -91,7 +93,7 @@ namespace Freelance.Web.Controllers
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Требовать предварительный вход пользователя с помощью имени пользователя и пароля или внешнего имени входа
-            if (!await SignInManageService.HasBeenVerifiedAsync())//SignInManager.HasBeenVerifiedAsync())
+            if (!await SignInManageService.HasBeenVerifiedAsync())
             {
                 return View("Error");
             }
@@ -157,9 +159,7 @@ namespace Freelance.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User {UserName = model.Email, Email = model.Email, UserSurname = model.Surname,UserFirstName = model.Name };
-                //model.Role = "freelancer";
-
+                var user = new User {UserName = model.Email, Email = model.Email, UserSurname = model.Surname,UserFirstName = model.Name,PhoneNumber = model.PhoneNumber };
                 var result = await UserManageService.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

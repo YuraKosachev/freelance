@@ -35,6 +35,7 @@ namespace Freelance.Extensions
             //Filtering = 
             return this;
         }
+       
         public IEnumerator<TModel> GetEnumerator()
         {
             return Query.Filter(Filtering).Sort(Sorting).TakePage(Paging).GetEnumerator();

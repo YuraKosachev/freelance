@@ -19,6 +19,8 @@ namespace Freelance.Web.Models
         public string DescriptionProfile { get; set; }
         [Display(Name = "Время доступности")]
         public string TimeAvailability { get; set; }
+        [Display(Name ="Номер телефона")]
+        public string PhoneNumber { get; set; }
 
     }
     public class ProfileCreateEditViewModel

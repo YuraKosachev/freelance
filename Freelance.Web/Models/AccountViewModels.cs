@@ -77,7 +77,8 @@ namespace Freelance.Web.Models
         [EmailAddress]
         [Display(Name = "Адрес электронной почты")]
         public string Email { get; set; }
-
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]

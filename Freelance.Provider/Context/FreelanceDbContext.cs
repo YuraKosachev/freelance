@@ -30,10 +30,7 @@ namespace Freelance.Provider.Context
             modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");
             modelBuilder.Entity<IdentityUserRole>().ToTable("UserRole");
 
-            //modelBuilder.Entity<User>().HasMany(s => s.Profiles)
-            //    .WithRequired(e => e.User)
-            //    .HasForeignKey(e => e.UserId);
-            //modelBuilder.Entity<Profile>().HasKey(k=>k.)
+           
         }
     }
 }

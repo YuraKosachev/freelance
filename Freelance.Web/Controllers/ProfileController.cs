@@ -20,24 +20,11 @@ namespace Freelance.Web.Controllers
     {
         private ICategoryProvider CategoryService { get; set; }
         private IProfileProvider ProfileService { get; set; }
-        //private IUserManageProvider _userManageService;
-        //public IUserManageProvider UserManageService
-        //{
-        //    get
-        //    {
-        //        _userManageService.Context = HttpContext.GetOwinContext();
-        //        return _userManageService;
-        //    }
-        //    protected set
-        //    {
-        //        _userManageService = value;
-        //    }
-        //}
+      
 
         public ProfileController()
         {
             var factory = new ProviderFactory();
-            //UserManageService = new UserManageProvider();
             CategoryService = factory.CategoryProvider;
             ProfileService = factory.ProfileProvider;
 
@@ -50,17 +37,19 @@ namespace Freelance.Web.Controllers
                 Id = m.Id,
                 CategoryName = m.Category.NameCategory,
                 FreelancerName = String.Format("{0} {1}", m.User.UserFirstName, m.User.UserSurname),
+                PhoneNumber = m.User.PhoneNumber,
                 DescriptionProfile = m.DescriptionProfile,
                 TimeAvailability = String.Format("{0} - {1}", m.TimeFrom, m.TimeTo),
                 UserId = m.UserId
             });
             
-            return View(new PagedList<ProfileListViewModel>(list,1,10));
+            return View(new PagedList<ProfileListViewModel>(list,1,1));
         }
         [Authorize(Roles = "freelancer")]
         public ActionResult MyProfiles(int? page)
         {
             var userId = User.Identity.GetUserId();
+
             var list = ProfileService.GetList().Select(m => new ProfileListViewModel
             {
                 Id = m.Id,
@@ -98,8 +87,8 @@ namespace Freelance.Web.Controllers
                 model.Categories = CategoryService.Lookup();
                 return View(model);
             }
-            //try
-            //{
+            try
+            {
                 // TODO: Add insert logic here
 
                 ProfileService.Create(new Profile {
@@ -108,17 +97,15 @@ namespace Freelance.Web.Controllers
                     TimeTo = model.TimeTo,
                     UserId = model.UserId,
                     CategoryId = model.CategoryId,
-                    Category = CategoryService.GetItem(model.CategoryId),
-                    User = UserManageService.FindById(model.UserId)
 
                 });
 
                 return RedirectToAction("Index");
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
+            }
+            catch
+            {
+                return View();
+            }
         }
         [Authorize(Roles = "freelancer")]
         // GET: Profile/Edit/5
