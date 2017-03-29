@@ -28,7 +28,7 @@ namespace Freelance.Provider.Providers
        
         public Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo loginInfo)
         {
-
+           
             return Manager.AddLoginAsync(userId, loginInfo);
         }
 

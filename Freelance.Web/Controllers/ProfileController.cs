@@ -7,15 +7,25 @@ using Freelance.Web.Models;
 using PagedList.Mvc;
 using PagedList;
 using Microsoft.AspNet.Identity;
-
-using Freelance.Provider.Providers;
-using Freelance.Provider.Interfaces;
-using Freelance.Provider;
-using Freelance.Provider.EntityModels;
+using AutoMapper;
+using Freelance.Service;
+using Freelance.Service.ServicesModel;
+//using Freelance.Provider.Interfaces;
+//using Freelance.Provider;
+//using Freelance.Provider.EntityModels;
 
 namespace Freelance.Web.Controllers
 {
-    
+    public class ProfileControllerMapperProfile:Profile
+    {
+        public ProfileControllerMapperProfile()
+        {
+            CreateMap<ProfileListViewModel, ProfileServiceModel>();
+        }
+
+    }
+
+
     public class ProfileController : Controller
     {
         private ICategoryProvider CategoryService { get; set; }

@@ -86,7 +86,6 @@
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
     <Compile Include="EntityModels\IModel.cs" />
     <Compile Include="EntityModels\Offer.cs" />
-    <Compile Include="EntityModels\ProfileAugmentedModel.cs" />
     <Compile Include="Interfaces\IOfferProvider.cs" />
     <Compile Include="Interfaces\IProfileProvider.cs" />
     <Compile Include="Migrations\201703241045261_Added_table_categories.cs" />

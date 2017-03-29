@@ -12,8 +12,7 @@ namespace Freelance.Provider.EntityModels
     {
         [Key]
         public Guid Id { get; set; }
-        //[ForeignKey("Profile")]
-        //public Guid ProfileId { get; set; } 
+        
         [Required]
         public DateTime Date { get; set; }
         public string Description { get; set; }

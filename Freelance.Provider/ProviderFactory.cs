@@ -12,18 +12,28 @@ namespace Freelance.Provider
     {
         public ICategoryProvider CategoryProvider
         {
-            get
-            {
-                return new CategoryProvider();
-            }
+            get { return new CategoryProvider(); }
         }
 
         public IProfileProvider ProfileProvider
         {
-            get
-            {
-                return new ProfileProvider();
-            }
+            get { return new ProfileProvider(); }
         }
+        public IOfferProvider OfferProvider 
+        {
+            get { return new OfferProvider(); }
+        }
+
+        public IUserManageProvider UserManageProvider
+        {
+            get { return new UserManageProvider(); }
+        }
+
+        public ISignInManageProvider SignInManageProvider
+        {
+            get { return new SignInManageProvider(); }
+        }
+
+       
     }
 }
