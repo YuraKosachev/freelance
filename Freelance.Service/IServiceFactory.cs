@@ -13,5 +13,6 @@ namespace Freelance.Service
         ISignInManageService SignInManageService { get; }
         IUserManageService UserManageService { get; }
         ICategoryService CategoryService { get; }
+        IAuthCfgService AuthCfgService { get; }
     }
 }

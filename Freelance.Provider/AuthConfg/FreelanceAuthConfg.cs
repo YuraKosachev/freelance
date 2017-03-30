@@ -7,18 +7,19 @@ using Microsoft.Owin.Security.Cookies;
 using Freelance.Provider.Context;
 using Freelance.Provider.EntityModels;
 using Freelance.Provider.Providers;
+using Freelance.Provider.Interfaces;
 
 namespace Freelance.Provider.AuthConfg
 {
-    public class FreelanceAuthConfg
+    public class FreelanceAuthConfg : IAuthConfig
     {
         private IAppBuilder _app;
         private string _path;
-        public FreelanceAuthConfg(IAppBuilder app, string path)
-        {
-            _app = app;
-            _path = path;
-        }
+        //public FreelanceAuthConfg(IAppBuilder app, string path)
+        //{
+        //    _app = app;
+        //    _path = path;
+        //}
         public void ConfigureAuth()
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
@@ -71,9 +72,11 @@ namespace Freelance.Provider.AuthConfg
             //    ClientSecret = ""
             //});
         }
-        public static FreelanceAuthConfg Create(IAppBuilder app, string path) {
-            return new FreelanceAuthConfg(app, path);
+        public void Config(IAppBuilder app, string path) {
+            _app = app;
+            _path = path;
         }
+    
 
     }
 }

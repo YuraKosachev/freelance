@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Freelance.Service.Interfaces.AuthServices;
+using Freelance.Service.Services.AuthService;
 using Freelance.Service.Interfaces;
 using Freelance.Service.Services;
 
@@ -27,6 +28,14 @@ namespace Freelance.Service
         public IProfileService ProfileService
         {
             get { return new ProfileService(); }
+        }
+
+        public IAuthCfgService AuthCfgService
+        {
+            get
+            {
+                return new AuthCfgService();
+            }
         }
     }
 }

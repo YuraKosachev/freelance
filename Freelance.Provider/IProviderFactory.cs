@@ -6,7 +6,7 @@ namespace Freelance.Provider
         //auth
         IUserManageProvider UserManageProvider { get; }
         ISignInManageProvider SignInManageProvider { get; }
-
+        IAuthConfig AuthConfig { get; }
 
         ICategoryProvider CategoryProvider { get; }
         IProfileProvider ProfileProvider { get; }

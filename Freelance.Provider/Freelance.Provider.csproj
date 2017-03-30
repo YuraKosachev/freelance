@@ -86,6 +86,7 @@
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
     <Compile Include="EntityModels\IModel.cs" />
     <Compile Include="EntityModels\Offer.cs" />
+    <Compile Include="Interfaces\IAuthConfig.cs" />
     <Compile Include="Interfaces\IOfferProvider.cs" />
     <Compile Include="Interfaces\IProfileProvider.cs" />
     <Compile Include="Migrations\201703241045261_Added_table_categories.cs" />
@@ -131,6 +132,14 @@
     <Compile Include="Migrations\201703281407391_Added_table_offers.cs" />
     <Compile Include="Migrations\201703281407391_Added_table_offers.Designer.cs">
       <DependentUpon>201703281407391_Added_table_offers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703301428158_Change_setting_freelancerconfirm_to_table_offer.cs" />
+    <Compile Include="Migrations\201703301428158_Change_setting_freelancerconfirm_to_table_offer.Designer.cs">
+      <DependentUpon>201703301428158_Change_setting_freelancerconfirm_to_table_offer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703301432395_Change_name_table.cs" />
+    <Compile Include="Migrations\201703301432395_Change_name_table.Designer.cs">
+      <DependentUpon>201703301432395_Change_name_table.cs</DependentUpon>
     </Compile>
     <Compile Include="ProviderFactory.cs" />
     <Compile Include="Context\FreelanceDbContext.cs" />
@@ -243,6 +252,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703281407391_Added_table_offers.resx">
       <DependentUpon>201703281407391_Added_table_offers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703301428158_Change_setting_freelancerconfirm_to_table_offer.resx">
+      <DependentUpon>201703301428158_Change_setting_freelancerconfirm_to_table_offer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703301432395_Change_name_table.resx">
+      <DependentUpon>201703301432395_Change_name_table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

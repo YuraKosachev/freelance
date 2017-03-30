@@ -5,6 +5,9 @@ using Microsoft.Owin;
 
 namespace Freelance.Provider.Providers
 {
+
+
+
     public abstract class AuthProvider<TManager> : IManagerProvider,IDisposable
         where TManager: class,IDisposable
     {

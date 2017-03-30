@@ -89,6 +89,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\AuthServices\IAuthCfgService.cs" />
     <Compile Include="Interfaces\AuthServices\IManagerService.cs" />
     <Compile Include="Interfaces\AuthServices\ISignInManageService.cs" />
     <Compile Include="Interfaces\AuthServices\IUserManageService.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="ServicesModel\ProfileServiceModel.cs" />
     <Compile Include="ServicesModel\AuthModels\UserServiceModel.cs" />
     <Compile Include="ServicesModel\AuthModels\VerifyCodeServiceModel.cs" />
+    <Compile Include="Services\AuthService\AuthCfgService.cs" />
     <Compile Include="Services\AuthService\SignInManageService.cs" />
     <Compile Include="Services\AuthService\UserManageService.cs" />
     <Compile Include="Services\CategoryService.cs" />

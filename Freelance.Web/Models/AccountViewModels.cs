@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Freelance.Service.ServicesModel;
 
 namespace Freelance.Web.Models
 {
@@ -122,4 +123,5 @@ namespace Freelance.Web.Models
         [Display(Name = "Почта")]
         public string Email { get; set; }
     }
+
 }

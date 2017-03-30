@@ -102,7 +102,7 @@ namespace Freelance.Service.Services
         {
             var user = await UserProvider.FindByIdAsync(userId);
             
-            return user as UserServiceModel;
+            return Mapper.Map<UserServiceModel>(user);
         }
         public Task<IList<UserLoginInfo>> GetLoginsAsync(string userId)
         {

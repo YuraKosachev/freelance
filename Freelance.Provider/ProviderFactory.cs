@@ -1,10 +1,15 @@
 ﻿using Freelance.Provider.Interfaces;
 using Freelance.Provider.Providers;
+using Freelance.Provider.AuthConfg;
 
 namespace Freelance.Provider
 {
     public class ProviderFactory : IProviderFactory
     {
+        public IAuthConfig AuthConfig
+        {
+            get { return new FreelanceAuthConfg(); }
+        }
         public ICategoryProvider CategoryProvider
         {
             get { return new CategoryProvider(); }

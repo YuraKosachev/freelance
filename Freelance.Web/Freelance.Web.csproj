@@ -310,14 +310,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Freelance.Extensions\Freelance.Extensions.csproj">
-      <Project>{6fd24f11-b149-4e6e-8b3b-10b3d674809c}</Project>
-      <Name>Freelance.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Freelance.Provider\Freelance.Provider.csproj">
-      <Project>{eac3a038-a789-4d0a-8ad5-dd25f9e42bfc}</Project>
-      <Name>Freelance.Provider</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Freelance.Service\Freelance.Service.csproj">
       <Project>{20c4190d-29cc-44dc-8689-509b5c637c10}</Project>
       <Name>Freelance.Service</Name>
