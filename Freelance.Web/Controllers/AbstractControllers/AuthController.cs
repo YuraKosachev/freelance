@@ -16,11 +16,6 @@ using Freelance.Service.Interfaces.AuthServices;
 using Freelance.Service.ServicesModel;
 
 
-//using Freelance.Provider;
-//using Freelance.Provider.Providers;
-//using Freelance.Provider.EntityModels;
-//using Freelance.Provider.Interfaces;
-
 namespace Freelance.Web.Controllers
 {
     public class AuthControllerMapperProfile : AutoMapper.Profile
@@ -73,8 +68,8 @@ namespace Freelance.Web.Controllers
         public AuthController()
         {
             var accountService = new ServiceFactory();
-            UserManageService = accountService.UserManageProvider;
-            SignInManageService = accountService.SignInManageProvider;
+            UserManageService = accountService.UserManageService;
+            SignInManageService = accountService.SignInManageService;
         }
         
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа

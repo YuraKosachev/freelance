@@ -13,9 +13,6 @@ using Freelance.Web.Models;
 using Freelance.Service.ServicesModel;
 using AutoMapper;
 
-//using Freelance.Provider.Providers;
-//using Freelance.Provider.EntityModels;
-//using Freelance.Provider.Interfaces;
 
 
 namespace Freelance.Web.Controllers

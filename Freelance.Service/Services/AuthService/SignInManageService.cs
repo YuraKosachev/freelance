@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Freelance.Provider.EntityModels;
 using Freelance.Service.Interfaces.AuthServices;
@@ -8,7 +6,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Freelance.Service.ServicesModel;
 using Freelance.Provider.Interfaces;
 using Freelance.Provider;
-using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 
 namespace Freelance.Service.Services

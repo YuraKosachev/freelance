@@ -13,12 +13,12 @@ namespace Freelance.Web
             {
                 cfg.AddProfile<AuthControllerMapperProfile>();
                 cfg.AddProfile<AuthServiceMapperProfile>();
-                //cfg.AddProfile<CategoryControllerMapperProfile>();
+                cfg.AddProfile<CategoryControllerMapperProfile>();
                 cfg.AddProfile<ProfileControllerMapperProfile>();
                 //cfg.AddProfile<OfferControllerMapperProfile>();
-                //cfg.AddProfile<CategoryServiceMapperProfile>();
+                cfg.AddProfile<CategoryServiceMapperProfile>();
                 //cfg.AddProfile<OfferServiceMapperProfile>();
-                //cfg.AddProfile<ProfileServiceMapperProfile>();
+                cfg.AddProfile<ProfileServiceMapperProfile>();
             });
         }
     }

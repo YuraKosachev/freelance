@@ -6,34 +6,37 @@ using System.Web.Mvc;
 using Freelance.Web.Models;
 using PagedList.Mvc;
 using PagedList;
-
-using Freelance.Provider.Interfaces;
-using Freelance.Provider;
-using Freelance.Provider.EntityModels;
-using Freelance.Extensions;
+using Freelance.Service;
+using Freelance.Service.ServicesModel;
+using Freelance.Service.Interfaces;
+using AutoMapper;
 
 namespace Freelance.Web.Controllers
 {
+
+    public class CategoryControllerMapperProfile : Profile
+    {
+        public CategoryControllerMapperProfile()
+        {
+            CreateMap<CategoryServiceModel,CategoryViewModel>().ReverseMap();
+
+        }
+
+    }
+
     [Authorize(Roles = "admin")]
     public class CategoryController : Controller
     {
-        public ICategoryProvider Service { get; set; }
+        public ICategoryService Service { get; set; }
 
         public CategoryController()
         {
-            Service = new ProviderFactory().CategoryProvider;
+            Service = new ServiceFactory().CategoryService;
         }
         // GET: Category
         public ActionResult Index(int? page)
         {
-            var list = Service.GetList().SetFilterOptions().SetSortOptions().SetPageOptions().Select(model=>new CategoryViewModel {
-                CategoryId = model.Id,
-                DescriptionCategory = model.DescriptionCategory,
-                NameCategory = model.NameCategory
-
-            });
-
-            
+            var list = Service.GetList().Select(model => Mapper.Map<CategoryViewModel>(model));
             return View(list.ToPagedList(1,10));
         }
 
@@ -57,16 +60,10 @@ namespace Freelance.Web.Controllers
             {
                 return View(model);
             }
-            //Use mapping  !! delete this 
-            var category = new Category {
-
-                DescriptionCategory = model.DescriptionCategory,
-                NameCategory = model.NameCategory
-            };
-            //
+           
             try
             {
-               Service.Create(category);
+               Service.Create(Mapper.Map<CategoryServiceModel>(model));
                return RedirectToAction("Index");
             }
             catch
@@ -79,12 +76,9 @@ namespace Freelance.Web.Controllers
         public ActionResult Edit(Guid id)
         {
             var category = Service.GetItem(id);
-            
-            return View(new CategoryViewModel {
-                CategoryId = category.Id,
-                NameCategory = category.NameCategory,
-                DescriptionCategory = category.DescriptionCategory
-            });
+
+            return View(Mapper.Map<CategoryViewModel>(category));
+               
         }
 
         // POST: Category/Edit/5
@@ -95,16 +89,9 @@ namespace Freelance.Web.Controllers
             {
                 return View(model);
             }
-
-            var category = new Category
-                {
-                    Id=model.CategoryId,
-                    DescriptionCategory = model.DescriptionCategory,
-                    NameCategory = model.NameCategory
-                };
             try
             {
-                    Service.Update(category);
+                    Service.Update(Mapper.Map<CategoryServiceModel>(model));
                     return RedirectToAction("Index");
             }
             catch

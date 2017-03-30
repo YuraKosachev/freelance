@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Freelance.Service.Interfaces.AuthServices;
 using Freelance.Service.Services;
+using Freelance.Service.Interfaces;
 namespace Freelance.Service
 {
     public interface IServiceFactory
     {
-        ISignInManageService SignInManageProvider { get; }
-        IUserManageService UserManageProvider { get; }
+        ISignInManageService SignInManageService { get; }
+        IUserManageService UserManageService { get; }
+        ICategoryService CategoryService { get; }
     }
 }

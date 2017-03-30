@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Freelance.Service.Interfaces;
 using Freelance.Provider.Interfaces;
 using AutoMapper;
-using Freelance.Extensions.Interfaces;
 
 namespace Freelance.Service.Services
 {
@@ -15,7 +12,15 @@ namespace Freelance.Service.Services
         where TProviderModel : class
     {
         protected IProvider<TProviderModel> Provider { get; set; }
-       
+        public FreelanceService()
+        {
+
+        }
+        public FreelanceService(IProvider<TProviderModel> provider)
+        {
+            Provider = provider;
+            
+        }
         public virtual void Create(TModelService item)
         {
             Provider.Create(Mapper.Map<TProviderModel>(item));

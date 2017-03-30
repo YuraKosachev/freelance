@@ -10,9 +10,8 @@ using Microsoft.AspNet.Identity;
 using AutoMapper;
 using Freelance.Service;
 using Freelance.Service.ServicesModel;
-//using Freelance.Provider.Interfaces;
-//using Freelance.Provider;
-//using Freelance.Provider.EntityModels;
+using Freelance.Service.Interfaces;
+using Freelance.Service.Services;
 
 namespace Freelance.Web.Controllers
 {
@@ -20,39 +19,35 @@ namespace Freelance.Web.Controllers
     {
         public ProfileControllerMapperProfile()
         {
-            CreateMap<ProfileListViewModel, ProfileServiceModel>();
+            CreateMap<ProfileServiceModel, ProfileListViewModel>()
+                .ForMember(item => item.TimeAvailability, exp => exp.MapFrom(src => String.Format("{0} - {1}", src.TimeFrom,src.TimeTo)));
+            CreateMap<ProfileCreateEditViewModel, ProfileServiceModel>();
         }
 
     }
 
 
+
+
     public class ProfileController : Controller
     {
-        private ICategoryProvider CategoryService { get; set; }
-        private IProfileProvider ProfileService { get; set; }
+        private ICategoryService CategoryService { get; set; }
+        private IProfileService ProfileService { get; set; }
       
 
         public ProfileController()
         {
-            var factory = new ProviderFactory();
-            CategoryService = factory.CategoryProvider;
-            ProfileService = factory.ProfileProvider;
+            var factory = new ServiceFactory();
+            CategoryService = factory.CategoryService;
+            ProfileService = factory.ProfileService;
 
         }
         [Authorize(Roles = "freelancer, client")]
         // GET: Profile
         public ActionResult Index(int? page)
         {
-            var list = ProfileService.GetList().Select(m => new ProfileListViewModel {
-                Id = m.Id,
-                CategoryName = m.Category.NameCategory,
-                FreelancerName = String.Format("{0} {1}", m.User.UserFirstName, m.User.UserSurname),
-                PhoneNumber = m.User.PhoneNumber,
-                DescriptionProfile = m.DescriptionProfile,
-                TimeAvailability = String.Format("{0} - {1}", m.TimeFrom, m.TimeTo),
-                UserId = m.UserId
-            });
-            
+            var list = ProfileService.GetList().Select(m => Mapper.Map<ProfileListViewModel>(m)); 
+
             return View(new PagedList<ProfileListViewModel>(list,1,1));
         }
         [Authorize(Roles = "freelancer")]
@@ -60,15 +55,7 @@ namespace Freelance.Web.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var list = ProfileService.GetList().Select(m => new ProfileListViewModel
-            {
-                Id = m.Id,
-                CategoryName = m.Category.NameCategory,
-                FreelancerName = String.Format("{0} {1}", m.User.UserFirstName, m.User.UserSurname),
-                DescriptionProfile = m.DescriptionProfile,
-                TimeAvailability = String.Format("{0} - {1}", m.TimeFrom, m.TimeTo),
-                UserId = m.UserId
-            });
+            var list = ProfileService.GetList().Select(m => Mapper.Map<ProfileListViewModel>(m));
 
             return View(new PagedList<ProfileListViewModel>(list, 1, 10));
         }
@@ -101,15 +88,8 @@ namespace Freelance.Web.Controllers
             {
                 // TODO: Add insert logic here
 
-                ProfileService.Create(new Profile {
-                    DescriptionProfile = model.DescriptionProfile,
-                    TimeFrom = model.TimeFrom,
-                    TimeTo = model.TimeTo,
-                    UserId = model.UserId,
-                    CategoryId = model.CategoryId,
-
-                });
-
+                ProfileService.Create(Mapper.Map<ProfileServiceModel>(model));
+ 
                 return RedirectToAction("Index");
             }
             catch
@@ -141,7 +121,7 @@ namespace Freelance.Web.Controllers
         }
         [Authorize(Roles = "freelancer")]
         // GET: Profile/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
             return View();
         }
@@ -153,7 +133,7 @@ namespace Freelance.Web.Controllers
             try
             {
                 // TODO: Add delete logic here
-
+                
                 return RedirectToAction("Index");
             }
             catch

@@ -8,9 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Freelance.Web.Models;
 
-//using Freelance.Provider.Providers;
-//using Freelance.Provider.EntityModels;
-//using Freelance.Provider.Interfaces;
+
 
 
 
