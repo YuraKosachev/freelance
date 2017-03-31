@@ -12,6 +12,7 @@ using Freelance.Service;
 using Freelance.Service.ServicesModel;
 using Freelance.Service.Interfaces;
 using Freelance.Service.Services;
+using Freelance.FreelanceException;
 
 namespace Freelance.Web.Controllers
 {
@@ -19,9 +20,9 @@ namespace Freelance.Web.Controllers
     {
         public ProfileControllerMapperProfile()
         {
-            CreateMap<ProfileServiceModel, ProfileListViewModel>()
+            CreateMap<ProfileServiceModel,ProfileViewModel>()
                 .ForMember(item => item.TimeAvailability, exp => exp.MapFrom(src => String.Format("{0} - {1}", src.TimeFrom,src.TimeTo)));
-            CreateMap<ProfileCreateEditViewModel, ProfileServiceModel>();
+            CreateMap<ProfileCreateEditViewModel, ProfileServiceModel>().ReverseMap();
         }
 
     }
@@ -46,24 +47,37 @@ namespace Freelance.Web.Controllers
         // GET: Profile
         public ActionResult Index(int? page)
         {
-            var list = ProfileService.GetList().Select(m => Mapper.Map<ProfileListViewModel>(m)); 
+            var list = ProfileService.GetList().Select(m => Mapper.Map<ProfileViewModel>(m)); 
 
-            return View(new PagedList<ProfileListViewModel>(list,1,1));
+            return View(new PagedList<ProfileViewModel>(list,1,1));
         }
         [Authorize(Roles = "freelancer")]
         public ActionResult MyProfiles(int? page)
         {
             var userId = User.Identity.GetUserId();
 
-            var list = ProfileService.GetList().Select(m => Mapper.Map<ProfileListViewModel>(m));
+            var list = ProfileService.GetList().Select(m => Mapper.Map<ProfileViewModel>(m));
 
-            return View(new PagedList<ProfileListViewModel>(list, 1, 10));
+            return View(new PagedList<ProfileViewModel>(list, 1, 10));
         }
         // GET: Profile/Details/5
         [Authorize(Roles = "freelancer, client")]
         public ActionResult Details(Guid id)
         {
-            return View();
+            try
+            {
+                var item = ProfileService.GetItem(id);
+                return View(Mapper.Map<ProfileViewModel>(item));
+            }
+            catch (ItemNotFoundException e)
+            {
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+
         }
         [Authorize(Roles = "freelancer")]
         // GET: Profile/Create
@@ -99,19 +113,38 @@ namespace Freelance.Web.Controllers
         }
         [Authorize(Roles = "freelancer")]
         // GET: Profile/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
-            return View();
+            try
+            {
+                var item = Mapper.Map<ProfileCreateEditViewModel>(ProfileService.GetItem(id));
+                item.Categories = CategoryService.Lookup();
+                return View(item);
+            }
+            catch (ItemNotFoundException e)
+            {
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+            
         }
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ProfileCreateEditViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                model.Categories = CategoryService.Lookup();
+                return View(model);
+            }
             try
             {
                 // TODO: Add update logic here
-
+                ProfileService.Update(Mapper.Map<ProfileServiceModel>(model));
                 return RedirectToAction("Index");
             }
             catch
@@ -123,17 +156,18 @@ namespace Freelance.Web.Controllers
         // GET: Profile/Delete/5
         public ActionResult Delete(Guid id)
         {
-            return View();
+            var item = ProfileService.GetItem(id);
+            return View(Mapper.Map<ProfileViewModel>(item));
         }
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(ProfileViewModel model)
         {
             try
             {
                 // TODO: Add delete logic here
-                
+                ProfileService.Delete(model.Id);
                 return RedirectToAction("Index");
             }
             catch

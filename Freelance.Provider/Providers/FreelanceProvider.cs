@@ -4,6 +4,7 @@ using Freelance.Provider.Context;
 using System.Data.Entity;
 using Freelance.Extensions;
 using Freelance.Provider.EntityModels;
+using Freelance.FreelanceException;
 namespace Freelance.Provider.Providers
 {
     public abstract class FreelanceProvider<TModel> : IProvider<TModel>, IDisposable
@@ -24,14 +25,18 @@ namespace Freelance.Provider.Providers
         public virtual void Delete(Guid id)
         {
             var item = Context.Set<TModel>().Find(id);
-            if (item != null)
-                Context.Set<TModel>().Remove(item);
+            if (item == null)
+                throw new ItemNotFoundException("Искомый элемент не найден");
+            Context.Set<TModel>().Remove(item);
             Context.SaveChanges();
         }
 
         public TModel GetItem(Guid id)
         {
-            return Context.Set<TModel>().Find(id);
+            var item = Context.Set<TModel>().Find(id);
+            if (item == null)
+                throw new ItemNotFoundException("Искомый элемент не найден");
+                return item; 
         }
 
         public virtual Extensions.Interfaces.IAppQuery<TModel> GetList()

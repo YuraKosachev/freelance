@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 namespace Freelance.Web.Models
 {
-    public class ProfileListViewModel
+   
+    public class ProfileViewModel
     {
        
         public Guid Id { get; set; }
@@ -22,6 +23,7 @@ namespace Freelance.Web.Models
         public string PhoneNumber { get; set; }
 
     }
+    
     public class ProfileCreateEditViewModel
     {
         

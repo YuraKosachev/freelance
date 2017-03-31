@@ -10,6 +10,7 @@ using Freelance.Service;
 using Freelance.Service.ServicesModel;
 using Freelance.Service.Interfaces;
 using AutoMapper;
+using Freelance.FreelanceException;
 
 namespace Freelance.Web.Controllers
 {
@@ -18,7 +19,10 @@ namespace Freelance.Web.Controllers
     {
         public CategoryControllerMapperProfile()
         {
-            CreateMap<CategoryServiceModel,CategoryViewModel>().ReverseMap();
+            CreateMap<CategoryServiceModel,CategoryViewModel>()
+                .ForMember(item => item.CategoryId, exp => exp.MapFrom(src => src.Id))
+                .ReverseMap()
+                .ForMember(item => item.Id, exp => exp.MapFrom(src => src.CategoryId));
 
         }
 
@@ -75,9 +79,20 @@ namespace Freelance.Web.Controllers
         // GET: Category/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var category = Service.GetItem(id);
-
-            return View(Mapper.Map<CategoryViewModel>(category));
+            try
+            {
+                var category = Service.GetItem(id);
+                return View(Mapper.Map<CategoryViewModel>(category));
+            }
+            catch (ItemNotFoundException e)
+            {
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+            
                
         }
 
@@ -101,20 +116,38 @@ namespace Freelance.Web.Controllers
         }
 
         // GET: Category/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Category/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Guid id)
         {
             try
             {
                 // TODO: Add delete logic here
+                var item = Mapper.Map<CategoryViewModel>(Service.GetItem(id));
+                return View(item);
+            }
+            catch (ItemNotFoundException e)
+            {
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+            
+        }
 
+        // POST: Category/Delete/5
+        [HttpPost]
+        public ActionResult Delete(CategoryViewModel model)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                Service.Delete(model.CategoryId);
                 return RedirectToAction("Index");
+            }
+            catch (ItemNotFoundException e)
+            {
+                return View();
             }
             catch
             {

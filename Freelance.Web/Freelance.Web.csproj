@@ -215,6 +215,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OfferController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -297,9 +298,12 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\Create.cshtml" />
     <Content Include="Views\Profile\MyProfiles.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Profile\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Offer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -310,6 +314,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Freelance.FreelanceException\Freelance.FreelanceException.csproj">
+      <Project>{66b305c3-3718-4337-8235-903ee9020d21}</Project>
+      <Name>Freelance.FreelanceException</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Freelance.Service\Freelance.Service.csproj">
       <Project>{20c4190d-29cc-44dc-8689-509b5c637c10}</Project>
       <Name>Freelance.Service</Name>

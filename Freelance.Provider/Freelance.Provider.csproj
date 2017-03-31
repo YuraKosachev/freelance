@@ -265,6 +265,10 @@
       <Project>{6fd24f11-b149-4e6e-8b3b-10b3d674809c}</Project>
       <Name>Freelance.Extensions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Freelance.FreelanceException\Freelance.FreelanceException.csproj">
+      <Project>{66b305c3-3718-4337-8235-903ee9020d21}</Project>
+      <Name>Freelance.FreelanceException</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
