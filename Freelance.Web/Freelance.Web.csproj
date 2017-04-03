@@ -249,6 +249,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OfferViewModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -326,6 +327,8 @@
     <Content Include="Views\Profile\MyProfiles.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Delete.cshtml" />
+    <Content Include="Views\Shared\_OfferCreatePartial.cshtml" />
+    <Content Include="Views\Shared\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -343,10 +346,6 @@
     <ProjectReference Include="..\Freelance.FreelanceException\Freelance.FreelanceException.csproj">
       <Project>{66b305c3-3718-4337-8235-903ee9020d21}</Project>
       <Name>Freelance.FreelanceException</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Freelance.Provider\Freelance.Provider.csproj">
-      <Project>{eac3a038-a789-4d0a-8ad5-dd25f9e42bfc}</Project>
-      <Name>Freelance.Provider</Name>
     </ProjectReference>
     <ProjectReference Include="..\Freelance.Service\Freelance.Service.csproj">
       <Project>{20c4190d-29cc-44dc-8689-509b5c637c10}</Project>

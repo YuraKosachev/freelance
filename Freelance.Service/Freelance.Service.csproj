@@ -165,6 +165,7 @@
     <Compile Include="Services\AuthService\UserManageService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\FreelanceService.cs" />
+    <Compile Include="Services\OfferService.cs" />
     <Compile Include="Services\ProfileService.cs" />
   </ItemGroup>
   <ItemGroup />

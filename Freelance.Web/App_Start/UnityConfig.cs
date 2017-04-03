@@ -5,8 +5,7 @@ using Freelance.Service.DependencyServiceConfg;
 using Freelance.Service.Interfaces.AuthServices;
 using Freelance.Service.Interfaces;
 using Freelance.Service.Services;
-using Freelance.Provider.Interfaces;
-using Freelance.Provider.Providers;
+
 
 namespace Freelance.Web.App_Start
 {
@@ -46,7 +45,7 @@ namespace Freelance.Web.App_Start
             container.RegisterType<ISignInManageService, SignInManageService>();
             container.RegisterType<IUserManageService, UserManageService>();
             container.RegisterType<ICategoryService, CategoryService>();
-            //container.RegisterType<IOfferService, OfferService>();
+            container.RegisterType<IOfferService, OfferService>();
             container.RegisterType<IProfileService, ProfileService>();
 
             UnityDependencyConfig.RegisterTypes(container);

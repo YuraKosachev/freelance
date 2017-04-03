@@ -7,7 +7,7 @@
 
 <h2>Index</h2>
 
-
+@Html.Partial("_OfferCreatePartial")
 <table class="table">
     <tr>
         <th>
@@ -47,7 +47,10 @@
             @Html.DisplayFor(modelItem => item.TimeAvailability)
         </td>
         <td>
-                @Html.ActionLink("Бронировать", "Order", new { id = item.Id})
+            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#OfferCreate">
+                Бронировать
+            </button>
+                @*@Html.ActionLink("Бронировать", "Create", "Offer", new { profileId = item.Id }, new { })*@
         </td>
     </tr>
 }
