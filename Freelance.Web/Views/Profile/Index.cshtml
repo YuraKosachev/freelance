@@ -46,11 +46,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.TimeAvailability)
         </td>
-        <td>
-            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#OfferCreate">
+        <td>@*data-toggle="modal"*@ @*data-target="#OfferCreate"*@
+            <button class="btn btn-success btn-sm" data-offer-modal="#OfferCreate" data-profile-id="@item.Id">
                 Бронировать
             </button>
-                @*@Html.ActionLink("Бронировать", "Create", "Offer", new { profileId = item.Id }, new { })*@
         </td>
     </tr>
 }
@@ -60,3 +59,8 @@
 Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+@section scripts{
+<script src="~/Scripts/offercreate.js"></script>
+<script src="~/Scripts/freelancedatepicker.js"></script>
+}
