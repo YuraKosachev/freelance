@@ -2,9 +2,9 @@
 using Freelance.Service.ServicesModel;
 using Freelance.Provider.EntityModels;
 using Freelance.Service.Interfaces;
-using Freelance.Provider;
+using Freelance.Provider.Interfaces;
 using mapper =  AutoMapper;
-
+using Microsoft.Practices.Unity;
 namespace Freelance.Service.Services
 {
     public class ProfileServiceMapperProfile : mapper.Profile
@@ -24,10 +24,9 @@ namespace Freelance.Service.Services
 
     public class ProfileService : FreelanceService<ProfileServiceModel, Profile>, IProfileService
     {
-        public ProfileService()
-        {
-            Provider = new ProviderFactory().ProfileProvider;
-
-        }
+        [InjectionConstructor]
+        public ProfileService(IProfileProvider provider) : base(provider) { }
+       
+        
     }
 }

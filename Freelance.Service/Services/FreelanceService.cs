@@ -4,7 +4,7 @@ using System.Linq;
 using Freelance.Service.Interfaces;
 using Freelance.Provider.Interfaces;
 using AutoMapper;
-
+using Microsoft.Practices.Unity;
 namespace Freelance.Service.Services
 {
     public abstract class FreelanceService<TModelService,TProviderModel> : IService<TModelService>
@@ -19,7 +19,7 @@ namespace Freelance.Service.Services
         public FreelanceService(IProvider<TProviderModel> provider)
         {
             Provider = provider;
-            
+
         }
         public virtual void Create(TModelService item)
         {

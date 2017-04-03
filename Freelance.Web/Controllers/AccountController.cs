@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Freelance.Web.Models;
 using Freelance.Service.ServicesModel;
+using Microsoft.Practices.Unity;
+using Freelance.Service.Interfaces.AuthServices;
 using AutoMapper;
 
 
@@ -21,7 +23,11 @@ namespace Freelance.Web.Controllers
     public class AccountController : AuthController
     {
 
-        public AccountController() : base() { }
+        [InjectionConstructor]
+        public AccountController(IUserManageService userManager, ISignInManageService signInManager)
+           : base(userManager, signInManager)
+        { }
+
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)

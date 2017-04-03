@@ -13,6 +13,7 @@ using Freelance.Service.ServicesModel;
 using Freelance.Service.Interfaces;
 using Freelance.Service.Services;
 using Freelance.FreelanceException;
+using Microsoft.Practices.Unity;
 
 namespace Freelance.Web.Controllers
 {
@@ -32,17 +33,18 @@ namespace Freelance.Web.Controllers
 
     public class ProfileController : Controller
     {
-        private ICategoryService CategoryService { get; set; }
+        
+        private  ICategoryService CategoryService { get; set; }
         private IProfileService ProfileService { get; set; }
-      
 
-        public ProfileController()
+        [InjectionConstructor]
+        public ProfileController(ICategoryService categoryService, IProfileService profileService)
         {
-            var factory = new ServiceFactory();
-            CategoryService = factory.CategoryService;
-            ProfileService = factory.ProfileService;
-
+            CategoryService = categoryService;
+            ProfileService = profileService;
         }
+
+
         [Authorize(Roles = "freelancer, client")]
         // GET: Profile
         public ActionResult Index(int? page)

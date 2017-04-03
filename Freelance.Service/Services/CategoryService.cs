@@ -6,6 +6,7 @@ using Freelance.Provider.Interfaces;
 using Freelance.Service.Interfaces;
 using Freelance.Provider;
 using mapper =  AutoMapper;
+using Microsoft.Practices.Unity;
 
 namespace Freelance.Service.Services
 {
@@ -22,11 +23,9 @@ namespace Freelance.Service.Services
 
     public class CategoryService : FreelanceService<CategoryServiceModel, Category>, ICategoryService
     {
-        public CategoryService()
-        {
-            Provider = new ProviderFactory().CategoryProvider;
-           
-        }
+        [InjectionConstructor]
+        public CategoryService(ICategoryProvider provider) : base(provider) { }
+      
         public IDictionary<Guid, string> Lookup()
         {
             return (Provider as ICategoryProvider).Lookup();

@@ -7,7 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Freelance.Web.Models;
-
+using Microsoft.Practices.Unity;
+using Freelance.Service.Interfaces.AuthServices;
 
 
 
@@ -17,8 +18,11 @@ namespace Freelance.Web.Controllers
     [Authorize]
     public class ManageController : AuthController
     {
-        
-        public ManageController() : base() { }
+
+        [InjectionConstructor]
+        public ManageController(IUserManageService userManager, ISignInManageService signInManager)
+            : base(userManager, signInManager)
+        { }
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)

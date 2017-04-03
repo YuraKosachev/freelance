@@ -7,6 +7,8 @@ using Freelance.Service.ServicesModel;
 using Freelance.Provider.Interfaces;
 using Freelance.Provider;
 using Microsoft.Owin;
+using Microsoft.Practices.Unity;
+using Freelance.Provider.Providers;
 
 namespace Freelance.Service.Services
 {
@@ -21,9 +23,10 @@ namespace Freelance.Service.Services
 
     }
 
-    class SignInManageService: ISignInManageService
+   public class SignInManageService: ISignInManageService
     {
-        private ISignInManageProvider SignInManager { get; set; }
+        
+        private  ISignInManageProvider SignInManager { get; set; }
         public IOwinContext Context
         {
             get
@@ -38,7 +41,8 @@ namespace Freelance.Service.Services
         }
         public SignInManageService()
         {
-            SignInManager = new ProviderFactory().SignInManageProvider;
+            SignInManager = new SignInManageProvider();
+            //SignInManager = new ProviderFactory().SignInManageProvider;
         }
 
         public Task<SignInStatus> ExternalSignInAsync(ExternalLoginInfo loginInfo, bool isPersistent)

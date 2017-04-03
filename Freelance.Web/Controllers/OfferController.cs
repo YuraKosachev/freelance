@@ -8,6 +8,13 @@ namespace Freelance.Web.Controllers
 {
     public class OfferController : Controller
     {
+        //private IOfferService OfferService{ get; set; }
+        //[InjectionConstructor]
+        //public OfferController(IOfferService offerService)
+        //{
+        //    OfferService = offerService;
+        //}
+
         // GET: Offer
         [Authorize(Roles = "freelancer, client")]
         public ActionResult Index(int? page)

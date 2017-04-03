@@ -12,6 +12,7 @@ using Microsoft.Owin.Security;
 using Freelance.Web.Models;
 using Freelance.Service;
 using Freelance.Service.Interfaces.AuthServices;
+using Microsoft.Practices.Unity;
 
 using Freelance.Service.ServicesModel;
 
@@ -39,39 +40,40 @@ namespace Freelance.Web.Controllers
     {
         protected IUserManageService _userManageService;
         protected ISignInManageService _signInManageService;
-
-        public IUserManageService UserManageService
+        protected IUserManageService UserManageService
         {
             get
             {
-                _userManageService.Context = HttpContext.GetOwinContext();
+                _userManageService.Context = GetContext();
                 return _userManageService;
             }
-            protected set
+            set
             {
                 _userManageService = value;
             }
         }
-        public ISignInManageService SignInManageService
+
+        protected ISignInManageService SignInManageService
         {
             get
             {
-                _signInManageService.Context = HttpContext.GetOwinContext();
+                _signInManageService.Context = GetContext();
                 return _signInManageService;
             }
-            protected set
+            set
             {
                 _signInManageService = value;
             }
         }
 
-        public AuthController()
+
+        public AuthController(IUserManageService userManager, ISignInManageService signInManager)
         {
-            var accountService = new ServiceFactory();
-            UserManageService = accountService.UserManageService;
-            SignInManageService = accountService.SignInManageService;
+            UserManageService = userManager;
+            SignInManageService = signInManager;
         }
-        
+
+
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
         protected const string XsrfKey = "XsrfId";
 
@@ -81,6 +83,10 @@ namespace Freelance.Web.Controllers
             {
                 return HttpContext.GetOwinContext().Authentication;
             }
+        }
+        protected Microsoft.Owin.IOwinContext GetContext()
+        {
+            return HttpContext.GetOwinContext();
         }
     }
 }

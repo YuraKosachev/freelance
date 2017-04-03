@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using System.Collections.Generic;
 
@@ -10,7 +11,10 @@ namespace Freelance.Provider.EntityModels
     {
         [Key]
         public Guid Id { get; set; }
-        
+        [ForeignKey("Profile")]
+        public Guid ProfileId { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
         [Required]
         public DateTime Date { get; set; }
         public string Description { get; set; }
@@ -20,6 +24,7 @@ namespace Freelance.Provider.EntityModels
 
         //navi setting
 
-        public ICollection<Profile> Profiles { get; set; }
+        public virtual Profile Profile { get; set; }
+        public virtual User User { get; set; }
     }
 }

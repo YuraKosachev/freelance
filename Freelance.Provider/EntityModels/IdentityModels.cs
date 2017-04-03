@@ -13,6 +13,7 @@ namespace Freelance.Provider.EntityModels
         public string UserSurname { get; set; }
         //navi setting
         public virtual ICollection<Profile> Profiles { get; set; }
+        public virtual ICollection<Offer> Offers { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

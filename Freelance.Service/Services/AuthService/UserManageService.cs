@@ -8,6 +8,8 @@ using Freelance.Provider.EntityModels;
 using Freelance.Provider.Interfaces;
 using Freelance.Provider;
 using AutoMapper;
+using Microsoft.Practices.Unity;
+using Freelance.Provider.Providers;
 
 
 
@@ -16,6 +18,7 @@ namespace Freelance.Service.Services
 {
     public class UserManageService : IUserManageService, IManagerService
     {
+      
         private IUserManageProvider UserProvider { get; set; }
         public IOwinContext Context
         {
@@ -30,9 +33,9 @@ namespace Freelance.Service.Services
         }
         public UserManageService()
         {
-            UserProvider = new ProviderFactory().UserManageProvider;
-
+            UserProvider = new UserManageProvider();
         }
+        
         public string GetUserFirstName(string name)
         {
             return UserProvider.GetUserFirstName(name);

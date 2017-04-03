@@ -10,11 +10,11 @@
             <li>@Html.ActionLink("Мои профили","MyProfiles","Profile")</li>
             <li>@Html.ActionLink("Предложения", "Contact", "Home")</li>
 
-        }
-        else if (User.IsInRole("admin"))
-        {
+            }
+            else if (User.IsInRole("admin"))
+            {
             <li>@Html.ActionLink("Категории", "Index", "Category")</li>
-        }
+            }
         
             <li>@Html.ActionLink("Обзор профилей", "Index", "Profile")</li>
         

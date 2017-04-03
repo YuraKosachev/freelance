@@ -11,6 +11,7 @@ using Freelance.Service.ServicesModel;
 using Freelance.Service.Interfaces;
 using AutoMapper;
 using Freelance.FreelanceException;
+using Microsoft.Practices.Unity;
 
 namespace Freelance.Web.Controllers
 {
@@ -31,12 +32,15 @@ namespace Freelance.Web.Controllers
     [Authorize(Roles = "admin")]
     public class CategoryController : Controller
     {
-        public ICategoryService Service { get; set; }
-
-        public CategoryController()
+        private ICategoryService Service { get; set; }
+        [InjectionConstructor]
+        public CategoryController(ICategoryService service)
         {
-            Service = new ServiceFactory().CategoryService;
+            Service = service;
         }
+
+
+
         // GET: Category
         public ActionResult Index(int? page)
         {
