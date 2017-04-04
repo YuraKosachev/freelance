@@ -9,7 +9,7 @@ namespace Freelance.Service.Interfaces
     {
         IEnumerable<TServiceModel> GetList();
         TServiceModel GetItem(Guid id);
-        void Create(TServiceModel item);
+        Guid Create(TServiceModel item);
         void Update(TServiceModel item);
         void Delete(Guid id);
     }

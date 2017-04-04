@@ -10,6 +10,7 @@ using PagedList.Mvc;
 using PagedList;
 using AutoMapper;
 using Freelance.Service.ServicesModel;
+using Microsoft.AspNet.Identity;
 
 namespace Freelance.Web.Controllers
 {
@@ -48,26 +49,21 @@ namespace Freelance.Web.Controllers
             return View();
         }
 
-        // GET: Offer/Create
-        [HttpGet]
-        public ActionResult Create(Guid profileId)
-        {
-            return View();
-        }
-
         // POST: Offer/Create
         [HttpPost]
-        public ActionResult Create(OfferViewModel collection)
+        public ActionResult Create(OfferViewModel model)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                model.UserId = User.Identity.GetUserId();
+               var offerId = OfferService.Create(Mapper.Map<OfferServiceModel>(model));
+                return new JsonResult {Data = new {OfferId = offerId } };
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                Response.StatusCode = 500;
+                return Content(ex.Message);
             }
         }
 

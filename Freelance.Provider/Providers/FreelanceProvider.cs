@@ -15,11 +15,12 @@ namespace Freelance.Provider.Providers
         {
             Context = new FreelanceDbContext();
         }
-        public virtual void Create(TModel item)
+        public virtual Guid Create(TModel item)
         {
             item.Id = Guid.NewGuid();
             Context.Set<TModel>().Add(item);
             Context.SaveChanges();
+            return item.Id;
         }
 
         public virtual void Delete(Guid id)

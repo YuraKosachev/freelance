@@ -12,7 +12,7 @@ namespace Freelance.Provider.Interfaces
     {
         IAppQuery<TModel> GetList();
         TModel GetItem(Guid id);
-        void Create(TModel item);
+        Guid Create(TModel item);
         void Update(TModel item);
         void Delete(Guid id);
     }

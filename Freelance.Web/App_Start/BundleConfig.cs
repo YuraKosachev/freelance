@@ -21,6 +21,7 @@ namespace Freelance.Web
             // datetimepicker's bundles
             bundles.Add(new ScriptBundle("~/bundles/datetimepicker").Include(
                         "~/Scripts/moment.min.js",
+                        "~/Scripts/moment-with-locales.min.js",
                         "~/Scripts/bootstrap-datetimepicker.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/datetimepicker").Include(

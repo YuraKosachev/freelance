@@ -21,9 +21,9 @@ namespace Freelance.Service.Services
             Provider = provider;
 
         }
-        public virtual void Create(TModelService item)
+        public virtual Guid Create(TModelService item)
         {
-            Provider.Create(Mapper.Map<TProviderModel>(item));
+           return Provider.Create(Mapper.Map<TProviderModel>(item));
         }
 
         public virtual void Delete(Guid id)

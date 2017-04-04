@@ -7,17 +7,17 @@
             </div>
             <div class="modal-body">
 
-                <div class="input-group input-group-lg">
+                @*<div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-time"></span>
                     </span>
                     <input type="text" class="form-control" placeholder="Username">
-                </div>
+                </div>*@
 
                 <div class="container">
-                    <div class="row">
+                    @*<div class="row">
                         <div class="col-sm-6">
-                            @*<div class="input-group">*@
+                            @*<div class="input-group">
 
                                 <div class='input-group time'>
                                     @Html.TextBox("Time", new { }, new { @class = "form-control", placeholder = "Выберите время" })
@@ -26,10 +26,10 @@
                                     </span>
                                 </div>
 
-                            @*</div>*@
+                            </div>
 
                         </div>
-                    </div>
+                    </div>*@
 
                 <div class="row">
                     <div class='col-sm-6'>
@@ -71,7 +71,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary">Бронировать</button>
+                <button type="button" class="btn btn-primary" data-bt-role="submit">Бронировать</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

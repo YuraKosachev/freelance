@@ -11,19 +11,15 @@
 <table class="table">
     <tr>
         <th>
-           Имя Фрилансера
+           Категории
         </th>
         <th>
-           Название категории
-        </th>
-        <th>
-            Описания профиля
-        </th>
-        <th>
-            Номер телефона
         </th>
         <th>
             Время доступности
+        </th>
+        <th>
+            Подтвержден
         </th>
         <th></th>
     </tr>
@@ -31,25 +27,42 @@
 @foreach (var item in Model) {
     <tr>
        
-        <td>
-            @Html.DisplayFor(modelItem => item.FreelancerName)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.CategoryName)
         </td>
+       
         <td>
-            @Html.DisplayFor(modelItem => item.DescriptionProfile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm" data-container="body" data-toggle="popover" data-placement="left" data-content="@item.PhoneNumber">
+                    <span class="glyphicon glyphicon-phone"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-container="body" data-toggle="popover" data-placement="bottom" data-content="@item.FreelancerName">
+                    <span class="glyphicon glyphicon-user"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-container="body" data-toggle="popover" data-placement="right" data-content="@item.DescriptionProfile">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </button>
+             </div>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TimeAvailability)
         </td>
-        <td>@*data-toggle="modal"*@ @*data-target="#OfferCreate"*@
-            <button class="btn btn-success btn-sm" data-offer-modal="#OfferCreate" data-profile-id="@item.Id">
-                Бронировать
-            </button>
+        <td>
+            <span class="glyphicon glyphicon-ok text-success"></span>
+        </td>
+        <td>
+            <div class="btn-group">
+                <button class="btn btn-success btn-sm" data-offer-modal="#OfferCreate" data-profile-id="@item.Id">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Бронировать
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-minus"></span>
+                Удалить бронь
+                </button>
+                
+           </div>
         </td>
     </tr>
 }

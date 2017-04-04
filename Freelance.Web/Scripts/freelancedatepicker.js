@@ -1,11 +1,13 @@
 ﻿$(function () {
     //datepicker for time
     $('.time').datetimepicker({
+        locale: 'ru',
         format: 'LT'
     });
     $('.dayofweek').datetimepicker({
-        //viewMode: 'day',
-        format: 'DD/MM/YYYY'
+        locale: 'ru',
+        format: 'DD/MM/YYYY',
+        
     });
     
 

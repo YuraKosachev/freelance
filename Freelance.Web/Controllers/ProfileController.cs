@@ -51,7 +51,7 @@ namespace Freelance.Web.Controllers
         {
             var list = ProfileService.GetList().Select(m => Mapper.Map<ProfileViewModel>(m)); 
 
-            return View(new PagedList<ProfileViewModel>(list,1,1));
+            return View(new PagedList<ProfileViewModel>(list,1,10));
         }
         [Authorize(Roles = "freelancer")]
         public ActionResult MyProfiles(int? page)
