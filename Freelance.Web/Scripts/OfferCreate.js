@@ -47,7 +47,7 @@
         
         $.post(urls.OfferCreateUrl, data)
             .success(function (suc) {
-                console.log(suc);
+                console.log(suc.ProfileId);
                 $('#OfferCreate').modal('hide');
             })
             .error(function (error) {

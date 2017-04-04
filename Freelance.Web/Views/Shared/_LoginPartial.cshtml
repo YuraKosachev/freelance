@@ -1,27 +1,76 @@
 ﻿@using Microsoft.AspNet.Identity
+
+
 @if (Request.IsAuthenticated)
 {
     @*<h1>@User.Identity.Name</h1>
-    <h1>@User.Identity.GetUserId()</h1>
-    <h1>@User.Identity.IsAuthenticated</h1>*@
-    
-   
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-    @Html.AntiForgeryToken()
+        <h1>@User.Identity.GetUserId()</h1>
+        <h1>@User.Identity.IsAuthenticated</h1>*@
 
+
+using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+{
+    @Html.AntiForgeryToken()
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Здравствуйте, " + Session["UserName"] + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <div style="padding:15px 0px 0px 6px;color:white">
+                @String.Format("Здравствуйте, {0}!", Session["UserName"])
+            </div>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+        <li>
+            <div class="dropdown" style="padding:15px 0px 0px 6px;">
+                <a class="dropdown-toggle btn-lg" data-toggle="dropdown" href="#" style="color:aliceblue">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Менеджер", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                    <li class="divider"></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+                </ul>
+            </div>
+        </li>
     </ul>
+
+    @*<ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Здравствуйте, " + Session["UserName"] + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+        </ul>*@
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+        <li>
+            <div class="dropdown nav navbar-nav navbar-right" style="padding:15px 0px 0px 6px;">
+                <a class="dropdown-toggle btn-lg" data-toggle="dropdown" href="#" style="color:aliceblue">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li>@Html.ActionLink("Войти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                </ul>
+            </div>
+            </li>
+        </ul>
+            @*<div class="btn-group nav navbar-nav navbar-right">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Войти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
+                    </ul>
+                </div>*@
+            @*<div class="dropdown nav navbar-nav navbar-right">
+                    <a data-toggle="dropdown" href="#">Dropdown trigger</a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    </ul>
+                </div>*@
+            @*<ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                </ul>*@
+            }
