@@ -334,7 +334,6 @@
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Delete.cshtml" />
     <Content Include="Views\Shared\_OfferCreatePartial.cshtml" />
-    <Content Include="Views\Shared\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
