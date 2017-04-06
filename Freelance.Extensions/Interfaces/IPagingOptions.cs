@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Freelance.Extensions.Interfaces
 {
-    public interface IPagingOptions<TModel>
-    {
-        IQueryable<TModel> TakePage(IQueryable<TModel> model);
-    }
+    //public interface IPagingOptions
+    //{
+    //    IQueryable<TModel> TakePage(IQueryable<TModel> context);
+    //}
 }

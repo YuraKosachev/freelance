@@ -24,6 +24,9 @@ namespace Freelance.Web.Controllers
             CreateMap<ProfileServiceModel,ProfileViewModel>()
                 .ForMember(item => item.TimeAvailability, exp => exp.MapFrom(src => String.Format("{0} - {1}", src.TimeFrom,src.TimeTo)));
             CreateMap<ProfileCreateEditViewModel, ProfileServiceModel>().ReverseMap();
+
+            CreateMap<IndexState, IndexStateService>()
+                 .ForMember(item => item.Page, exp => exp.MapFrom(src => (int)src.Page));
         }
 
     }
@@ -47,20 +50,30 @@ namespace Freelance.Web.Controllers
 
         [Authorize(Roles = "freelancer, client")]
         // GET: Profile
-        public ActionResult Index(int? page)
+        public ActionResult Index(IndexState state)
         {
-            var list = ProfileService.GetList().Select(m => Mapper.Map<ProfileViewModel>(m)); 
+            var listSetting = ProfileService.GetList();
+            listSetting.SortPage("TimeFrom", true);
+            if (state.Page == null)
+                state.Page = 1;
+            listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
 
-            return View(new PagedList<ProfileViewModel>(list,1,10));
+            var list = listSetting.List().Select(model => Mapper.Map<ProfileViewModel>(model)).ToList();
+
+            return View(new StaticPagedList<ProfileViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, listSetting.ItemCount()));
         }
         [Authorize(Roles = "freelancer")]
-        public ActionResult MyProfiles(int? page)
+        public ActionResult MyProfiles(IndexState state)//int? page)
         {
-            var userId = User.Identity.GetUserId();
+            var listSetting = ProfileService.GetList();
+            listSetting.SortPage("TimeFrom", true);
+            if (state.Page == null)
+                state.Page = 1;
+            listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
 
-            var list = ProfileService.GetList().Select(m => Mapper.Map<ProfileViewModel>(m));
-
-            return View(new PagedList<ProfileViewModel>(list, 1, 10));
+            var list = listSetting.List().Select(model => Mapper.Map<ProfileViewModel>(model)).ToList();
+            
+            return View(new StaticPagedList<ProfileViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, listSetting.ItemCount()));
         }
         // GET: Profile/Details/5
         [Authorize(Roles = "freelancer, client")]

@@ -11,28 +11,32 @@ namespace Freelance.Extensions
     public class AppQuery<TModel> : IAppQuery<TModel>
     {
         private IQueryable<TModel> Query { get; set; }
-        private IPagingOptions<TModel> Paging { get; set; }
-        private ISortingOptions<TModel> Sorting { get; set; }
-        private IFilteringOptions<TModel> Filtering { get; set; }
+        public PagingOptions Paging { get; set; }
+        public SortingOptions Sorting { get; set; }
+        public IFilteringOptions<TModel> Filtering { get; set; }
         public AppQuery(IQueryable<TModel> query)
         {
             Query = query;
         }
-        public IAppQuery<TModel> SetPageOptions()
+        public int CountItem()
         {
-            //Paging =
+            return Paging.Total;
+        }
+        public IAppQuery<TModel> SetPageOptions(int current, int size)
+        {
+            Paging = new PagingOptions(current, size);
             return this;
         }
 
-        public IAppQuery<TModel> SetSortOptions()
+        public IAppQuery<TModel> SetSortOptions(string property, bool ascending)
         {
-            //Sorting =
+            Sorting = new SortingOptions(property, ascending);
             return this;
         }
 
-        public IAppQuery<TModel> SetFilterOptions()
+        public IAppQuery<TModel> SetFilterOptions(IFilteringOptions<TModel> filteringOptions)
         {
-            //Filtering = 
+            Filtering = filteringOptions;
             return this;
         }
        

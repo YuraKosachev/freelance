@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Freelance.Provider.Interfaces;
 using Freelance.Provider.Context;
 using System.Data.Entity;
@@ -50,6 +51,8 @@ namespace Freelance.Provider.Providers
             Context.Entry<TModel>(item).State = EntityState.Modified;
             Context.SaveChanges();
         }
+     
+
         private bool disposed = false;
 
         public virtual void Dispose(bool disposing)
@@ -69,5 +72,7 @@ namespace Freelance.Provider.Providers
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        
     }
 }

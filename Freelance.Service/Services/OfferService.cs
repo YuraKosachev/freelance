@@ -25,5 +25,6 @@ namespace Freelance.Service.Services
     {
          [InjectionConstructor]
         public OfferService(IOfferProvider provider) : base(provider) { }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Freelance.Service.ServicesModel;
 
 
 namespace Freelance.Service.Interfaces
@@ -7,7 +8,7 @@ namespace Freelance.Service.Interfaces
      public interface IService<TServiceModel>
         where TServiceModel : class
     {
-        IEnumerable<TServiceModel> GetList();
+        IFreelanceList<TServiceModel> GetList();
         TServiceModel GetItem(Guid id);
         Guid Create(TServiceModel item);
         void Update(TServiceModel item);

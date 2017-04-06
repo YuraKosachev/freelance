@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Freelance.Service.Interfaces;
 using Freelance.Provider.Interfaces;
+using Freelance.Service.ServicesModel;
 using AutoMapper;
 using Microsoft.Practices.Unity;
 namespace Freelance.Service.Services
@@ -10,6 +11,7 @@ namespace Freelance.Service.Services
     public abstract class FreelanceService<TModelService,TProviderModel> : IService<TModelService>
         where TModelService : class
         where TProviderModel : class
+   
     {
         protected IProvider<TProviderModel> Provider { get; set; }
         public FreelanceService()
@@ -36,14 +38,16 @@ namespace Freelance.Service.Services
             return Mapper.Map<TModelService>(Provider.GetItem(id));
         }
 
-        public virtual IEnumerable<TModelService> GetList()
+        public virtual IFreelanceList<TModelService> GetList()
         {
-            return Provider.GetList().Select(item => Mapper.Map<TModelService>(item));
+            return new FreelanceList<TModelService,TProviderModel>(Provider.GetList());
         }
 
         public virtual void Update(TModelService item)
         {
             Provider.Update(Mapper.Map<TProviderModel>(item));
         }
+
+
     }
 }

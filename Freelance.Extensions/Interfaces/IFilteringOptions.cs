@@ -8,6 +8,6 @@ namespace Freelance.Extensions.Interfaces
 {
     public interface IFilteringOptions<TModel>
     {
-        IQueryable<TModel> Filter(IQueryable<TModel> model);
+        IQueryable<TModel> Filter(IQueryable<TModel> context);
     }
 }

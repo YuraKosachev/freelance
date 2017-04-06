@@ -8,6 +8,6 @@ namespace Freelance.Extensions.Interfaces
 {
     public interface ISortingOptions<TModel>
     {
-        IQueryable<TModel> Sort(IQueryable<TModel> model);
+        IQueryable<TModel> Sort(IQueryable<TModel> context);
     }
 }

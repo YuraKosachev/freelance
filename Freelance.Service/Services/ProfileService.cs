@@ -26,7 +26,6 @@ namespace Freelance.Service.Services
     {
         [InjectionConstructor]
         public ProfileService(IProfileProvider provider) : base(provider) { }
-       
-        
+
     }
 }

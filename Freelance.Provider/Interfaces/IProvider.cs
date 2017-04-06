@@ -15,5 +15,6 @@ namespace Freelance.Provider.Interfaces
         Guid Create(TModel item);
         void Update(TModel item);
         void Delete(Guid id);
+       
     }
 }

@@ -42,10 +42,21 @@ namespace Freelance.Web.Controllers
 
 
         // GET: Category
-        public ActionResult Index(int? page)
+        public ActionResult Index(IndexState state)
         {
-            var list = Service.GetList().Select(model => Mapper.Map<CategoryViewModel>(model));
-            return View(list.ToPagedList(1,10));
+            var listSetting = Service.GetList();
+            listSetting.SortPage("NameCategory",true);
+            if (state.Page == null)
+                state.Page = 1;
+            listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
+
+            var list = listSetting.List().Select(model => Mapper.Map<CategoryViewModel>(model)).ToList();
+
+            var count = listSetting.ItemCount();
+
+
+
+            return View(new StaticPagedList<CategoryViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, listSetting.ItemCount()));
         }
 
         // GET: Category/Details/5

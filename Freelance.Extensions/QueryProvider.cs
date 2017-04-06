@@ -14,12 +14,12 @@ namespace Freelance.Extensions
             return filter != null ? filter.Filter(source) : source;
         }
 
-        public static IQueryable<TModel> Sort<TModel>(this IQueryable<TModel> source, ISortingOptions<TModel> sorting)
+        public static IQueryable<TModel> Sort<TModel>(this IQueryable<TModel> source, SortingOptions sorting)
         {
-            return sorting != null ? sorting.Sort(source) : source;
+            return sorting != null ? sorting.Sort<TModel>(source) : source;
         }
 
-        public static IQueryable<TModel> TakePage<TModel>(this IQueryable<TModel> source, IPagingOptions<TModel> paging)
+        public static IQueryable<TModel> TakePage<TModel>(this IQueryable<TModel> source, PagingOptions paging)
         {
             return paging != null ? paging.TakePage(source) : source;
         }

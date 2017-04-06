@@ -32,6 +32,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\..\..\..\..\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppQuery.cs" />
+    <Compile Include="ExtOptions\PagingOptions.cs" />
+    <Compile Include="ExtOptions\SortingOptions.cs" />
     <Compile Include="Interfaces\IAppQuery.cs" />
     <Compile Include="Interfaces\IFilteringOptions.cs" />
     <Compile Include="Interfaces\IPagingOptions.cs" />

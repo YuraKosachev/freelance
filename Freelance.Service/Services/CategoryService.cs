@@ -25,7 +25,9 @@ namespace Freelance.Service.Services
     {
         [InjectionConstructor]
         public CategoryService(ICategoryProvider provider) : base(provider) { }
-      
+
+       
+
         public IDictionary<Guid, string> Lookup()
         {
             return (Provider as ICategoryProvider).Lookup();

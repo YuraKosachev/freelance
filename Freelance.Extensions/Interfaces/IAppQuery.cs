@@ -8,8 +8,9 @@ namespace Freelance.Extensions.Interfaces
 {
     public interface IAppQuery<TModel>:IEnumerable<TModel>
     {
-        IAppQuery<TModel> SetPageOptions();
-        IAppQuery<TModel> SetSortOptions();
-        IAppQuery<TModel> SetFilterOptions();
+        IAppQuery<TModel> SetPageOptions(int current,int size);
+        IAppQuery<TModel> SetSortOptions(string property, bool ascending);
+        IAppQuery<TModel> SetFilterOptions(IFilteringOptions<TModel> filteringOptions);
+        int CountItem();
     }
 }
