@@ -10,7 +10,12 @@ namespace Freelance.Extensions.Interfaces
     {
         IAppQuery<TModel> SetPageOptions(int current,int size);
         IAppQuery<TModel> SetSortOptions(string property, bool ascending);
-        IAppQuery<TModel> SetFilterOptions(IFilteringOptions<TModel> filteringOptions);
+        IAppQuery<TModel> SetFilterOptions<TType>(string property,TType value);
+        IAppQuery<TModel> FilterXor<TType>(string property, TType value);
+        IAppQuery<TModel> FilterAndXor<TType>(string property, TType value);
+        IAppQuery<TModel> FilterOrXor<TType>(string property, TType value);
+        IAppQuery<TModel> FilterAnd<TType>(string property, TType value);
+        IAppQuery<TModel> FilterOr<TType>(string property, TType value);
         int CountItem();
     }
 }

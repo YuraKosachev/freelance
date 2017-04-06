@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Freelance.Service.Interfaces;
 using Freelance.Extensions.Interfaces;
 using AutoMapper;
@@ -39,6 +37,36 @@ namespace Freelance.Service.ServicesModel
         public void TakePage(int current, int size)
         {
             ProviderList.SetPageOptions(current, size);
+        }
+
+        public void Filter<TType>(string property, TType value)
+        {
+            ProviderList.SetFilterOptions(property,value);
+        }
+
+        public void FilterXor<TType>(string property, TType value)
+        {
+            ProviderList.FilterXor(property, value);
+        }
+
+        public void FilterAndXor<TType>(string property, TType value)
+        {
+            ProviderList.FilterAndXor(property, value);
+        }
+
+        public void FilterOrXor<TType>(string property, TType value)
+        {
+            ProviderList.FilterOrXor(property, value); 
+        }
+
+        public void FilterAnd<TType>(string property, TType value)
+        {
+            ProviderList.FilterAnd(property, value); 
+        }
+
+        public void FilterOr<TType>(string property, TType value)
+        {
+            ProviderList.FilterOr(property, value); 
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Freelance.Extensions
         }
         public IQueryable<TModel> Sort<TModel>(IQueryable<TModel> source)
         {
-            return source.OrderBy(Property);
+            return source.OrderBy(String.Format("{0} {1}",Property, Ascending ? "ASC" :"DESC"));
         }
 
     }

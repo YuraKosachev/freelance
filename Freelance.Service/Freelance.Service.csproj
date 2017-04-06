@@ -107,9 +107,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Linq.Dynamic">
-      <HintPath>..\..\..\..\..\System.Linq.Dynamic.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -162,7 +159,6 @@
     <Compile Include="ServicesModel\CategoryServiceModel.cs" />
     <Compile Include="ServicesModel\AuthModels\LoginServiceModel.cs" />
     <Compile Include="ServicesModel\FreelanceList.cs" />
-    <Compile Include="ServicesModel\IndexStateService.cs" />
     <Compile Include="ServicesModel\OfferServiceModel.cs" />
     <Compile Include="ServicesModel\ProfileServiceModel.cs" />
     <Compile Include="ServicesModel\AuthModels\UserServiceModel.cs" />
@@ -174,9 +170,7 @@
     <Compile Include="Services\OfferService.cs" />
     <Compile Include="Services\ProfileService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExtensionsOptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Freelance.Extensions\Freelance.Extensions.csproj">
       <Project>{6fd24f11-b149-4e6e-8b3b-10b3d674809c}</Project>

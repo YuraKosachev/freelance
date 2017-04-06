@@ -9,7 +9,7 @@ namespace Freelance.Extensions
 {
     public static class QueryProvider
     {
-        public static IQueryable<TModel> Filter<TModel>(this IQueryable<TModel> source, IFilteringOptions<TModel> filter)
+        public static IQueryable<TModel> Filter<TModel>(this IQueryable<TModel> source, FilteringOptions filter)
         {
             return filter != null ? filter.Filter(source) : source;
         }

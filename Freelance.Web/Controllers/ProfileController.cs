@@ -25,8 +25,7 @@ namespace Freelance.Web.Controllers
                 .ForMember(item => item.TimeAvailability, exp => exp.MapFrom(src => String.Format("{0} - {1}", src.TimeFrom,src.TimeTo)));
             CreateMap<ProfileCreateEditViewModel, ProfileServiceModel>().ReverseMap();
 
-            CreateMap<IndexState, IndexStateService>()
-                 .ForMember(item => item.Page, exp => exp.MapFrom(src => (int)src.Page));
+           
         }
 
     }
@@ -66,6 +65,7 @@ namespace Freelance.Web.Controllers
         public ActionResult MyProfiles(IndexState state)//int? page)
         {
             var listSetting = ProfileService.GetList();
+            listSetting.Filter("UserId", User.Identity.GetUserId());
             listSetting.SortPage("TimeFrom", true);
             if (state.Page == null)
                 state.Page = 1;

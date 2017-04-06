@@ -13,7 +13,7 @@ namespace Freelance.Extensions
         private IQueryable<TModel> Query { get; set; }
         public PagingOptions Paging { get; set; }
         public SortingOptions Sorting { get; set; }
-        public IFilteringOptions<TModel> Filtering { get; set; }
+        public FilteringOptions Filtering { get; set; }
         public AppQuery(IQueryable<TModel> query)
         {
             Query = query;
@@ -34,12 +34,41 @@ namespace Freelance.Extensions
             return this;
         }
 
-        public IAppQuery<TModel> SetFilterOptions(IFilteringOptions<TModel> filteringOptions)
+        public IAppQuery<TModel> SetFilterOptions<TType>(string property,TType value )
         {
-            Filtering = filteringOptions;
+            Filtering = new FilteringOptions(String.Format("{0} == \"{1}\"",property,value));
             return this;
         }
-       
+        public IAppQuery<TModel> FilterXor<TType>(string property, TType value)
+        {
+            Filtering = new FilteringOptions(String.Format("{0} != {1}", property, value));
+            return this;
+        }
+        public IAppQuery<TModel> FilterAndXor<TType>(string property, TType value)
+        {
+            if (Filtering != null)
+                Filtering.Query += String.Format(" AND {0} != {1}", property, value);
+            return this;
+        }
+        public IAppQuery<TModel> FilterOrXor<TType>(string property, TType value)
+        {
+            if (Filtering != null)
+                Filtering.Query += String.Format(" OR {0} != {1}", property, value);
+            return this;
+        }
+        public IAppQuery<TModel> FilterAnd<TType>(string property, TType value)
+       {
+            if (Filtering != null)
+                Filtering.Query += String.Format(" AND {0} == {1}", property, value);
+            return this;
+       }
+        public IAppQuery<TModel> FilterOr<TType>(string property, TType value)
+        {
+            if (Filtering != null)
+                Filtering.Query += String.Format(" OR {0} == {1}", property, value);
+            return this;
+        }
+        
         public IEnumerator<TModel> GetEnumerator()
         {
             return Query.Filter(Filtering).Sort(Sorting).TakePage(Paging).GetEnumerator();

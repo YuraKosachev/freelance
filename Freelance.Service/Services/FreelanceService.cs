@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Freelance.Service.Interfaces;
 using Freelance.Provider.Interfaces;
 using Freelance.Service.ServicesModel;
 using AutoMapper;
-using Microsoft.Practices.Unity;
 namespace Freelance.Service.Services
 {
     public abstract class FreelanceService<TModelService,TProviderModel> : IService<TModelService>

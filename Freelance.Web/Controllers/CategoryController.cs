@@ -45,7 +45,7 @@ namespace Freelance.Web.Controllers
         public ActionResult Index(IndexState state)
         {
             var listSetting = Service.GetList();
-            listSetting.SortPage("NameCategory",true);
+            listSetting.SortPage("NameCategory",false);
             if (state.Page == null)
                 state.Page = 1;
             listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
