@@ -15,6 +15,7 @@ namespace Freelance.Web.Models
         public string NameCategory { get; set; }
         [Required]
         [Display(Name = "Описание категории")]
+        [DataType(DataType.MultilineText)]
         public string DescriptionCategory { get; set; }
     }
 }

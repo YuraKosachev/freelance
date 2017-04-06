@@ -1,0 +1,61 @@
+﻿@model PagedList.IPagedList<Freelance.Web.Models.ProfileViewModel>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "My profiles";
+}
+
+<h2>Мои профили</h2>
+
+<p>
+    @Html.ActionLink("Создать профиль","Create")
+    </p>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Имя Фрилансера
+        </th>
+        <th>
+            Название категории
+        </th>
+        <th>
+            Описания профиля
+        </th>
+        <th>
+            Время доступности
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FreelancerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionProfile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeAvailability)
+            </td>
+            <td>
+               @Html.ActionLink("Edit", "Edit", new { Id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new { Id=item.Id }) |
+             @Html.ActionLink("Delete", "Delete", new { Id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("MyProfiles", new { page }))
+

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Freelance.Provider.EntityModels;
 using Freelance.Provider.Interfaces;
@@ -25,9 +24,10 @@ namespace Freelance.Provider.Providers
         {
             return Manager.AddToRoleAsync(userId, role);
         }
+       
         public Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo loginInfo)
         {
-
+           
             return Manager.AddLoginAsync(userId, loginInfo);
         }
 

@@ -10,49 +10,70 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Freelance.Web.Models;
+using Freelance.Service;
+using Freelance.Service.Interfaces.AuthServices;
+using Microsoft.Practices.Unity;
 
-using Freelance.Provider.Providers;
-using Freelance.Provider.EntityModels;
-using Freelance.Provider.Interfaces;
+using Freelance.Service.ServicesModel;
+
 
 namespace Freelance.Web.Controllers
 {
+    public class AuthControllerMapperProfile : AutoMapper.Profile
+    {
+        public AuthControllerMapperProfile()
+        {
+            CreateMap<VerifyCodeViewModel, VerifyCodeServiceModel>();
+            CreateMap<LoginViewModel,LoginServiceModel>();
+            CreateMap<RegisterViewModel, UserServiceModel>()
+                .ForMember(item => item.UserName, exp => exp.MapFrom(src => src.Email))
+                .ForMember(item => item.UserSurname, exp => exp.MapFrom(src => src.Surname))
+                .ForMember(item => item.UserFirstName, exp => exp.MapFrom(src => src.Name));
+            CreateMap<ExternalLoginConfirmationViewModel, UserServiceModel>()
+                .ForMember(item => item.UserName, exp => exp.MapFrom(src => src.Email))
+                .ForMember(item => item.Email, exp => exp.MapFrom(src => src.Email));
+        }
+
+    }
+   
     public abstract class AuthController:Controller
     {
-        protected IUserManageProvider _userManageService;
-        protected ISignInManageProvider _signInManageService;
-
-        public IUserManageProvider UserManageService
+        protected IUserManageService _userManageService;
+        protected ISignInManageService _signInManageService;
+        protected IUserManageService UserManageService
         {
             get
             {
-                _userManageService.Context = HttpContext.GetOwinContext();
+                _userManageService.Context = GetContext();
                 return _userManageService;
             }
-            protected set
+            set
             {
                 _userManageService = value;
             }
         }
-        public ISignInManageProvider SignInManageService
+
+        protected ISignInManageService SignInManageService
         {
             get
             {
-                _signInManageService.Context = HttpContext.GetOwinContext();
+                _signInManageService.Context = GetContext();
                 return _signInManageService;
             }
-            protected set
+            set
             {
                 _signInManageService = value;
             }
         }
 
-        public AuthController()
+
+        public AuthController(IUserManageService userManager, ISignInManageService signInManager)
         {
-            UserManageService = new UserManageProvider();
-            SignInManageService = new SignInManageProvider();
+            UserManageService = userManager;
+            SignInManageService = signInManager;
         }
-        
+
+
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
         protected const string XsrfKey = "XsrfId";
 
@@ -62,6 +83,10 @@ namespace Freelance.Web.Controllers
             {
                 return HttpContext.GetOwinContext().Authentication;
             }
+        }
+        protected Microsoft.Owin.IOwinContext GetContext()
+        {
+            return HttpContext.GetOwinContext();
         }
     }
 }

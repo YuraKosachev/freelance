@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Freelance.Provider.EntityModels;
 using Freelance.Provider.Interfaces;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 
 namespace Freelance.Provider.Providers
 {
+
+
+
     public abstract class AuthProvider<TManager> : IManagerProvider,IDisposable
         where TManager: class,IDisposable
     {

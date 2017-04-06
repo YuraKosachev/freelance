@@ -1,0 +1,30 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
+using System.Collections.Generic;
+
+
+namespace Freelance.Provider.EntityModels
+{
+    public class Offer:IModel
+    {
+        [Key]
+        public Guid Id { get; set; }
+        [ForeignKey("Profile")]
+        public Guid ProfileId { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
+        public string Description { get; set; }
+        [Required]
+        [DefaultValue(false)]
+        public bool FreelancerConfirm { get; set; }
+
+        //navi setting
+
+        public virtual Profile Profile { get; set; }
+        public virtual User User { get; set; }
+    }
+}

@@ -20,6 +20,7 @@ namespace Freelance.Provider.Interfaces
         Task<IdentityResult> CreateAsync(User user, string password);
         Task<IdentityResult> CreateAsync(User user);
         Task<User> FindByNameAsync(string name);
+        
         Task<IList<string>> GetValidTwoFactorProvidersAsync(string userId);
         Task<bool> IsEmailConfirmedAsync(string userId);
         Task<IdentityResult> ResetPasswordAsync(string userId, string token, string newPassword);

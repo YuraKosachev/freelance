@@ -10,10 +10,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Freelance.Web.Models;
+using Freelance.Service.ServicesModel;
+using Microsoft.Practices.Unity;
+using Freelance.Service.Interfaces.AuthServices;
+using AutoMapper;
 
-using Freelance.Provider.Providers;
-using Freelance.Provider.EntityModels;
-using Freelance.Provider.Interfaces;
 
 
 namespace Freelance.Web.Controllers
@@ -22,7 +23,11 @@ namespace Freelance.Web.Controllers
     public class AccountController : AuthController
     {
 
-        public AccountController() : base() { }
+        [InjectionConstructor]
+        public AccountController(IUserManageService userManager, ISignInManageService signInManager)
+           : base(userManager, signInManager)
+        { }
+
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -45,19 +50,21 @@ namespace Freelance.Web.Controllers
 
             // Сбои при входе не приводят к блокированию учетной записи
             // Чтобы ошибки при вводе пароля инициировали блокирование учетной записи, замените на shouldLockout: true
-            //ЗАМЕНИТЬ
-            var user = new LoginProviderModel {
-                Email = model.Email,
-                Password = model.Password,
-                RememberMe = model.RememberMe
-            };
-            var result = await SignInManageService.PassSignInAsync(user, false);//SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            ////ЗАМЕНИТЬ
+            //var user = new LoginProviderModel {
+            //    Email = model.Email,
+            //    Password = model.Password,
+            //    RememberMe = model.RememberMe
+            //};
+
+
+            var result = await SignInManageService.PassSignInAsync(Mapper.Map<LoginServiceModel>(model), false);
             
             switch (result)
             {
                 case SignInStatus.Success:
                     
-                    SetUserName(user.Email, isRegistred: true);
+                    SetUserName(model.Email, isRegistred: true);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -91,7 +98,7 @@ namespace Freelance.Web.Controllers
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Требовать предварительный вход пользователя с помощью имени пользователя и пароля или внешнего имени входа
-            if (!await SignInManageService.HasBeenVerifiedAsync())//SignInManager.HasBeenVerifiedAsync())
+            if (!await SignInManageService.HasBeenVerifiedAsync())
             {
                 return View("Error");
             }
@@ -115,15 +122,15 @@ namespace Freelance.Web.Controllers
             // будет заблокирована на заданный период. 
             // Параметры блокирования учетных записей можно настроить в IdentityConfig
 
-            var verify = new VerifyCodeProviderModel {
-                Code = model.Code,
-                Provider = model.Provider,
-                RememberBrowser = model.RememberBrowser,
-                RememberMe = model.RememberMe,
-                ReturnUrl = model.ReturnUrl
-            };
+            //var verify = new VerifyCodeProviderModel {
+            //    Code = model.Code,
+            //    Provider = model.Provider,
+            //    RememberBrowser = model.RememberBrowser,
+            //    RememberMe = model.RememberMe,
+            //    ReturnUrl = model.ReturnUrl
+            //};
 
-            var result = await SignInManageService.TwoFactorSignInAsync(verify);
+            var result = await SignInManageService.TwoFactorSignInAsync(Mapper.Map<VerifyCodeServiceModel>(model));
             switch (result)
             {
                 case SignInStatus.Success:
@@ -157,9 +164,7 @@ namespace Freelance.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User {UserName = model.Email, Email = model.Email, UserSurname = model.Surname,UserFirstName = model.Name };
-                //model.Role = "freelancer";
-
+                var user = Mapper.Map<UserServiceModel>(model);//new User { UserName = model.Email, Email = model.Email, UserSurname = model.Surname,UserFirstName = model.Name,PhoneNumber = model.PhoneNumber };
                 var result = await UserManageService.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -212,8 +217,8 @@ namespace Freelance.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManageService.FindByNameAsync(model.Email);//UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManageService.IsEmailConfirmedAsync(user.Id)))//UserManager.IsEmailConfirmedAsync(user.Id)))
+                var user = await UserManageService.FindByName(model.Email);
+                if (user == null || !(await UserManageService.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Не показывать, что пользователь не существует или не подтвержден
                     return View("ForgotPasswordConfirmation");
@@ -246,7 +251,7 @@ namespace Freelance.Web.Controllers
         {
             return code == null ? View("Error") : View();
         }
-
+    
         //
         // POST: /Account/ResetPassword
         [HttpPost]
@@ -258,13 +263,13 @@ namespace Freelance.Web.Controllers
             {
                 return View(model);
             }
-            var user = await UserManageService.FindByNameAsync(model.Email);// UserManager.FindByNameAsync(model.Email);
+            var user = await UserManageService.FindByName(model.Email);
             if (user == null)
             {
                 // Не показывать, что пользователь не существует
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManageService.ResetPasswordAsync(user.Id, model.Code, model.Password);//UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var result = await UserManageService.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -377,7 +382,7 @@ namespace Freelance.Web.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = Mapper.Map<UserServiceModel>(model);//new User { UserName = model.Email, Email = model.Email };
                 var result = await UserManageService.CreateAsync(user);
                 if (result.Succeeded)
                 {

@@ -7,32 +7,27 @@ using Microsoft.Owin.Security.Cookies;
 using Freelance.Provider.Context;
 using Freelance.Provider.EntityModels;
 using Freelance.Provider.Providers;
+using Freelance.Provider.Interfaces;
 
-namespace Freelance.Provider.AuthConfg
+namespace Freelance.Service.AuthConfg
 {
     public class FreelanceAuthConfg
     {
-        private IAppBuilder _app;
-        private string _path;
-        public FreelanceAuthConfg(IAppBuilder app, string path)
-        {
-            _app = app;
-            _path = path;
-        }
-        public void ConfigureAuth()
+
+        public static void ConfigureAuth(IAppBuilder app, string path)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            _app.CreatePerOwinContext(FreelanceDbContext.Create);
-            _app.CreatePerOwinContext<FreelanceUserManager>(FreelanceUserManager.Create);
-            _app.CreatePerOwinContext<FreelanceSignInManager>(FreelanceSignInManager.Create);
+            app.CreatePerOwinContext(FreelanceDbContext.Create);
+            app.CreatePerOwinContext<FreelanceUserManager>(FreelanceUserManager.Create);
+            app.CreatePerOwinContext<FreelanceSignInManager>(FreelanceSignInManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             // Configure the sign in cookie
-            _app.UseCookieAuthentication(new CookieAuthenticationOptions
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString(_path),
+                LoginPath = new PathString(path),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
@@ -42,15 +37,15 @@ namespace Freelance.Provider.AuthConfg
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             });
-            _app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
-            _app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
+            app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
 
             // Enables the application to remember the second login verification factor such as phone or email.
             // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
             // This is similar to the RememberMe option when you log in.
-            _app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
+            app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
@@ -70,9 +65,6 @@ namespace Freelance.Provider.AuthConfg
             //    ClientId = "",
             //    ClientSecret = ""
             //});
-        }
-        public static FreelanceAuthConfg Create(IAppBuilder app, string path) {
-            return new FreelanceAuthConfg(app, path);
         }
 
     }

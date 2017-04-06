@@ -1,16 +1,20 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Freelance.Provider.EntityModels
 {
-    public class Category
+    public class Category:IModel
     {
-        public Guid CategoryId { get; set; }
+        [Key]
+        public Guid Id { get; set; }
+        [Required]
         public string NameCategory { get; set; }
+        [Required]
         public string DescriptionCategory { get; set; }
+        
+        public virtual ICollection<Profile> Profilies { get; set; }
 
     }
 }
