@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Routing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,5 +13,10 @@ namespace Freelance.Web.Models
         public bool SortAscending { get; set; }
         public string SortProperty { get; set; }
         public int CountItemInPage { get; set; }
+        public Guid CategoryId { get; set; }
+        public virtual RouteValueDictionary GetFilters()
+        {
+            return new RouteValueDictionary();
+        }
     }
 }

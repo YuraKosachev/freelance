@@ -1,0 +1,68 @@
+﻿@model PagginationModelList<OfferViewModel>
+@using PagedList.Mvc;
+@using Freelance.Web.HtmlHelperExtensions;
+
+<div class="page-header">
+    <h1>Предложения</h1>
+</div>
+<table class="table">
+    <tr>
+        <th>
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Time
+        </th>
+       
+        <th>
+            FreelancerConfirm
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.PageList) {
+    <tr>
+        <td>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm" data-container="body" data-toggle="popover" data-placement="left" data-content="@item.PhoneNumber">
+                    <span class="glyphicon glyphicon-phone"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-container="body" data-toggle="popover" data-placement="bottom" data-content="@item.FreelancerName">
+                    <span class="glyphicon glyphicon-user"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-container="body" data-toggle="popover" data-placement="right" data-content="@item.Description">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </button>
+            </div>
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        
+        <td>
+            @Html.Partial("_UserConfirmed", item)
+        </td>
+        <td>
+            @if (User.IsInRole("client"))
+            {
+                Html.ActionLink("Details", "Details", new { id = item.Id });
+                Html.ActionLink("Delete", "Delete", new { id = item.Id });
+
+            }
+           
+            
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+    Страница @(Model.PageList.PageCount < Model.PageList.PageNumber ? 0 : Model.PageList.PageNumber) из @Model.PageList.PageCount
+
+    @Html.PagedListPager(Model.PageList, page => Url.ActionToPage("Index", Model.IndexState, page))

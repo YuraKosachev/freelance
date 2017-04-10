@@ -45,18 +45,26 @@ namespace Freelance.Web.Controllers
         public ActionResult Index(IndexState state)
         {
             var listSetting = Service.GetList();
-            listSetting.SortPage("NameCategory",false);
+            //sorting
+            if(string.IsNullOrEmpty(state.SortProperty))
+                listSetting.SortPage("NameCategory",ascending:true);
+            else
+                listSetting.SortPage(state.SortProperty, state.SortAscending);
+            //pagging
             if (state.Page == null)
                 state.Page = 1;
             listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
-
+            //get sortedlist
             var list = listSetting.List().Select(model => Mapper.Map<CategoryViewModel>(model)).ToList();
-
+            //get count item
             var count = listSetting.ItemCount();
 
+            //setting paggination 
+            var staticList = new StaticPagedList<CategoryViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, count);
+          
+            var pagginationList = new PagginationModelList<CategoryViewModel>(state,staticList);
 
-
-            return View(new StaticPagedList<CategoryViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, listSetting.ItemCount()));
+            return View(pagginationList);
         }
 
         // GET: Category/Details/5

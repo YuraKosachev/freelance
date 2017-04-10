@@ -7,17 +7,19 @@
     {
         if (User.IsInRole("freelancer"))
         {
-            <li>@Html.ActionLink("Мои профили","MyProfiles","Profile")</li>
-            <li>@Html.ActionLink("Предложения", "Contact", "Home")</li>
-
-            }
-            else if (User.IsInRole("admin"))
-            {
+            <li>@Html.ActionLink("Мои профили", "MyProfiles", "Profile")</li>
+        }
+        else if (User.IsInRole("admin"))
+        {
             <li>@Html.ActionLink("Категории", "Index", "Category")</li>
-            }
-        
-            <li>@Html.ActionLink("Обзор профилей", "Index", "Profile")</li>
-        
+        }
+        else if(User.IsInRole("client"))
+        {
+            <li> @Html.ActionLink("Обзор профилей", "Index", "Profile") </li>
+        }
+
+
+            <li>@Html.ActionLink("Предложения", "Index", "Offer")</li>
 
     }
     @*<li>@Html.ActionLink("О программе", "About", "Home")</li>*@

@@ -1,5 +1,7 @@
-﻿@model PagedList.IPagedList<CategoryViewModel>
+﻿@model PagginationModelList<CategoryViewModel>
 @using PagedList.Mvc;
+@using Freelance.Web.HtmlHelperExtensions;
+
 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -9,45 +11,44 @@
 <h2>Категории</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create",Model.IndexState)
 </p>
+
 <table class="table">
-    <tr>
-
-        <th>
-            Name Category
-            <button class="btn btn-default btn-xs">
-                <span class="glyphicon glyphicon-chevron-up"></span>
-                </button>
-        </th>
-        <th>
-            Description Category @*@Html.DisplayNameFor(model => model.DescriptionCategory)
-                </th>*@
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
         <tr>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.CategoryId)
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.NameCategory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescriptionCategory)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId}) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.CategoryId })
-            </td>
+
+            <th>
+                Name Category
+                <a href="@Url.SortLink("Index", Model.IndexState, "NameCategory")" class="btn btn-default btn-xs active" role="button">
+                    <span class="@Html.GetSortClass(Model.IndexState, "NameCategory")"></span>
+                </a>
+               
+            </th>
+            <th>
+                Description Category
+            <th></th>
         </tr>
-    }
 
-</table>
-<br />
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+        @foreach (var item in Model.PageList)
+        {
+            <tr>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DescriptionCategory)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId })
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })*@
+                </td>
+            </tr>
+        }
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </table>
+    <br />
+    Страница @(Model.PageList.PageCount < Model.PageList.PageNumber ? 0 : Model.PageList.PageNumber) из @Model.PageList.PageCount
+
+    @Html.PagedListPager(Model.PageList, page => Url.ActionToPage("Index", Model.IndexState, page))

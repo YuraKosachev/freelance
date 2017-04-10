@@ -38,9 +38,40 @@ namespace Freelance.Web.Controllers
 
         // GET: Offer
         [Authorize(Roles = "freelancer, client")]
-        public ActionResult Index(int? page)
+        public ActionResult Index(IndexState state)
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            var listSetting = OfferService.GetList();
+
+            //filtring
+            if (User.IsInRole("client"))
+                listSetting.Filter("UserId", userId);
+            if(User.IsInRole("freelancer"))
+                listSetting.Filter("Profile.UserId", userId);
+
+
+            //sorting
+            if (string.IsNullOrEmpty(state.SortProperty))
+                listSetting.SortPage("Date", ascending: true);
+            else
+                listSetting.SortPage(state.SortProperty, state.SortAscending);
+
+            //pagging
+            if (state.Page == null)
+                state.Page = 1;
+            listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
+            //get sortedlist
+            var list = listSetting.List().Select(model => Mapper.Map<OfferViewModel>(model)).ToList();
+
+            //get count item
+            var count = listSetting.ItemCount();
+
+            //setting paggination 
+            var staticList = new StaticPagedList<OfferViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, count);
+
+            var pagginationList = new PagginationModelList<OfferViewModel>(state, staticList);
+
+            return View(pagginationList);
         }
 
         // GET: Offer/Details/5
