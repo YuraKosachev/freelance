@@ -19,6 +19,7 @@ namespace Freelance.Web.Models
         [Required]
         public TimeSpan Time { get; set; }
         public string Description { get; set; }
+        public DateTime DateOfCreate { get; set; }
         public bool FreelancerConfirm { get; set; }
     }
 }

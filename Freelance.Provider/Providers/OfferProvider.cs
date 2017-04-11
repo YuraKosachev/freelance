@@ -11,5 +11,11 @@ namespace Freelance.Provider.Providers
         {
             return new AppQuery<Offer>(Context.Set<Offer>().Include("Profile").Include("User"));
         }
+        //public override void Update(Offer item)
+        //{
+        //    Context.Set<Offer>().Attach(item);
+        //    Context.Entry(item).Property(pr => pr.FreelancerConfirm).IsModified = true;
+        //    Context.SaveChanges();
+        //}
     }
 }

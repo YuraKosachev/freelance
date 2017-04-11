@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Freelance.Provider.EntityModels
 {
-    public class Offer:IModel
+    public class Offer:IModel,IModelContainDateTime
     {
         [Key]
         public Guid Id { get; set; }
@@ -18,8 +18,7 @@ namespace Freelance.Provider.EntityModels
         [Required]
         public DateTime Date { get; set; }
         public string Description { get; set; }
-        [Required]
-        [DefaultValue(false)]
+        public DateTime DateOfCreate { get; set; }
         public bool FreelancerConfirm { get; set; }
 
         //navi setting

@@ -243,10 +243,11 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OfferController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Extensions\DateTimeExtension\DateTimeExt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HtmlHelperExtensions\HelperExtensions.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions\HelperExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\IndexState.cs" />
@@ -285,6 +286,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ConfirmOffer.js" />
     <Content Include="Scripts\freelancedatepicker.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -348,6 +350,7 @@
     <Content Include="Views\Shared\_OfferCreatePartial.cshtml" />
     <Content Include="Views\Offer\Index.cshtml" />
     <Content Include="Views\Shared\_UserConfirmed.cshtml" />
+    <Content Include="Views\Shared\_UserOfferConfirmModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,6 +19,8 @@ namespace Freelance.Provider.Providers
         public virtual Guid Create(TModel item)
         {
             item.Id = Guid.NewGuid();
+            if (item is IModelContainDateTime)
+                (item as IModelContainDateTime).DateOfCreate = DateTime.Now;
             Context.Set<TModel>().Add(item);
             Context.SaveChanges();
             return item.Id;
@@ -47,7 +49,7 @@ namespace Freelance.Provider.Providers
         }
 
         public virtual void Update(TModel item)
-        {
+         {
             Context.Entry<TModel>(item).State = EntityState.Modified;
             Context.SaveChanges();
         }

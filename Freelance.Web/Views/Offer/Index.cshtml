@@ -5,6 +5,7 @@
 <div class="page-header">
     <h1>Предложения</h1>
 </div>
+@Html.Partial("_UserOfferConfirmModal")
 <table class="table">
     <tr>
         <th>
@@ -16,9 +17,13 @@
             Time
         </th>
        
+        
         <th>
             FreelancerConfirm
         </th>
+        <th>
+            Дата размещения
+         </th>
         <th></th>
     </tr>
 
@@ -41,12 +46,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
-        <td>
+        <td >
             @Html.DisplayFor(modelItem => item.Time)
         </td>
         
         <td>
             @Html.Partial("_UserConfirmed", item)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfCreate)
         </td>
         <td>
             @if (User.IsInRole("client"))

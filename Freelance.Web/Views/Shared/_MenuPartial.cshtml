@@ -5,23 +5,31 @@
     <li>@Html.ActionLink("Домой", "Index", "Home")</li>
     @if (Request.IsAuthenticated)
     {
-        if (User.IsInRole("freelancer"))
+        if (User.IsInRole("freelancer") || User.IsInRole("client"))
         {
-            <li>@Html.ActionLink("Мои профили", "MyProfiles", "Profile")</li>
+
+            if (User.IsInRole("freelancer"))
+            {
+                <li>@Html.ActionLink("Мои профили", "MyProfiles", "Profile")</li>
+            }
+            if (User.IsInRole("client"))
+            {
+                <li> @Html.ActionLink("Обзор профилей", "Index", "Profile") </li>
+            }
+            <li>@Html.ActionLink("Предложения", "Index", "Offer")</li>
+
         }
         else if (User.IsInRole("admin"))
         {
             <li>@Html.ActionLink("Категории", "Index", "Category")</li>
         }
-        else if(User.IsInRole("client"))
-        {
-            <li> @Html.ActionLink("Обзор профилей", "Index", "Profile") </li>
-        }
+       
 
 
-            <li>@Html.ActionLink("Предложения", "Index", "Offer")</li>
+
 
     }
     @*<li>@Html.ActionLink("О программе", "About", "Home")</li>*@
     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
 </ul>
+

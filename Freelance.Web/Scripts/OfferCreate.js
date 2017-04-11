@@ -1,6 +1,7 @@
 ﻿$(function () {
     var urls = {
         OfferCreateUrl: "Offer/Create"
+       
     };
     $('[data-toggle="popover"]').popover();
     var profileId;

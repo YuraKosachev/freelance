@@ -11,6 +11,7 @@ using PagedList;
 using AutoMapper;
 using Freelance.Service.ServicesModel;
 using Microsoft.AspNet.Identity;
+using Freelance.Web.Extensions;
 
 namespace Freelance.Web.Controllers
 {
@@ -20,8 +21,8 @@ namespace Freelance.Web.Controllers
         {
             CreateMap<OfferViewModel, OfferServiceModel>()
                 .ForMember(item => item.Date, exp => exp.MapFrom(src => src.Date.Add(src.Time)))
-                .ReverseMap();
-                //.ForMember(item=>item.Time,exp=>exp.MapFrom(src=>src.Date.))
+                .ReverseMap()
+                .ForMember(item => item.Time, exp => exp.MapFrom(src => src.Date.ConvertToTimeSpan()));
               
         }
 
@@ -52,7 +53,7 @@ namespace Freelance.Web.Controllers
 
             //sorting
             if (string.IsNullOrEmpty(state.SortProperty))
-                listSetting.SortPage("Date", ascending: true);
+                listSetting.SortPage("DateOfCreate", ascending: true);
             else
                 listSetting.SortPage(state.SortProperty, state.SortAscending);
 
@@ -98,45 +99,56 @@ namespace Freelance.Web.Controllers
             }
         }
 
-        // GET: Offer/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Offer/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Confirm(OfferViewModel model)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+               
+                model.FreelancerConfirm = true;
+                OfferService.Update(Mapper.Map<OfferServiceModel>(model));
+                return new JsonResult { Data = new { OfferId = model.Id } };
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                Response.StatusCode = 500;
+                return Content(ex.Message);
             }
         }
+        // POST: Offer/Edit/5
+        //[HttpPost]
+        //public ActionResult Edit(OfferViewModel model)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add update logic here
+        //        OfferService.Update(Mapper.Map<OfferServiceModel>(model));
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: Offer/Delete/5
-        [Authorize(Roles = "client")]
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //[Authorize(Roles = "client")]
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: Offer/Delete/5
         [Authorize(Roles = "client")]
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Guid id,IndexState state)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                OfferService.Delete(id);
+                return RedirectToAction("Index",state);
             }
             catch
             {

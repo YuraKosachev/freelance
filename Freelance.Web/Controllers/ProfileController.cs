@@ -52,28 +52,50 @@ namespace Freelance.Web.Controllers
         public ActionResult Index(IndexState state)
         {
             var listSetting = ProfileService.GetList();
-            listSetting.SortPage("TimeFrom", true);
+            //sorting
+            if (string.IsNullOrEmpty(state.SortProperty))
+                listSetting.SortPage("TimeFrom", ascending: true);
+            else
+                listSetting.SortPage(state.SortProperty, state.SortAscending);
+
+            //pagging
             if (state.Page == null)
                 state.Page = 1;
             listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
 
             var list = listSetting.List().Select(model => Mapper.Map<ProfileViewModel>(model)).ToList();
+            //get count item
+            var count = listSetting.ItemCount();
+            //setting paggination 
+            var staticList = new StaticPagedList<ProfileViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, count);
 
-            return View(new StaticPagedList<ProfileViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, listSetting.ItemCount()));
+            var pagginationList = new PagginationModelList<ProfileViewModel>(state, staticList);
+            return View(pagginationList);
         }
         [Authorize(Roles = "freelancer")]
         public ActionResult MyProfiles(IndexState state)//int? page)
         {
             var listSetting = ProfileService.GetList();
+
             listSetting.Filter("UserId", User.Identity.GetUserId());
-            listSetting.SortPage("TimeFrom", true);
+            //sorting
+            if (string.IsNullOrEmpty(state.SortProperty))
+                listSetting.SortPage("TimeFrom", ascending: true);
+            else
+                listSetting.SortPage(state.SortProperty, state.SortAscending);
+
             if (state.Page == null)
                 state.Page = 1;
             listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
 
             var list = listSetting.List().Select(model => Mapper.Map<ProfileViewModel>(model)).ToList();
-            
-            return View(new StaticPagedList<ProfileViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, listSetting.ItemCount()));
+            var count = listSetting.ItemCount();
+            //setting paggination 
+            var staticList = new StaticPagedList<ProfileViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, count);
+
+            var pagginationList = new PagginationModelList<ProfileViewModel>(state, staticList);
+
+            return View(pagginationList);
         }
         // GET: Profile/Details/5
         [Authorize(Roles = "freelancer, client")]
@@ -96,7 +118,7 @@ namespace Freelance.Web.Controllers
         }
         [Authorize(Roles = "freelancer")]
         // GET: Profile/Create
-        public ActionResult Create()
+        public ActionResult Create(IndexState state)
         {
             var profile = new ProfileCreateEditViewModel {
                 Categories = CategoryService.Lookup()
@@ -106,7 +128,7 @@ namespace Freelance.Web.Controllers
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Create
         [HttpPost]
-        public ActionResult Create(ProfileCreateEditViewModel model)
+        public ActionResult Create(ProfileCreateEditViewModel model, IndexState state)
         {
             if (!ModelState.IsValid)
             {
@@ -128,7 +150,7 @@ namespace Freelance.Web.Controllers
         }
         [Authorize(Roles = "freelancer")]
         // GET: Profile/Edit/5
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(Guid id,IndexState state)
         {
             try
             {

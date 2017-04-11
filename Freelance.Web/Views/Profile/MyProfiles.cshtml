@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Freelance.Web.Models.ProfileViewModel>
+﻿@model PagginationModelList<ProfileViewModel>
 @using PagedList.Mvc;
 
 @{
@@ -8,7 +8,7 @@
 <h2>Мои профили</h2>
 
 <p>
-    @Html.ActionLink("Создать профиль","Create")
+    @Html.ActionLink("Создать профиль","Create",Model.IndexState)
     </p>
 
 
@@ -29,7 +29,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.PageList)
     {
         <tr>
 
@@ -46,16 +46,16 @@
                 @Html.DisplayFor(modelItem => item.TimeAvailability)
             </td>
             <td>
-               @Html.ActionLink("Edit", "Edit", new { Id = item.Id}) |
-                @Html.ActionLink("Details", "Details", new { Id=item.Id }) |
-             @Html.ActionLink("Delete", "Delete", new { Id = item.Id })
+               @Html.ActionLink("Edit", "Edit", new { Id = item.Id,State=Model.IndexState}) |
+                @Html.ActionLink("Details", "Details", new { Id=item.Id,State=Model.IndexState }) |
+             @Html.ActionLink("Delete", "Delete", new { Id = item.Id,State = Model.IndexState })
             </td>
         </tr>
     }
 
 </table>
 <br />
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+Страница @(Model.PageList.PageCount < Model.PageList.PageNumber ? 0 : Model.PageList.PageNumber) из @Model.PageList.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("MyProfiles", new { page }))
+@Html.PagedListPager(Model.PageList, page => Url.ActionToPage("MyProfiles", Model.IndexState, page))
 
