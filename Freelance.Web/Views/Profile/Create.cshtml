@@ -1,4 +1,4 @@
-﻿@model Freelance.Web.Models.ProfileCreateEditViewModel
+﻿@model Freelance.Web.Models.ProfileViewModel
 @using Microsoft.AspNet.Identity
 
 @{
@@ -15,21 +15,7 @@
         <h4>ProfileCreateEditViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+      
         <div class="form-group">
             @Html.LabelFor(m => m.CategoryId, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">

@@ -1,4 +1,44 @@
 ﻿$(function () {
+    //DatePickers
+    var OfferTime = $('.time').datetimepicker({
+        locale: 'ru',
+        format: 'LT',
+    });
+    $('.dayofweek').datetimepicker({
+        minDate: moment(),//disabled dates before current
+        locale: 'ru',
+        format: 'DD/MM/YYYY',
+
+    });
+    var FilterTimeTo = $('.timeFilterTo').datetimepicker({
+        locale: 'ru',
+        format: 'LT',
+    });
+    var FilterTimeFrom = $('.timeFilterFrom').datetimepicker({
+        locale: 'ru',
+        format: 'LT',
+    });
+
+    //-------------------------
+    //--clear filter
+    $(".remove").on("click", function (e) {
+        e.stopImmediatePropagation();
+        var button = $(this);
+        var attrValue = button.attr('data-remove-content');
+        console.log(attrValue);
+        $('input[name="' + attrValue + '"]').val("");
+
+    });
+    //----------------------------
+    FilterTimeTo.on('dp.change', function (selected) {
+        FilterTimeFrom.data("DateTimePicker").maxDate(selected.date);
+    });
+    FilterTimeFrom.on('dp.change', function (selected) {
+
+        FilterTimeTo.data("DateTimePicker").minDate(selected.date);
+    });
+
+    //-------------------------------
     var urls = {
         OfferCreateUrl: "Offer/Create"
        
@@ -22,7 +62,15 @@
 
 
     $('[data-offer-modal]').on('click', function () {
-        profileId = $(this).attr("data-profile-id");
+        var button = $(this);
+        profileId = button.attr("data-profile-id");
+        var timeFromH = button.attr("data-time-from-h");
+        var timeFromM = button.attr("data-time-from-m");
+        var timeToH = button.attr("data-time-to-h");
+        var timeToM = button.attr("data-time-to-m");
+
+        OfferTime.data("DateTimePicker").minDate(moment({ h: timeFromH, m: timeFromM }));
+        OfferTime.data("DateTimePicker").maxDate(moment({ h: timeToH, m: timeToM }));
         $('#OfferCreate').modal('show');
 
     });
@@ -44,16 +92,16 @@
             Date:$('[name="Date"]').val(),
             Description:$('[name="Description"]').val()
         };
-        console.log(data.Time);
+       
         
         $.post(urls.OfferCreateUrl, data)
             .success(function (suc) {
-                console.log(suc.ProfileId);
+
                 $('#OfferCreate').modal('hide');
             })
             .error(function (error) {
 
-            console.log(error);
+            
         });
        
 

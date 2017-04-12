@@ -16,6 +16,7 @@ namespace Freelance.Extensions.Interfaces
         IAppQuery<TModel> FilterOrXor<TType>(string property, TType value);
         IAppQuery<TModel> FilterAnd<TType>(string property, TType value);
         IAppQuery<TModel> FilterOr<TType>(string property, TType value);
+        IAppQuery<TModel> FilterString(string query);//delete
         int CountItem();
     }
 }

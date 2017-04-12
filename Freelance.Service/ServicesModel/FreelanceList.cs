@@ -68,5 +68,9 @@ namespace Freelance.Service.ServicesModel
         {
             ProviderList.FilterOr(property, value); 
         }
+        public void FilterString(string query)
+        {
+            ProviderList.FilterString(query);
+        }
     }
 }

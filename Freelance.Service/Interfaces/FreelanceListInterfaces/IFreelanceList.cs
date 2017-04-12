@@ -19,6 +19,7 @@ namespace Freelance.Service.Interfaces
         void FilterOrXor<TType>(string property, TType value);
         void FilterAnd<TType>(string property, TType value);
         void FilterOr<TType>(string property, TType value);
+        void FilterString(string query);
 
         IEnumerable<TModel> List();
        

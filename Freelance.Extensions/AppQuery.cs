@@ -78,7 +78,11 @@ namespace Freelance.Extensions
         {
             return GetEnumerator();
         }
-
-       
+        //delete
+        public IAppQuery<TModel> FilterString(string query)
+        {
+            Filtering = new FilteringOptions(query);
+            return this;
+        }
     }
 }

@@ -7,66 +7,43 @@
             </div>
             <div class="modal-body">
 
-                @*<div class="input-group input-group-lg">
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-time"></span>
-                    </span>
-                    <input type="text" class="form-control" placeholder="Username">
-                </div>*@
-
+               
                 <div class="container">
-                    @*<div class="row">
-                        <div class="col-sm-6">
-                            @*<div class="input-group">
-
-                                <div class='input-group time'>
-                                    @Html.TextBox("Time", new { }, new { @class = "form-control", placeholder = "Выберите время" })
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-time"></span>
-                                    </span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>*@
-
+                   
                 <div class="row">
-                    <div class='col-sm-6'>
-                        <div class="input-group">
+                    <div class="col-lg-6 col-xs-12">
+                <div class="form-group">
+                        
                             <div class='input-group date time'>
                                 @Html.TextBox("Time",new { }, new {@class="form-control", placeholder = "Выберите время" })
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-time"></span>
                                 </span>
                             </div>
+                        
+                   </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6" style="height:130px;">
-                        @*<div class="form-group">*@
-                            <div class='input-group date dayofweek' >
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <div class='input-group date dayofweek'>
                                 @Html.TextBox("Date", new { }, new { @class = "form-control", placeholder = "Выберите дату" })
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar">
                                     </span>
                                 </span>
                             </div>
-                        @*</div>*@
+                        </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        @Html.TextArea("Description",new { @class = "form-control", placeholder = "Введите описание необходимой работы" })
+                        <div class="form-group">
+                            @Html.TextArea("Description", new { @class = "form-control", placeholder = "Введите описание необходимой работы" })
+                        </div>
+
+
+
+
+
                     </div>
-                </div>
-                
-
-
-
-            </div>
 
             </div>
             <div class="modal-footer">

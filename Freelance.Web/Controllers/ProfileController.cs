@@ -22,8 +22,8 @@ namespace Freelance.Web.Controllers
         public ProfileControllerMapperProfile()
         {
             CreateMap<ProfileServiceModel,ProfileViewModel>()
-                .ForMember(item => item.TimeAvailability, exp => exp.MapFrom(src => String.Format("{0} - {1}", src.TimeFrom,src.TimeTo)));
-            CreateMap<ProfileCreateEditViewModel, ProfileServiceModel>().ReverseMap();
+                .ForMember(item => item.TimeAvailability, exp => exp.MapFrom(src => String.Format("{0} - {1}", src.TimeFrom,src.TimeTo))).ReverseMap();
+            //CreateMap<ProfileCreateEditViewModel, ProfileServiceModel>().ReverseMap();
 
            
         }
@@ -47,7 +47,7 @@ namespace Freelance.Web.Controllers
         }
 
 
-        [Authorize(Roles = "freelancer, client")]
+        [Authorize(Roles = "client")]
         // GET: Profile
         public ActionResult Index(IndexState state)
         {
@@ -58,6 +58,17 @@ namespace Freelance.Web.Controllers
             else
                 listSetting.SortPage(state.SortProperty, state.SortAscending);
 
+            //filtring
+
+            //public string UserSurname { get; set; }
+          
+           
+            if (!string.IsNullOrEmpty(state.SearchString))
+            {
+                state.SearchString.Trim();
+                listSetting.FilterString("User.UserFirstName.Contains(\"" + state.SearchString + "\") OR User.UserSurname.Contains(\"" + state.SearchString+"\")");
+            }
+                
             //pagging
             if (state.Page == null)
                 state.Page = 1;
@@ -73,7 +84,7 @@ namespace Freelance.Web.Controllers
             return View(pagginationList);
         }
         [Authorize(Roles = "freelancer")]
-        public ActionResult MyProfiles(IndexState state)//int? page)
+        public ActionResult MyProfiles(IndexState state)
         {
             var listSetting = ProfileService.GetList();
 
@@ -120,7 +131,7 @@ namespace Freelance.Web.Controllers
         // GET: Profile/Create
         public ActionResult Create(IndexState state)
         {
-            var profile = new ProfileCreateEditViewModel {
+            var profile = new ProfileViewModel {
                 Categories = CategoryService.Lookup()
             };
             return View(profile);
@@ -128,7 +139,7 @@ namespace Freelance.Web.Controllers
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Create
         [HttpPost]
-        public ActionResult Create(ProfileCreateEditViewModel model, IndexState state)
+        public ActionResult Create(ProfileViewModel model, IndexState state)
         {
             if (!ModelState.IsValid)
             {
@@ -141,7 +152,7 @@ namespace Freelance.Web.Controllers
 
                 ProfileService.Create(Mapper.Map<ProfileServiceModel>(model));
  
-                return RedirectToAction("Index");
+                return RedirectToAction("MyProfile",state);
             }
             catch
             {
@@ -154,7 +165,7 @@ namespace Freelance.Web.Controllers
         {
             try
             {
-                var item = Mapper.Map<ProfileCreateEditViewModel>(ProfileService.GetItem(id));
+                var item = Mapper.Map<ProfileViewModel>(ProfileService.GetItem(id));
                 item.Categories = CategoryService.Lookup();
                 return View(item);
             }
@@ -171,7 +182,8 @@ namespace Freelance.Web.Controllers
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Edit/5
         [HttpPost]
-        public ActionResult Edit(ProfileCreateEditViewModel model)
+       
+        public ActionResult Edit(ProfileViewModel model,IndexState state)
         {
             if (!ModelState.IsValid)
             {
@@ -182,7 +194,7 @@ namespace Freelance.Web.Controllers
             {
                 // TODO: Add update logic here
                 ProfileService.Update(Mapper.Map<ProfileServiceModel>(model));
-                return RedirectToAction("Index");
+                return RedirectToAction("MyProfile", state);
             }
             catch
             {
@@ -199,13 +211,13 @@ namespace Freelance.Web.Controllers
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Delete/5
         [HttpPost]
-        public ActionResult Delete(ProfileViewModel model)
+        public ActionResult Delete(ProfileViewModel model,IndexState state)
         {
             try
             {
                 // TODO: Add delete logic here
                 ProfileService.Delete(model.Id);
-                return RedirectToAction("Index");
+                return RedirectToAction("MyProfile", state);
             }
             catch
             {
