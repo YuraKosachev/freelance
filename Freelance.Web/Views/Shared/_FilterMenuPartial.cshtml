@@ -18,42 +18,28 @@
         </div>
         
     </div>
-    <div class="row">
-        <div class="col-lg-6 col-xs-12">
+   
+        
     <div class="form-group">
         
             <div class='input-group date timeFilterFrom'>
                 <span class="input-group-btn">
-                    <button class="btn btn-danger remove" data-remove-content="TimeFromFilter" type="button">
+                    <button class="btn btn-danger remove" data-remove-content="TimeAvailabilityFilter" type="button">
                         <span class="glyphicon glyphicon-remove removeicon"></span>
                     </button>
                 </span>
-                @Html.TextBox("TimeFromFilter", Model.TimeFromFilter, new { @class = "form-control", placeholder = "Выберите время" })
+                @Html.TextBox("TimeAvailabilityFilter", Model.TimeAvailabilityFilter, new { @class = "form-control", placeholder = "Выберите время" })
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-time"></span>
                 </span>
             </div>
         
     </div>
-            </div>
-            <div class="col-lg-6 col-xs-12">
-                <div class="form-group">
-                    
-                        <div class='input-group date timeFilterTo'>
-                            <span class="input-group-btn">
-                                <button class="btn btn-danger remove" data-remove-content="TimeToFilter" type="button">
-                                    <span class="glyphicon glyphicon-remove removeicon"></span>
-                                </button>
-                            </span>
-                            @Html.TextBox("TimeToFilter", Model.TimeToFilter, new { @class = "form-control", placeholder = "Выберите время" })
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
-                        </div>
-                    
-                </div>
-            </div>
-        </div>
+           
+            
+              
+            
+        
     <div class="form-group">
         <button type="submit" class="btn btn-default">Фильтр</button>
     </div>

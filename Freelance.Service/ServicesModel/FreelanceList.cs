@@ -39,38 +39,47 @@ namespace Freelance.Service.ServicesModel
             ProviderList.SetPageOptions(current, size);
         }
 
-        public void Filter<TType>(string property, TType value)
+        public void Filter(string predicate, params object[] values)
         {
-            ProviderList.SetFilterOptions(property,value);
+            ProviderList.SetFilterOptions(predicate,values);
+        }
+        public void FilterAnd(string predicate, params object[] values)
+        {
+            ProviderList.FilterAnd(predicate, values);
         }
 
-        public void FilterXor<TType>(string property, TType value)
+        public void FilterOr(string predicate, params object[] values)
         {
-            ProviderList.FilterXor(property, value);
+            ProviderList.FilterOr(predicate, values);
         }
 
-        public void FilterAndXor<TType>(string property, TType value)
-        {
-            ProviderList.FilterAndXor(property, value);
-        }
+        //public void FilterXor<TType>(string property, TType value)
+        //{
+        //    ProviderList.FilterXor(property, value);
+        //}
 
-        public void FilterOrXor<TType>(string property, TType value)
-        {
-            ProviderList.FilterOrXor(property, value); 
-        }
+        //public void FilterAndXor<TType>(string property, TType value)
+        //{
+        //    ProviderList.FilterAndXor(property, value);
+        //}
 
-        public void FilterAnd<TType>(string property, TType value)
-        {
-            ProviderList.FilterAnd(property, value); 
-        }
+        //public void FilterOrXor<TType>(string property, TType value)
+        //{
+        //    ProviderList.FilterOrXor(property, value); 
+        //}
 
-        public void FilterOr<TType>(string property, TType value)
-        {
-            ProviderList.FilterOr(property, value); 
-        }
-        public void FilterString(string query)
-        {
-            ProviderList.FilterString(query);
-        }
+        //public void FilterAnd<TType>(string property, TType value)
+        //{
+        //    ProviderList.FilterAnd(property, value); 
+        //}
+
+        //public void FilterOr<TType>(string property, TType value)
+        //{
+        //    ProviderList.FilterOr(property, value); 
+        //}
+        //public void FilterString(string query)
+        //{
+        //    ProviderList.FilterString(query);
+        //}
     }
 }

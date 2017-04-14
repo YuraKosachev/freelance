@@ -13,13 +13,10 @@ namespace Freelance.Service.Interfaces
         void SortPage(string property, bool ascending);
         void TakePage(int current, int size);
         //Filtring
-        void Filter<TType>(string property, TType value);
-        void FilterXor<TType>(string property, TType value);
-        void FilterAndXor<TType>(string property, TType value);
-        void FilterOrXor<TType>(string property, TType value);
-        void FilterAnd<TType>(string property, TType value);
-        void FilterOr<TType>(string property, TType value);
-        void FilterString(string query);
+        void Filter(string predicate, params object[] values);
+        void FilterAnd(string predicate, params object[] values);
+        void FilterOr(string predicate, params object[] values);
+      
 
         IEnumerable<TModel> List();
        

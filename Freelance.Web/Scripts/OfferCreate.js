@@ -30,13 +30,13 @@
 
     });
     //----------------------------
-    FilterTimeTo.on('dp.change', function (selected) {
-        FilterTimeFrom.data("DateTimePicker").maxDate(selected.date);
-    });
-    FilterTimeFrom.on('dp.change', function (selected) {
+    //FilterTimeTo.on('dp.change', function (selected) {
+    //    FilterTimeFrom.data("DateTimePicker").maxDate(selected.date);
+    //});
+    //FilterTimeFrom.on('dp.change', function (selected) {
 
-        FilterTimeTo.data("DateTimePicker").minDate(selected.date);
-    });
+    //    FilterTimeTo.data("DateTimePicker").minDate(selected.date);
+    //});
 
     //-------------------------------
     var urls = {

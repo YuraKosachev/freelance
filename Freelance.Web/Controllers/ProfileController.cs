@@ -58,15 +58,19 @@ namespace Freelance.Web.Controllers
             else
                 listSetting.SortPage(state.SortProperty, state.SortAscending);
 
-            //filtring
-
-            //public string UserSurname { get; set; }
-          
-           
+            //filtring           
             if (!string.IsNullOrEmpty(state.SearchString))
             {
                 state.SearchString.Trim();
-                listSetting.FilterString("User.UserFirstName.Contains(\"" + state.SearchString + "\") OR User.UserSurname.Contains(\"" + state.SearchString+"\")");
+                listSetting.Filter("User.UserFirstName.Contains(@0) OR User.UserSurname.Contains(@0) OR DescriptionProfile.Contains(@0)",state.SearchString);
+            }
+            if (state.TimeAvailabilityFilter != null)
+            {
+                listSetting.FilterAnd("TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailabilityFilter);//"TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailabilityFilter);
+            }
+            if (state.CategoryId != null)
+            {
+                listSetting.FilterAnd("CategoryId == @0", (Guid)state.CategoryId);
             }
                 
             //pagging

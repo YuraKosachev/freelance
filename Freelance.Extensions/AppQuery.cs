@@ -13,7 +13,7 @@ namespace Freelance.Extensions
         private IQueryable<TModel> Query { get; set; }
         public PagingOptions Paging { get; set; }
         public SortingOptions Sorting { get; set; }
-        public FilteringOptions Filtering { get; set; }
+        public FilteringOptions<TModel> Filtering { get; set; }
         public AppQuery(IQueryable<TModel> query)
         {
             Query = query;
@@ -34,41 +34,72 @@ namespace Freelance.Extensions
             return this;
         }
 
-        public IAppQuery<TModel> SetFilterOptions<TType>(string property,TType value )
+        public IAppQuery<TModel> SetFilterOptions(string predicate,params object[] values )
         {
-            Filtering = new FilteringOptions(String.Format("{0} == \"{1}\"",property,value));
+            
+                Filtering = new FilteringOptions<TModel>(predicate, values);
+            
             return this;
         }
-        public IAppQuery<TModel> FilterXor<TType>(string property, TType value)
-        {
-            Filtering = new FilteringOptions(String.Format("{0} != {1}", property, value));
-            return this;
-        }
-        public IAppQuery<TModel> FilterAndXor<TType>(string property, TType value)
+        public IAppQuery<TModel> FilterAnd(string predicate, params object[] values)
         {
             if (Filtering != null)
-                Filtering.Query += String.Format(" AND {0} != {1}", property, value);
+            {
+                var key = Filtering.NextKey();
+                Filtering.Queries.Add(key, FilterPredicate<TModel>.GetExpression(predicate, values));
+                Filtering.Predicate = String.Format("{0} AND @{1}(it)", Filtering.Predicate, key);
+            }
+            else
+            {
+                SetFilterOptions(predicate, values);
+            } 
             return this;
         }
-        public IAppQuery<TModel> FilterOrXor<TType>(string property, TType value)
+        public IAppQuery<TModel> FilterOr(string predicate, params object[] values)
         {
             if (Filtering != null)
-                Filtering.Query += String.Format(" OR {0} != {1}", property, value);
+            {
+                var key = Filtering.NextKey();
+                Filtering.Queries.Add(key, FilterPredicate<TModel>.GetExpression(predicate, values));
+                Filtering.Predicate = String.Format("{0} OR @{1}(it)", Filtering.Predicate, key);
+            }
+            else
+            {
+                SetFilterOptions(predicate, values);
+            }
             return this;
         }
-        public IAppQuery<TModel> FilterAnd<TType>(string property, TType value)
-       {
-            if (Filtering != null)
-                Filtering.Query += String.Format(" AND {0} == {1}", property, value);
-            return this;
-       }
-        public IAppQuery<TModel> FilterOr<TType>(string property, TType value)
-        {
-            if (Filtering != null)
-                Filtering.Query += String.Format(" OR {0} == {1}", property, value);
-            return this;
-        }
-        
+
+        // public IAppQuery<TModel> FilterXor<TType>(string property, TType value)
+        // {
+        //     Filtering = new FilteringOptions(String.Format("{0} != {1}", property, value));
+        //     return this;
+        // }
+        // public IAppQuery<TModel> FilterAndXor<TType>(string property, TType value)
+        // {
+        //     if (Filtering != null)
+        //         Filtering.Query += String.Format(" AND {0} != {1}", property, value);
+        //     return this;
+        // }
+        // public IAppQuery<TModel> FilterOrXor<TType>(string property, TType value)
+        // {
+        //     if (Filtering != null)
+        //         Filtering.Query += String.Format(" OR {0} != {1}", property, value);
+        //     return this;
+        // }
+        // public IAppQuery<TModel> FilterAnd<TType>(string property, TType value)
+        //{
+        //     if (Filtering != null)
+        //         Filtering.Query += String.Format(" AND {0} == {1}", property, value);
+        //     return this;
+        //}
+        // public IAppQuery<TModel> FilterOr<TType>(string property, TType value)
+        // {
+        //     if (Filtering != null)
+        //         Filtering.Query += String.Format(" OR {0} == {1}", property, value);
+        //     return this;
+        // }
+
         public IEnumerator<TModel> GetEnumerator()
         {
             return Query.Filter(Filtering).Sort(Sorting).TakePage(Paging).GetEnumerator();
@@ -78,11 +109,13 @@ namespace Freelance.Extensions
         {
             return GetEnumerator();
         }
+
+
         //delete
-        public IAppQuery<TModel> FilterString(string query)
-        {
-            Filtering = new FilteringOptions(query);
-            return this;
-        }
+        //public IAppQuery<TModel> FilterString(string query)
+        //{
+        //    Filtering = new FilteringOptions(query);
+        //    return this;
+        //}
     }
 }
