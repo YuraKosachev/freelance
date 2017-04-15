@@ -10,7 +10,7 @@
 
             if (User.IsInRole("freelancer"))
             {
-                <li>@Html.ActionLink("Мои профили", "MyProfiles", "Profile")</li>
+                <li>@Html.ActionLink("Мои профили", "FreelancerProfiles", "Profile")</li>
             }
             if (User.IsInRole("client"))
             {

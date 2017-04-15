@@ -31,12 +31,15 @@ namespace Freelance.Web.Controllers
     public class OfferController : Controller
     {
         private IOfferService OfferService { get; set; }
+        private IProfileService ProfileService { get; set; }
         [InjectionConstructor]
-        public OfferController(IOfferService offerService)
+        public OfferController(IOfferService offerService,IProfileService profileService)
         {
             OfferService = offerService;
+            ProfileService = profileService;
         }
 
+      
         // GET: Offer
         [Authorize(Roles = "freelancer, client")]
         public ActionResult Index(IndexState state)
@@ -46,31 +49,15 @@ namespace Freelance.Web.Controllers
 
             //filtring
             if (User.IsInRole("client"))
-                listSetting.Filter("UserId", userId);
+                listSetting.Filter("UserId == @0", userId);
             if(User.IsInRole("freelancer"))
-                listSetting.Filter("Profile.UserId", userId);
+                listSetting.Filter("Profile.UserId == @0", userId);
 
 
-            //sorting
-            if (string.IsNullOrEmpty(state.SortProperty))
-                listSetting.SortPage("DateOfCreate", ascending: true);
-            else
-                listSetting.SortPage(state.SortProperty, state.SortAscending);
+            listSetting.Sort(state, "DateOfCreate").Page(state);
 
-            //pagging
-            if (state.Page == null)
-                state.Page = 1;
-            listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
-            //get sortedlist
-            var list = listSetting.List().Select(model => Mapper.Map<OfferViewModel>(model)).ToList();
-
-            //get count item
-            var count = listSetting.ItemCount();
-
-            //setting paggination 
-            var staticList = new StaticPagedList<OfferViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, count);
-
-            var pagginationList = new PagginationModelList<OfferViewModel>(state, staticList);
+            var list = listSetting.StaticList<OfferViewModel, OfferServiceModel>(state);
+            var pagginationList = new PagginationModelList<OfferViewModel>(state, list);
 
             return View(pagginationList);
         }

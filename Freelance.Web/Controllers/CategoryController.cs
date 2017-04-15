@@ -12,6 +12,7 @@ using Freelance.Service.Interfaces;
 using AutoMapper;
 using Freelance.FreelanceException;
 using Microsoft.Practices.Unity;
+using Freelance.Web.Extensions;
 
 namespace Freelance.Web.Controllers
 {
@@ -45,38 +46,25 @@ namespace Freelance.Web.Controllers
         public ActionResult Index(IndexState state)
         {
             var listSetting = Service.GetList();
-            //sorting
-            if(string.IsNullOrEmpty(state.SortProperty))
-                listSetting.SortPage("NameCategory",ascending:true);
-            else
-                listSetting.SortPage(state.SortProperty, state.SortAscending);
-            //pagging
-            if (state.Page == null)
-                state.Page = 1;
-            listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
-            //get sortedlist
-            var list = listSetting.List().Select(model => Mapper.Map<CategoryViewModel>(model)).ToList();
-            //get count item
-            var count = listSetting.ItemCount();
-
-            //setting paggination 
-            var staticList = new StaticPagedList<CategoryViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, count);
-          
-            var pagginationList = new PagginationModelList<CategoryViewModel>(state,staticList);
+            //add filter
+            listSetting.Sort(state, "NameCategory").Page(state);
+            var list = listSetting.StaticList<CategoryViewModel, CategoryServiceModel>(state);
+            var pagginationList = new PagginationModelList<CategoryViewModel>(state,list);
 
             return View(pagginationList);
         }
 
         // GET: Category/Details/5
-        public ActionResult Details(Guid id)
-        {
-            return View();
-        }
+        //public ActionResult Details(Guid id)
+        //{
+        //    return View();
+        //}
 
         // GET: Category/Create
-        public ActionResult Create()
+        public ActionResult Create(IndexState state)
         {
-            return View();
+            var item = new CategoryViewModel { IndexState = state };
+            return View(item);
         }
 
         // POST: Category/Create
@@ -100,7 +88,7 @@ namespace Freelance.Web.Controllers
         }
 
         // GET: Category/Edit/5
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(Guid id,IndexState state)
         {
             try
             {

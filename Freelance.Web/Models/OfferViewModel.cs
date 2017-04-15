@@ -6,6 +6,7 @@ namespace Freelance.Web.Models
 {
     public class OfferViewModel
     {
+        public IndexState IndexState { get; set; }
         public Guid Id { get; set; }
         public Guid ProfileId { get; set; }
         public string UserId { get; set; }

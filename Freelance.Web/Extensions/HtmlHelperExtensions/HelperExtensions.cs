@@ -12,13 +12,16 @@ namespace Freelance.Web.HtmlHelperExtensions
 {
     public static class HelperExtensions
     {
-        public static string SortLink(this UrlHelper helper, string action, IndexState indexState, string sortProperty)
+        public static string Link(this UrlHelper helper, string action, IndexState indexState, string sortProperty)
         {
             var indexStateRoutes = new RouteValueDictionary(new
             {
                 indexState.SearchString,
                 SortProperty = sortProperty,
-                SortAscending = !(indexState.SortAscending && indexState.SortProperty == sortProperty)
+                SortAscending = !(indexState.SortAscending && indexState.SortProperty == sortProperty),
+                CategoryId = indexState.CategoryId,
+                TimeAvailability = indexState.TimeAvailability
+
             });
 
             indexState.GetFilters().ForEach(r => indexStateRoutes.Add(r.Key, r.Value));
@@ -33,7 +36,9 @@ namespace Freelance.Web.HtmlHelperExtensions
                 page,
                 indexState.SearchString,
                 indexState.SortProperty,
-                indexState.SortAscending
+                indexState.SortAscending,
+                indexState.TimeAvailability,
+                indexState.CategoryId
             });
 
             indexState.GetFilters().ForEach(r => indexStateRoutes.Add(r.Key, r.Value));
@@ -62,7 +67,9 @@ namespace Freelance.Web.HtmlHelperExtensions
                 indexState.Page,
                 indexState.SearchString,
                 indexState.SortProperty,
-                indexState.SortAscending
+                indexState.SortAscending,
+                indexState.TimeAvailability,
+                indexState.CategoryId
             });
 
             indexState.GetFilters().ForEach(r => indexStateRoutes.Add(r.Key, r.Value));

@@ -11,24 +11,31 @@ namespace Freelance.Extensions
     public class FilteringOptions<TModel>
         
     {
-        public IDictionary<int, Expression<Func<TModel, bool>>> Queries { get; set; }
-        public string Predicate { get; set; }
+        
+        public Expression<Func<TModel, bool>> Predicate { get; private set; }
         public FilteringOptions(string predicate,params object[] values)
         {
-            Queries = new Dictionary<int, Expression<Func<TModel, bool>>>();
-            Queries.Add(0, FilterPredicate<TModel>.GetExpression(predicate, values));
-            Predicate = String.Format("@{0}(it)",0);
-           
+            Predicate = GetExpression(predicate, values);
         }
-        public int NextKey()
+        public Expression<Func<TModel, bool>> GetExpression(string predicate, object[] values)
         {
-            var key = Queries.Keys.Last();
-            return ++key;
+            return System.Linq.Dynamic.DynamicExpression.ParseLambda<TModel, bool>(predicate, values);
+        }
+        public FilteringOptions<TModel> And(Expression<Func<TModel, bool>> predicate)
+        {
+            Predicate = Predicate.AndAlso(predicate);
+
+            return this;
+        }
+        public FilteringOptions<TModel> Or(Expression<Func<TModel, bool>> predicate)
+        {
+            Predicate = Predicate.OrElse(predicate);
+
+            return this;
         }
         public IQueryable<TModel> Filter(IQueryable<TModel> context)
         {
-            var exp = System.Linq.Dynamic.DynamicExpression.ParseLambda<TModel, bool>(Predicate, Queries.Values.ToArray());
-            return context.Where(exp);//Predicate, Queries.Values.ToArray());
+            return context.Where(Predicate);
         }
     }
 }

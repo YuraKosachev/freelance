@@ -20,12 +20,17 @@
             <tr>
                 <th>
                     Категории
+                    <a href="@Url.SortLink("Index", Model.IndexState, "Category.NameCategory")" class="btn btn-default btn-xs active" role="button">
+                    <span class="@Html.GetSortClass(Model.IndexState, "Category.NameCategory")"></span>
+                </a>
                 </th>
                 <th>
                 </th>
                 <th>
                     Время доступности
-                </th>
+                    <a href="@Url.SortLink("Index", Model.IndexState, "TimeFrom")" class="btn btn-default btn-xs active" role="button">
+                        <span class="@Html.GetSortClass(Model.IndexState, "TimeFrom")"></span>
+</th>
                 <th></th>
             </tr>
 

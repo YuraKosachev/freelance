@@ -14,6 +14,7 @@ using Freelance.Service.Interfaces;
 using Freelance.Service.Services;
 using Freelance.FreelanceException;
 using Microsoft.Practices.Unity;
+using Freelance.Web.Extensions;
 
 namespace Freelance.Web.Controllers
 {
@@ -51,64 +52,35 @@ namespace Freelance.Web.Controllers
         // GET: Profile
         public ActionResult Index(IndexState state)
         {
-            var listSetting = ProfileService.GetList();
-            //sorting
-            if (string.IsNullOrEmpty(state.SortProperty))
-                listSetting.SortPage("TimeFrom", ascending: true);
-            else
-                listSetting.SortPage(state.SortProperty, state.SortAscending);
-
-            //filtring           
+            var listSetting = ProfileService.GetList();       
             if (!string.IsNullOrEmpty(state.SearchString))
             {
                 state.SearchString.Trim();
                 listSetting.Filter("User.UserFirstName.Contains(@0) OR User.UserSurname.Contains(@0) OR DescriptionProfile.Contains(@0)",state.SearchString);
             }
-            if (state.TimeAvailabilityFilter != null)
+            if (state.TimeAvailability != null)
             {
-                listSetting.FilterAnd("TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailabilityFilter);//"TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailabilityFilter);
+                listSetting.FilterAnd("TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailability);//"TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailabilityFilter);
             }
-            if (state.CategoryId != null)
+            if (state.CategoryId != Guid.Empty)
             {
                 listSetting.FilterAnd("CategoryId == @0", (Guid)state.CategoryId);
             }
-                
-            //pagging
-            if (state.Page == null)
-                state.Page = 1;
-            listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
-
-            var list = listSetting.List().Select(model => Mapper.Map<ProfileViewModel>(model)).ToList();
-            //get count item
-            var count = listSetting.ItemCount();
-            //setting paggination 
-            var staticList = new StaticPagedList<ProfileViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, count);
-
-            var pagginationList = new PagginationModelList<ProfileViewModel>(state, staticList);
+            state.Categories = CategoryService.Lookup();
+            state.Categories.Add(Guid.Empty, "All");
+            listSetting.Sort(state, "TimeFrom").Page(state);
+            var list = listSetting.StaticList<ProfileViewModel, ProfileServiceModel>(state);
+            var pagginationList = new PagginationModelList<ProfileViewModel>(state, list);
             return View(pagginationList);
         }
         [Authorize(Roles = "freelancer")]
-        public ActionResult MyProfiles(IndexState state)
+        public ActionResult FreelancerProfiles(IndexState state)
         {
             var listSetting = ProfileService.GetList();
-
-            listSetting.Filter("UserId", User.Identity.GetUserId());
-            //sorting
-            if (string.IsNullOrEmpty(state.SortProperty))
-                listSetting.SortPage("TimeFrom", ascending: true);
-            else
-                listSetting.SortPage(state.SortProperty, state.SortAscending);
-
-            if (state.Page == null)
-                state.Page = 1;
-            listSetting.TakePage((int)state.Page, Properties.Settings.Default.CountItemInPage);
-
-            var list = listSetting.List().Select(model => Mapper.Map<ProfileViewModel>(model)).ToList();
-            var count = listSetting.ItemCount();
-            //setting paggination 
-            var staticList = new StaticPagedList<ProfileViewModel>(list, (int)state.Page, Properties.Settings.Default.CountItemInPage, count);
-
-            var pagginationList = new PagginationModelList<ProfileViewModel>(state, staticList);
+            listSetting.Filter("UserId == @0", User.Identity.GetUserId());
+            listSetting.Sort(state, "TimeFrom").Page(state);
+            var list = listSetting.StaticList<ProfileViewModel, ProfileServiceModel>(state);
+            var pagginationList = new PagginationModelList<ProfileViewModel>(state, list);
 
             return View(pagginationList);
         }
@@ -135,9 +107,11 @@ namespace Freelance.Web.Controllers
         // GET: Profile/Create
         public ActionResult Create(IndexState state)
         {
+            state.Categories = CategoryService.Lookup();
             var profile = new ProfileViewModel {
-                Categories = CategoryService.Lookup()
+                IndexState = state
             };
+            
             return View(profile);
         }
         [Authorize(Roles = "freelancer")]
@@ -147,7 +121,7 @@ namespace Freelance.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.Categories = CategoryService.Lookup();
+                model.IndexState.Categories = CategoryService.Lookup();
                 return View(model);
             }
             try
@@ -156,7 +130,7 @@ namespace Freelance.Web.Controllers
 
                 ProfileService.Create(Mapper.Map<ProfileServiceModel>(model));
  
-                return RedirectToAction("MyProfile",state);
+                return RedirectToAction("FreelancerProfiles", state);
             }
             catch
             {
@@ -170,7 +144,8 @@ namespace Freelance.Web.Controllers
             try
             {
                 var item = Mapper.Map<ProfileViewModel>(ProfileService.GetItem(id));
-                item.Categories = CategoryService.Lookup();
+                item.IndexState = state;
+                item.IndexState.Categories = CategoryService.Lookup();
                 return View(item);
             }
             catch (ItemNotFoundException e)
@@ -191,14 +166,15 @@ namespace Freelance.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.Categories = CategoryService.Lookup();
+                state.Categories = CategoryService.Lookup();
+                model.IndexState = state;
                 return View(model);
             }
             try
             {
                 // TODO: Add update logic here
                 ProfileService.Update(Mapper.Map<ProfileServiceModel>(model));
-                return RedirectToAction("MyProfile", state);
+                return RedirectToAction("FreelancerProfiles", state);
             }
             catch
             {
@@ -207,7 +183,7 @@ namespace Freelance.Web.Controllers
         }
         [Authorize(Roles = "freelancer")]
         // GET: Profile/Delete/5
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(Guid id,IndexState state)
         {
             var item = ProfileService.GetItem(id);
             return View(Mapper.Map<ProfileViewModel>(item));
@@ -221,7 +197,7 @@ namespace Freelance.Web.Controllers
             {
                 // TODO: Add delete logic here
                 ProfileService.Delete(model.Id);
-                return RedirectToAction("MyProfile", state);
+                return RedirectToAction("FreelancerProfiles", state);
             }
             catch
             {

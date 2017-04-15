@@ -29,3 +29,8 @@ textarea {
 .removeicon {
 color:white;
 }
+
+textarea {
+    height:500px;
+    resize: none;
+}

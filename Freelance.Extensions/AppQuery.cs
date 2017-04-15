@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Freelance.Extensions.Interfaces;
+using System.Linq.Expressions;
 
 namespace Freelance.Extensions
 {
@@ -22,51 +23,41 @@ namespace Freelance.Extensions
         {
             return Paging.Total;
         }
-        public IAppQuery<TModel> SetPageOptions(int current, int size)
+        public IAppQuery<TModel> TakePage(int current, int size)
         {
             Paging = new PagingOptions(current, size);
             return this;
         }
 
-        public IAppQuery<TModel> SetSortOptions(string property, bool ascending)
+        public IAppQuery<TModel> Sort(string property, bool ascending)
         {
             Sorting = new SortingOptions(property, ascending);
             return this;
         }
 
-        public IAppQuery<TModel> SetFilterOptions(string predicate,params object[] values )
+        public IAppQuery<TModel> Filter(string predicate,object[] values )
         {
-            
-                Filtering = new FilteringOptions<TModel>(predicate, values);
-            
+            Filtering = new FilteringOptions<TModel>(predicate, values);
             return this;
         }
-        public IAppQuery<TModel> FilterAnd(string predicate, params object[] values)
+        public IAppQuery<TModel> AndAlsoFilter(string predicate, object[] values)
         {
-            if (Filtering != null)
+            if (Filtering == null)
             {
-                var key = Filtering.NextKey();
-                Filtering.Queries.Add(key, FilterPredicate<TModel>.GetExpression(predicate, values));
-                Filtering.Predicate = String.Format("{0} AND @{1}(it)", Filtering.Predicate, key);
+                return Filter(predicate, values);
             }
-            else
-            {
-                SetFilterOptions(predicate, values);
-            } 
+            Filtering.And(Filtering.GetExpression(predicate, values));
+
             return this;
         }
-        public IAppQuery<TModel> FilterOr(string predicate, params object[] values)
+        
+        public IAppQuery<TModel> OrElseFilter(string predicate, object[] values)
         {
-            if (Filtering != null)
+            if (Filtering == null)
             {
-                var key = Filtering.NextKey();
-                Filtering.Queries.Add(key, FilterPredicate<TModel>.GetExpression(predicate, values));
-                Filtering.Predicate = String.Format("{0} OR @{1}(it)", Filtering.Predicate, key);
+                return Filter(predicate, values);
             }
-            else
-            {
-                SetFilterOptions(predicate, values);
-            }
+            Filtering.Predicate.OrElse(Filtering.GetExpression(predicate, values));
             return this;
         }
 

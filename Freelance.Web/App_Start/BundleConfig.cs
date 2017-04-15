@@ -32,7 +32,8 @@ namespace Freelance.Web
                       "~/Scripts/respond.js"));
             bundles.Add(new ScriptBundle("~/bundles/MyScripts").Include(
                       "~/Scripts/offercreate.js",
-                      "~/Scripts/freelancedatepicker.js"));
+                      "~/Scripts/freelancedatepicker.js",
+                      "~/Scripts/holder.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

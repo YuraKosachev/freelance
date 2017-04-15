@@ -31,55 +31,26 @@ namespace Freelance.Service.ServicesModel
 
         public void SortPage(string property, bool ascending)
         {
-            ProviderList.SetSortOptions(property, ascending);
+            ProviderList.Sort(property, ascending);
         }
 
         public void TakePage(int current, int size)
         {
-            ProviderList.SetPageOptions(current, size);
+            ProviderList.TakePage(current, size);
         }
 
         public void Filter(string predicate, params object[] values)
         {
-            ProviderList.SetFilterOptions(predicate,values);
+            ProviderList.Filter(predicate,values);
         }
         public void FilterAnd(string predicate, params object[] values)
         {
-            ProviderList.FilterAnd(predicate, values);
+            ProviderList.AndAlsoFilter(predicate, values);
         }
 
         public void FilterOr(string predicate, params object[] values)
         {
-            ProviderList.FilterOr(predicate, values);
+            ProviderList.OrElseFilter(predicate, values);
         }
-
-        //public void FilterXor<TType>(string property, TType value)
-        //{
-        //    ProviderList.FilterXor(property, value);
-        //}
-
-        //public void FilterAndXor<TType>(string property, TType value)
-        //{
-        //    ProviderList.FilterAndXor(property, value);
-        //}
-
-        //public void FilterOrXor<TType>(string property, TType value)
-        //{
-        //    ProviderList.FilterOrXor(property, value); 
-        //}
-
-        //public void FilterAnd<TType>(string property, TType value)
-        //{
-        //    ProviderList.FilterAnd(property, value); 
-        //}
-
-        //public void FilterOr<TType>(string property, TType value)
-        //{
-        //    ProviderList.FilterOr(property, value); 
-        //}
-        //public void FilterString(string query)
-        //{
-        //    ProviderList.FilterString(query);
-        //}
     }
 }

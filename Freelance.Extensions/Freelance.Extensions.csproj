@@ -46,9 +46,9 @@
   <ItemGroup>
     <Compile Include="AppQuery.cs" />
     <Compile Include="ExtOptions\FilteringOptions.cs" />
-    <Compile Include="ExtOptions\FilterPredicate.cs" />
     <Compile Include="ExtOptions\PagingOptions.cs" />
     <Compile Include="ExtOptions\SortingOptions.cs" />
+    <Compile Include="ExtOptions\Utility.cs" />
     <Compile Include="Interfaces\IAppQuery.cs" />
     <Compile Include="Interfaces\IFilteringOptions.cs" />
     <Compile Include="Interfaces\IPagingOptions.cs" />

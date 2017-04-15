@@ -7,8 +7,8 @@
 <h2>Мои профили</h2>
 
 <p>
-    @Html.ActionLink("Создать профиль","Create",Model.IndexState)
-    </p>
+    @Html.ActionLink("Создать профиль", "Create", Model.IndexState)
+</p>
 
 
 <table class="table">
@@ -45,9 +45,9 @@
                 @Html.DisplayFor(modelItem => item.TimeAvailability)
             </td>
             <td>
-               @Html.ActionLink("Edit", "Edit", new { Id = item.Id,State=Model.IndexState}) |
-                @Html.ActionLink("Details", "Details", new { Id=item.Id,State=Model.IndexState }) |
-             @Html.ActionLink("Delete", "Delete", new { Id = item.Id,State = Model.IndexState })
+                @Html.ActionLink("Edit", "Edit", new { Id = item.Id, State = Model.IndexState }) |
+                @Html.ActionLink("Details", "Details", new { Id = item.Id, State = Model.IndexState }) |
+                @Html.ActionLink("Delete", "Delete", new { Id = item.Id, State = Model.IndexState })
             </td>
         </tr>
     }
@@ -56,5 +56,7 @@
 <br />
 Страница @(Model.PageList.PageCount < Model.PageList.PageNumber ? 0 : Model.PageList.PageNumber) из @Model.PageList.PageCount
 
-@Html.PagedListPager(Model.PageList, page => Url.ActionToPage("MyProfiles", Model.IndexState, page))
+@Html.PagedListPager(Model.PageList, page => Url.ActionToPage("FreelancerProfiles", Model.IndexState, page))
+
+
 

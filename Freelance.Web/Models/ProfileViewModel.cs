@@ -8,7 +8,7 @@ namespace Freelance.Web.Models
    
     public class ProfileViewModel
     {
-       
+        public IndexState IndexState { get; set; } 
         public Guid Id { get; set; }
         public string UserId { get; set; }
         public Guid CategoryId { get; set; }
@@ -24,7 +24,7 @@ namespace Freelance.Web.Models
         public string TimeAvailability { get; set; }
         [Display(Name ="Номер телефона")]
         public string PhoneNumber { get; set; }
-        public IDictionary<Guid, string> Categories { get; set; }
+        //public IDictionary<Guid, string> Categories { get; set; }
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }
 
