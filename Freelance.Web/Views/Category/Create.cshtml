@@ -3,20 +3,24 @@
 @{
     ViewBag.Title = "Create";
 }
-
+@Html.Partial("_ImageEditorPartial")
 <div class="page-header">
     <h2><span class="glyphicon glyphicon-asterisk"></span> СОЗДАТЬ<small> новую категорию</small></h2>
 </div>
-@using (Html.BeginForm(new { indexState = Model.IndexState }))
+@using (Html.BeginForm(new {Page =  Model.IndexState.Page, SortAscending= Model.IndexState.SortAscending, SortProperty = Model.IndexState.SortProperty}))
 {
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-md-offset-2 col-md-8 ">
             <div class="row">
                 <div class="col-md-3 col-xs-6">
+                    <div class="actions" hidden>
+                         <input type="hidden" name="Image" />
+                         <input type="file" id="upload" data-type-file="image" value="Choose a file" accept="image/png" />
+                    </div>
 
-                    <a href="#" class="thumbnail">
-                        <img data-src="holder.js/146x155" alt="...">
+                    <a href="#" class="thumbnail"  >
+                        <img data-src="holder.js/146x155" src="" data-element-role="imageContainer" alt="...">
                     </a>
                 </div>
 
@@ -54,4 +58,104 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/exif.js"></script>
+<script type="text/javascript">
+   
+    
+
+
+    $(function () {
+        $('a.thumbnail').on("click", function (e) {
+            $("input[type='file']").trigger('click');
+        });
+        $("input[data-type-file='image']").on("change", function () {
+
+            $("[data-modal-role='ImageEditor']").modal('show');
+            var path = $(this).val();
+            alert(path);
+        });
+        //----
+        //function demoUpload() {
+            var $uploadCrop;
+
+            function readFile(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.upload-demo').addClass('ready');
+                        $uploadCrop.croppie('bind', {
+                            url: e.target.result
+                        }).then(function () {
+                            console.log('jQuery bind complete');
+                        });
+
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+                else {
+                    swal("Sorry - you're browser doesn't support the FileReader API");
+                }
+            }
+
+            $uploadCrop = $('#upload-demo').croppie({
+                viewport: {
+                    width: 146,
+                    height: 155,
+                    type: 'square'
+                },
+                boundary: {
+                            width: 300,
+                            height: 300
+                       },
+                enableExif: true
+            });
+
+            $('#upload').on('change', function () { readFile(this); });
+            $('.upload-result').on('click', function (ev) {
+                var result = $uploadCrop.croppie('result', {
+                    type: 'base64',
+                    size: 'viewport',
+                    format:'png'
+                }).then(function (resp) {
+                    var imgContainer = $("img[data-element-role='imageContainer']");
+                    //imgContainer.removeAttr('data-src');
+                    $("img[data-element-role='imageContainer']").attr('src', resp)
+                    $("input[name='Image']").val(resp);
+                    
+                });
+                
+                //$uploadCrop.croppie('result', {
+                //    type: 'canvas',
+                //    size: 'viewport'
+                //}).then(function (resp) {
+                //    popupResult({
+                //        src: resp
+                //    });
+                //});
+            });
+
+
+       // }
+
+
+
+       
+        //----
+
+        //$uploadCrop = $('#upload-demo').croppie({
+        //    enableExif: true,
+        //    viewport: {
+        //        width: 146,
+        //        height: 155,
+        //        type: 'square'
+        //    },
+        //    boundary: {
+        //        width: 400,
+        //        height: 400
+        //    }
+        //});
+    });
+    </script>
 }

@@ -14,7 +14,7 @@ namespace Freelance.Web.Models
         public string SortProperty { get; set; }
         public int CountItemInPage { get; set; }
         public IDictionary<Guid, string> Categories { get; set; }
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
         public TimeSpan? TimeAvailability { get; set; }
         public virtual RouteValueDictionary GetFilters()
         {

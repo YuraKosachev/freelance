@@ -34,8 +34,11 @@ namespace Freelance.Web
                       "~/Scripts/offercreate.js",
                       "~/Scripts/freelancedatepicker.js",
                       "~/Scripts/holder.min.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Croppie").Include(
+                    "~/Scripts/croppie.min.js"));
+            bundles.Add(new StyleBundle("~/Content/Croppie").Include(
+                        "~/Content/croppie.css"));
+           bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/PagedList.css"));

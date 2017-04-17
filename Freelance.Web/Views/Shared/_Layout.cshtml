@@ -7,7 +7,7 @@
     <title>@ViewBag.Title – приложение ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
- 
+    @Styles.Render("~/Content/Croppie") 
     @Styles.Render("~/Content/datetimepicker")
 
 </head>
@@ -41,6 +41,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/datetimepicker")
     @Scripts.Render("~/bundles/MyScripts")
+    @Scripts.Render("~/bundles/Croppie")
     <script src="~/Scripts/ConfirmOffer.js"></script>
     @RenderSection("scripts", required: false)
 </body>

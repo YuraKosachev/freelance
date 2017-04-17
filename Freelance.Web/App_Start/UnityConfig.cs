@@ -47,6 +47,8 @@ namespace Freelance.Web.App_Start
             container.RegisterType<ICategoryService, CategoryService>();
             container.RegisterType<IOfferService, OfferService>();
             container.RegisterType<IProfileService, ProfileService>();
+            //file service
+            container.RegisterType<IAdminFileService, AdminFileService>();
 
             UnityDependencyConfig.RegisterTypes(container);
         }

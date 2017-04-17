@@ -11,6 +11,7 @@ namespace Freelance.Service.Services
    
     {
         protected IProvider<TProviderModel> Provider { get; set; }
+        
         public FreelanceService()
         {
 
@@ -20,6 +21,7 @@ namespace Freelance.Service.Services
             Provider = provider;
 
         }
+        
         public virtual Guid Create(TModelService item)
         {
            return Provider.Create(Mapper.Map<TProviderModel>(item));

@@ -62,7 +62,7 @@ namespace Freelance.Web.Controllers
             {
                 listSetting.FilterAnd("TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailability);//"TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailabilityFilter);
             }
-            if (state.CategoryId != Guid.Empty)
+            if ((state.CategoryId != null) && (state.CategoryId != Guid.Empty) )
             {
                 listSetting.FilterAnd("CategoryId == @0", (Guid)state.CategoryId);
             }

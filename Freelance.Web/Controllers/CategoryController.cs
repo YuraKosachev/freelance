@@ -13,6 +13,7 @@ using AutoMapper;
 using Freelance.FreelanceException;
 using Microsoft.Practices.Unity;
 using Freelance.Web.Extensions;
+using Microsoft.AspNet.Identity;
 
 namespace Freelance.Web.Controllers
 {
@@ -34,10 +35,13 @@ namespace Freelance.Web.Controllers
     public class CategoryController : Controller
     {
         private ICategoryService Service { get; set; }
+        private IAdminFileService FileService { get; set; }
         [InjectionConstructor]
-        public CategoryController(ICategoryService service)
+        public CategoryController(ICategoryService service,IAdminFileService fileService)
         {
             Service = service;
+            FileService = fileService;
+            FileService.SetPath(AppPath.GetAppPath());
         }
 
 
@@ -69,19 +73,21 @@ namespace Freelance.Web.Controllers
 
         // POST: Category/Create
         [HttpPost]
-        public ActionResult Create(CategoryViewModel model)
+        public ActionResult Create(CategoryViewModel model, IndexState indexState)
         {
             if (!ModelState.IsValid)
             {
+                model.IndexState = indexState;
                 return View(model);
             }
            
             try
             {
+                var id = FileService.Create(model.Image, User.Identity.GetUserId());
                Service.Create(Mapper.Map<CategoryServiceModel>(model));
                return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }

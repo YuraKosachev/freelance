@@ -6,6 +6,8 @@ using Freelance.Provider.Providers;
 using Freelance.Service.Services;
 using Freelance.Service.Interfaces;
 using Freelance.Service.Interfaces.AuthServices;
+using Freelance.FileManagerProvider.Interfaces;
+using Freelance.FileManagerProvider.RepositoryProviders;
 
 namespace Freelance.Service.DependencyServiceConfg
 {
@@ -23,6 +25,10 @@ namespace Freelance.Service.DependencyServiceConfg
             container.RegisterType<IProfileProvider, ProfileProvider>();
             container.RegisterType<ICategoryProvider, CategoryProvider>();
             container.RegisterType<IOfferProvider, OfferProvider>();
+            //file repository
+            container.RegisterType<IAdminProvider, AdminRepositoryProvider>();
+            container.RegisterType<ITextFilesProvider, TextFilesRepositoryProvider>();
+            container.RegisterType<IPhotoProvider, PhotosRepositoryProvider>();
 
         }
     }

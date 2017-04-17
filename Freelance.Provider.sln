@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelance.Provider", "Freelance.Provider\Freelance.Provider.csproj", "{EAC3A038-A789-4D0A-8AD5-DD25F9E42BFC}"
 EndProject
@@ -19,6 +19,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelance.Web", "Freelance.Web\Freelance.Web.csproj", "{9BC5EC38-F2EF-4CF2-9F29-56A73D7CC0E2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelance.FreelanceException", "Freelance.FreelanceException\Freelance.FreelanceException.csproj", "{66B305C3-3718-4337-8235-903EE9020D21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freelance.FileManagerProvider", "Freelance.FileManagerProvider\Freelance.FileManagerProvider.csproj", "{11260548-7B28-4771-AD9C-F9A297857E01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{66B305C3-3718-4337-8235-903EE9020D21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66B305C3-3718-4337-8235-903EE9020D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66B305C3-3718-4337-8235-903EE9020D21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11260548-7B28-4771-AD9C-F9A297857E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11260548-7B28-4771-AD9C-F9A297857E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11260548-7B28-4771-AD9C-F9A297857E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11260548-7B28-4771-AD9C-F9A297857E01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
