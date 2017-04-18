@@ -32,9 +32,9 @@ namespace Freelance.FileManagerProvider
             var fileId = Guid.NewGuid();
             Сheck(userPath);
 
-            using (FileStream stream = new FileStream(PathGeneration(userPath,fileId.ToString()),FileMode.Create))
+            using (FileStream stream = new FileStream(PathGeneration(userPath, FileName(fileId,"png")), FileMode.Create))
             {
-                byte[] array = Encoding.Default.GetBytes(content);
+                byte[] array = Convert.FromBase64String(content.Replace("data:image/png;base64,", ""));
                 stream.Write(array, 0, array.Length);
                 return fileId;
             }
@@ -55,10 +55,14 @@ namespace Freelance.FileManagerProvider
         {
 
         }
+        protected string FileName<TType>(TType source,string format) 
+        {
+            return String.Format("{0}.{1}",source,format);
+        }
         public void SetPath(string path)
         {
             AppPath = path;
-            Сheck(AppPath);
+        
         }
         protected string PathGeneration(params string[] names)
         {
@@ -74,7 +78,7 @@ namespace Freelance.FileManagerProvider
 
         protected void Сheck(string path)
         { 
-            var dirInfo = new DirectoryInfo(Path);
+            var dirInfo = new DirectoryInfo(path);
             if (!dirInfo.Exists)
             {
                 dirInfo.Create();

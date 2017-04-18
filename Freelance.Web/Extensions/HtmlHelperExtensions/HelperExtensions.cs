@@ -46,6 +46,28 @@ namespace Freelance.Web.HtmlHelperExtensions
             return helper.Action(action, indexStateRoutes);
         }
 
+        public static MvcHtmlString Image(this HtmlHelper helper, string src = null, string dataSrc = null, object htmlAttributes = null) //string altText = null, string height = null)
+        {
+            var builder = new TagBuilder("img");
+
+            if (src == null)
+                builder.MergeAttribute("data-src", dataSrc);
+            else
+                builder.MergeAttribute("src", src);
+
+            builder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
+        }
+        public static MvcHtmlString Image(this HtmlHelper helper, Guid? imageId,string typeExtesion,string folder,int holderH,int holderW , object htmlAttributes = null)
+        {
+            if (imageId != null)
+            {
+                var path = String.Format(@"/upload/{0}/{1}.{2}", folder,imageId,typeExtesion);
+                return helper.Image(path,htmlAttributes:htmlAttributes);
+            }
+
+            return helper.Image(dataSrc:String.Format("holder.js/{0}x{1}",holderH,holderW), htmlAttributes : htmlAttributes);
+        }
         public static MvcHtmlString ActionLink(this HtmlHelper helper, string linkText, string action, IndexState indexState)
         {
             return helper.ActionLink(linkText, action, indexState, new RouteValueDictionary(), new Dictionary<string, object>());

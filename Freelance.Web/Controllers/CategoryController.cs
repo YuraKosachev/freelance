@@ -83,7 +83,12 @@ namespace Freelance.Web.Controllers
            
             try
             {
-                var id = FileService.Create(model.Image, User.Identity.GetUserId());
+                if (model.Image != null)
+                {
+                    var id = FileService.Create(model.Image, User.Identity.GetUserId());
+                    model.ImageId = id;
+                }
+               
                Service.Create(Mapper.Map<CategoryServiceModel>(model));
                return RedirectToAction("Index");
             }
@@ -99,7 +104,9 @@ namespace Freelance.Web.Controllers
             try
             {
                 var category = Service.GetItem(id);
-                return View(Mapper.Map<CategoryViewModel>(category));
+                var model = Mapper.Map<CategoryViewModel>(category);
+                    model.IndexState = state;
+                return View(model);
             }
             catch (ItemNotFoundException e)
             {
@@ -123,8 +130,10 @@ namespace Freelance.Web.Controllers
             }
             try
             {
+                    var imageId = FileService.Create(model.Image, User.Identity.GetUserId());
+                    model.ImageId = imageId;
                     Service.Update(Mapper.Map<CategoryServiceModel>(model));
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index",model.IndexState);
             }
             catch
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity;
@@ -11,6 +12,7 @@ namespace Freelance.Provider.EntityModels
       
         public string UserFirstName { get; set; }
         public string UserSurname { get; set; }
+        public Guid? ImageId { get; set; }
         //navi setting
         public virtual ICollection<Profile> Profiles { get; set; }
         public virtual ICollection<Offer> Offers { get; set; }

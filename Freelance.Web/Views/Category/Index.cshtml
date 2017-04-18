@@ -12,7 +12,8 @@
 
 <table class="table">
         <tr>
-
+            <th>
+            </th>
             <th>
                 Name Category
                 <a href="@Url.Link("Index", Model.IndexState, "NameCategory")" class="btn btn-default btn-xs active" role="button">
@@ -29,6 +30,9 @@
         {
             <tr>
                
+                <td>
+                   @Html.Image(item.ImageId,"png","app",64,73,new {@class="media-object", width = 64, height = 73 }) 
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NameCategory)
                 </td>

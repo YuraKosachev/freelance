@@ -364,9 +364,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\upload\app\" />
-    <Folder Include="Content\upload\photos\" />
-    <Folder Include="Content\upload\textfiles\" />
+    <Folder Include="upload\app\" />
+    <Folder Include="upload\photos\" />
+    <Folder Include="upload\textfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
