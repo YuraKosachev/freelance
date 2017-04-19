@@ -15,6 +15,10 @@ using Freelance.Service.Services;
 using Freelance.FreelanceException;
 using Microsoft.Practices.Unity;
 using Freelance.Web.Extensions;
+//----------------
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Freelance.Web.Controllers
 {
@@ -117,7 +121,7 @@ namespace Freelance.Web.Controllers
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Create
         [HttpPost]
-        public ActionResult Create(ProfileViewModel model, IndexState state)
+        public async Task<ActionResult> Create(ProfileViewModel model, IndexState state)
         {
             if (!ModelState.IsValid)
             {
@@ -127,6 +131,10 @@ namespace Freelance.Web.Controllers
             try
             {
                 // TODO: Add insert logic here
+                var result = await Request.Content.ReadAsMultipartAsync(new MultipartFormDataStreamProvider(Path.GetTempPath()));
+
+                var fileData = result.FileData.First();
+                var formData = result.FormData;
 
                 ProfileService.Create(Mapper.Map<ProfileServiceModel>(model));
  

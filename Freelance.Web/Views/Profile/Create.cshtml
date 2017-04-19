@@ -5,14 +5,14 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2><span class="glyphicon glyphicon-pencil"></span>СОЗДАТЬ</h2>
 
-@using (Html.BeginForm(new {UserId = User.Identity.GetUserId() }))
+@using (Html.BeginForm("Create","Profile", new { UserId = User.Identity.GetUserId() },FormMethod.Post,new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ProfileCreateEditViewModel</h4>
+        <h4>Новый профиль</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
       
@@ -57,14 +57,109 @@
             </div>
         </div>
 
+        <div class="actions" hidden>
+            
+            <input type="file" id="upload" data-type-file="text" name="File" value="Choose a file" placehol />
+        </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-10 btn-group">
+                <button type="button" data-source="file" class="btn btn-default">
+                <span class="glyphicon glyphicon-paperclip"></span>
+                </button>
+                <button type="submit"  class="btn btn-success">Создать</button>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
+    <div>
+        <a href="@Url.Link("Index", Model.IndexState, Model.IndexState.SortProperty)" role="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            Назад к списку
+        </a>
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/Exif")
+    <script type="text/javascript">
+        $(function () {
+
+            $('button[data-source="file"]').on("click", function (e) {
+                $("input[type='file']").trigger('click');
+            });
+            $('#upload').on('change', function () { 
+                
+                var file = this.files[0];
+                //file_selected(file);
+                var reader = new FileReader();
+                
+            });
+            function file_selected( file) {
+                try {
+                    //var file = document.getElementById('uploaded_file').files[0];
+                    if (file) {
+                        // Предварительная проверка на JPEG
+                        if (/\.(jpe?g)$/i.test(file.name)) {
+                            // Старые версии Firefox 3.6 - 7.0
+                            if (typeof file.getAsBinary == 'function') {
+                                // Содержимое файла находится в file.getAsBinary()
+                                // -- вызвать парсер
+                            }
+                            else if (typeof file.getAsDataURL == 'function') {
+                                // Содержимое файла находится в file.getAsDataURL()
+                                // в виде закодированной base64 строки
+                                // -- декодировать и вызвать парсер
+                            }
+                                // Браузеры с поддержкой HTML5
+                            else {
+                                if (typeof FileReader != 'undefined') {
+                                    var reader = new FileReader();
+
+                                    reader.onloadend = function (evt) {
+                                        if (evt.target.readyState == FileReader.DONE) {
+                                            // Данные пришли в base64
+                                            if (evt.target.result.substr(0, 5) == 'data:') {
+                                                // Содержимое файла находится в evt.target.result
+                                                // в виде закодированной base64 строки
+                                                // -- декодировать и вызвать парсер
+                                            }
+                                                // Двоичные данные
+                                            else {
+                                                // Содержимое файла находится в evt.target.result
+                                                // -- вызвать парсер
+                                            }
+                                        }
+                                    };
+
+                                    var blob;
+                                    if (file.slice) {
+                                        blob = file.slice(0, file.size);
+                                    }
+                                    else if (file.webkitSlice) {
+                                        blob = file.webkitSlice(0, file.size);
+                                    }
+                                    else if (file.mozSlice) {
+                                        blob = file.mozSlice(0, file.size);
+                                    }
+
+                                    // Если поддерживается бинарное чтение, то использовать его
+                                    if (typeof file.getAsBinary == 'function') {
+                                        reader.readAsBinaryString(blob);
+                                    }
+                                        // Использовать чтение в base64
+                                    else {
+                                        reader.readAsDataURL(blob);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (e) {
+                    // Браузер не поддерживает работу с содержимым файлов
+                }
+            }
+        });
+    </script>
+}

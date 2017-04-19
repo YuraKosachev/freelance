@@ -21,7 +21,7 @@
                     </div>
 
                     <a href="#" class="thumbnail">
-                       @Html.Image(Model.ImageId, "png", "app", 146, 155)
+                        @Html.Image(Model.ImageId, "png", "upload/app", HelperImageExtension.Holder(146, 155), new { data_element_role = "imageContainer" })
                     </a>
                 </div>
 
@@ -58,105 +58,6 @@
     </a>
 </div>
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/exif.js"></script>
-    <script type="text/javascript">
-
-
-
-
-    $(function () {
-        $('a.thumbnail').on("click", function (e) {
-            $("input[type='file']").trigger('click');
-        });
-        $("input[data-type-file='image']").on("change", function () {
-
-            $("[data-modal-role='ImageEditor']").modal('show');
-            var path = $(this).val();
-            alert(path);
-        });
-        //----
-        //function demoUpload() {
-            var $uploadCrop;
-
-            function readFile(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('.upload-demo').addClass('ready');
-                        $uploadCrop.croppie('bind', {
-                            url: e.target.result
-                        }).then(function () {
-                            console.log('jQuery bind complete');
-                        });
-
-                    }
-
-                    reader.readAsDataURL(input.files[0]);
-                }
-                else {
-                    swal("Sorry - you're browser doesn't support the FileReader API");
-                }
-            }
-
-            $uploadCrop = $('#upload-demo').croppie({
-                viewport: {
-                    width: 146,
-                    height: 155,
-                    type: 'square'
-                },
-                boundary: {
-                            width: 300,
-                            height: 300
-                       },
-                enableExif: true
-            });
-
-            $('#upload').on('change', function () { readFile(this); });
-            $('.upload-result').on('click', function (ev) {
-                var result = $uploadCrop.croppie('result', {
-                    type: 'base64',
-                    size: 'viewport',
-                    format:'png'
-                }).then(function (resp) {
-                    var imgContainer = $("img[data-element-role='imageContainer']");
-                    //imgContainer.removeAttr('data-src');
-                    $("img[data-element-role='imageContainer']").attr('src', resp)
-                    $("input[name='Image']").val(resp);
-
-                });
-
-                //$uploadCrop.croppie('result', {
-                //    type: 'canvas',
-                //    size: 'viewport'
-                //}).then(function (resp) {
-                //    popupResult({
-                //        src: resp
-                //    });
-                //});
-            });
-
-
-       // }
-
-
-
-
-        //----
-
-        //$uploadCrop = $('#upload-demo').croppie({
-        //    enableExif: true,
-        //    viewport: {
-        //        width: 146,
-        //        height: 155,
-        //        type: 'square'
-        //    },
-        //    boundary: {
-        //        width: 400,
-        //        height: 400
-        //    }
-        //});
-    });
-    </script>
+@Scripts.Render("~/bundles/Exif")
+@Scripts.Render("~/bundles/Croppie")
 }

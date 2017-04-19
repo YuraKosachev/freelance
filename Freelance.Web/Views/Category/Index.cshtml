@@ -9,6 +9,11 @@
 <p>
     @Html.ActionLink("Create New", "Create",Model.IndexState)
 </p>
+<hr/>
+    <a href="@Url.Link("Index", Model.IndexState, "NameCategory")" class="btn btn-default btn-xs active" role="button">
+            <span class="@Html.GetSortClass(Model.IndexState, "NameCategory")"></span>
+    </a>
+<hr/>
 
 <table class="table">
         <tr>
@@ -31,7 +36,7 @@
             <tr>
                
                 <td>
-                   @Html.Image(item.ImageId,"png","app",64,73,new {@class="media-object", width = 64, height = 73 }) 
+                   @Html.Image(item.ImageId,"png","upload/app",HelperImageExtension.Holder(64,73),new { width = 64, height = 73}) 
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NameCategory)
