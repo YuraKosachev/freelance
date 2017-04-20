@@ -72,3 +72,7 @@
     Страница @(Model.PageList.PageCount < Model.PageList.PageNumber ? 0 : Model.PageList.PageNumber) из @Model.PageList.PageCount
 
     @Html.PagedListPager(Model.PageList, page => Url.ActionToPage("Index", Model.IndexState, page))
+
+@section Scripts {
+    @Scripts.Render("~/bundles/OfferConfirmed")
+}

@@ -30,6 +30,8 @@ namespace Freelance.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/OfferConfirmed").Include(
+                   "~/Scripts/ConfirmOffer.js"));
             bundles.Add(new ScriptBundle("~/bundles/MyScripts").Include(
                       "~/Scripts/offercreate.js",
                       "~/Scripts/freelancedatepicker.js",

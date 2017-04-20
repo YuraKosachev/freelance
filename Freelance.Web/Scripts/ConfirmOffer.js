@@ -7,7 +7,7 @@
         ProfileId: null,
         UserId:null
     };
-    $('[data-offer-modal="#ConfirmOffer"]').on('click', function () {
+    $('[data-offer-confim="#ConfirmOffer"]').on('click', function () {
         DataConfirm.Id = $(this).attr("data-offer-id");
         DataConfirm.Date = $(this).attr("data-confirm-date");
         DataConfirm.ProfileId = $(this).attr("data-confirm-ProfileId");
@@ -22,7 +22,7 @@
 
     $('[data-bt-role="confirm"]').on("click", function () {
         
-        $.post("Offer/Confirm", DataConfirm)
+        $.post("Confirm", DataConfirm)
             .success(function (data) {
                 var button = $('[data-offer-id="' + data.OfferId + '"]');
                 button.removeClass("btn-primary");
