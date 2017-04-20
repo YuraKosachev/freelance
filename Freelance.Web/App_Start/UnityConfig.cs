@@ -49,6 +49,7 @@ namespace Freelance.Web.App_Start
             container.RegisterType<IProfileService, ProfileService>();
             //file service
             container.RegisterType<IAdminFileService, AdminFileService>();
+            container.RegisterType<ITextFilesService, TextFileService>();
 
             UnityDependencyConfig.RegisterTypes(container);
         }

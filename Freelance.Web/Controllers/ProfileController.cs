@@ -16,9 +16,9 @@ using Freelance.FreelanceException;
 using Microsoft.Practices.Unity;
 using Freelance.Web.Extensions;
 //----------------
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Net.Http.Headers;
+
+using System.IO;
+
 
 namespace Freelance.Web.Controllers
 {
@@ -43,12 +43,14 @@ namespace Freelance.Web.Controllers
         
         private  ICategoryService CategoryService { get; set; }
         private IProfileService ProfileService { get; set; }
+        private ITextFilesService TextFileService { get; set; }
 
         [InjectionConstructor]
-        public ProfileController(ICategoryService categoryService, IProfileService profileService)
+        public ProfileController(ICategoryService categoryService, IProfileService profileService,ITextFilesService textFileService)
         {
             CategoryService = categoryService;
             ProfileService = profileService;
+            TextFileService = textFileService;
         }
 
 
@@ -121,7 +123,7 @@ namespace Freelance.Web.Controllers
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Create
         [HttpPost]
-        public async Task<ActionResult> Create(ProfileViewModel model, IndexState state)
+        public ActionResult Create(ProfileViewModel model, IndexState state)
         {
             if (!ModelState.IsValid)
             {
@@ -131,11 +133,14 @@ namespace Freelance.Web.Controllers
             try
             {
                 // TODO: Add insert logic here
-                var result = await Request.Content.ReadAsMultipartAsync(new MultipartFormDataStreamProvider(Path.GetTempPath()));
-
-                var fileData = result.FileData.First();
-                var formData = result.FormData;
-
+                
+                if (Request.Files.Get(0).ContentLength > 0)
+                {
+                    var result = Request.GetFileData();
+                    model.FileName = TextFileService.Create(result.FileContent, User.Identity.GetUserId(), result.FileExtension);
+                }
+                
+               
                 ProfileService.Create(Mapper.Map<ProfileServiceModel>(model));
  
                 return RedirectToAction("FreelancerProfiles", state);

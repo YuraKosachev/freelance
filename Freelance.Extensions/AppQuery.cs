@@ -61,36 +61,7 @@ namespace Freelance.Extensions
             return this;
         }
 
-        // public IAppQuery<TModel> FilterXor<TType>(string property, TType value)
-        // {
-        //     Filtering = new FilteringOptions(String.Format("{0} != {1}", property, value));
-        //     return this;
-        // }
-        // public IAppQuery<TModel> FilterAndXor<TType>(string property, TType value)
-        // {
-        //     if (Filtering != null)
-        //         Filtering.Query += String.Format(" AND {0} != {1}", property, value);
-        //     return this;
-        // }
-        // public IAppQuery<TModel> FilterOrXor<TType>(string property, TType value)
-        // {
-        //     if (Filtering != null)
-        //         Filtering.Query += String.Format(" OR {0} != {1}", property, value);
-        //     return this;
-        // }
-        // public IAppQuery<TModel> FilterAnd<TType>(string property, TType value)
-        //{
-        //     if (Filtering != null)
-        //         Filtering.Query += String.Format(" AND {0} == {1}", property, value);
-        //     return this;
-        //}
-        // public IAppQuery<TModel> FilterOr<TType>(string property, TType value)
-        // {
-        //     if (Filtering != null)
-        //         Filtering.Query += String.Format(" OR {0} == {1}", property, value);
-        //     return this;
-        // }
-
+    
         public IEnumerator<TModel> GetEnumerator()
         {
             return Query.Filter(Filtering).Sort(Sorting).TakePage(Paging).GetEnumerator();
@@ -102,11 +73,6 @@ namespace Freelance.Extensions
         }
 
 
-        //delete
-        //public IAppQuery<TModel> FilterString(string query)
-        //{
-        //    Filtering = new FilteringOptions(query);
-        //    return this;
-        //}
+     
     }
 }

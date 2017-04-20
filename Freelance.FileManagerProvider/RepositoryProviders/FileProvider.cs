@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Freelance.FileManagerProvider.Interfaces;
 using Freelance.FileManagerProvider.Repositories;
+using System.Web.Http;
 
 namespace Freelance.FileManagerProvider
 {
@@ -20,6 +21,7 @@ namespace Freelance.FileManagerProvider
         {
             RepositPath = new TRepositoryPath();
             Path = RepositPath.RepositoryPath();
+            AppPath = FilePathSettings.Path; 
         }
         public virtual Guid Create(string content, string userId)
         {
@@ -39,6 +41,22 @@ namespace Freelance.FileManagerProvider
                 return fileId;
             }
         }
+      
+        public virtual string Create(string content, string folderName,string fileExtension)
+        {
+
+            var userPath = FolderPath(folderName);
+            var fileId = Guid.NewGuid();
+            Сheck(userPath);
+            var fileName = FileName(fileId, fileExtension);
+            using (FileStream stream = new FileStream(PathGeneration(userPath, fileName), FileMode.Create))
+            {
+                byte[] array = Encoding.Default.GetBytes(content);
+                stream.Write(array, 0, array.Length);
+            }
+            return fileName;
+        }
+
         public virtual string GetFile(Guid fileId, string userId)
         {
 
@@ -59,11 +77,6 @@ namespace Freelance.FileManagerProvider
         {
             return String.Format("{0}.{1}",source,format);
         }
-        public void SetPath(string path)
-        {
-            AppPath = path;
-        
-        }
         protected string PathGeneration(params string[] names)
         {
             var path = new StringBuilder(names[0]);
@@ -75,7 +88,16 @@ namespace Freelance.FileManagerProvider
 
             return path.ToString();
         }
+        protected string FolderPath(string folderName)
+        {
+            string userPath;
+            if (RepositPath is AdminRepositoryPath)
+                userPath = PathGeneration(AppPath, Path);
+            else
+                userPath = PathGeneration(AppPath, Path, folderName);
+            return userPath;
 
+        }
         protected void Сheck(string path)
         { 
             var dirInfo = new DirectoryInfo(path);

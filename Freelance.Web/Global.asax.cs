@@ -17,6 +17,7 @@ namespace Freelance.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             MapperConfig.Configure();
+            AppPath.SetAppPath();
         }
     }
 }

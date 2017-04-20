@@ -245,6 +245,7 @@
     <Compile Include="Controllers\OfferController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Extensions\DateTimeExtension\DateTimeExt.cs" />
+    <Compile Include="Extensions\FileHelper\FileHelperExtension.cs" />
     <Compile Include="Extensions\FreelanceListHelpers\FreelanceListExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions\HelperImageExtension.cs" />
     <Compile Include="Global.asax.cs">
@@ -387,6 +388,9 @@
       <Project>{20c4190d-29cc-44dc-8689-509b5c637c10}</Project>
       <Name>Freelance.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

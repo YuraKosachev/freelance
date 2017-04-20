@@ -8,8 +8,8 @@ namespace Freelance.Service.Interfaces
 {
     public interface IFileService
     {
-        void SetPath(string path);
         Guid Create(string content, string userId);
+        string Create(string content, string folderName, string fileExtension);
         string GetFile(Guid fileId, string userId);
         void Delete(Guid fileId, string userId);
     }

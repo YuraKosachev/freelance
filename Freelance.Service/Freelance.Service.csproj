@@ -146,6 +146,7 @@
   <ItemGroup>
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
     <Compile Include="DependencyServiceConfg\UnityConfig.cs" />
+    <Compile Include="FileManagerConfg\FileProviderCfg.cs" />
     <Compile Include="Interfaces\AuthServices\IAuthCfgService.cs" />
     <Compile Include="Interfaces\AuthServices\IManagerService.cs" />
     <Compile Include="Interfaces\AuthServices\ISignInManageService.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\FileService\AdminFileService.cs" />
     <Compile Include="Services\FileService\FileService.cs" />
+    <Compile Include="Services\FileService\TextFileService.cs" />
     <Compile Include="Services\FreelanceService.cs" />
     <Compile Include="Services\OfferService.cs" />
     <Compile Include="Services\ProfileService.cs" />

@@ -41,7 +41,6 @@ namespace Freelance.Web.Controllers
         {
             Service = service;
             FileService = fileService;
-            FileService.SetPath(AppPath.GetAppPath());
         }
 
 

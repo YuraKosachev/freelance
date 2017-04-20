@@ -30,9 +30,10 @@ namespace Freelance.Service.Services
             FileProvider.Delete(fileId, userId);
         }
 
-        public void SetPath(string path)
+        
+        public string Create(string content, string folderName, string fileExtension)
         {
-            FileProvider.SetPath(path);
+            return FileProvider.Create(content, folderName, fileExtension);
         }
     }
 }
