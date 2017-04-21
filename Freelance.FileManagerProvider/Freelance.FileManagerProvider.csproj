@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileManagerMethods\CreateFile.cs" />
+    <Compile Include="FileManagerMethods\ICreatable.cs" />
     <Compile Include="Interfaces\IAdminProvider.cs" />
     <Compile Include="Interfaces\IPhotoProvider.cs" />
     <Compile Include="Interfaces\ITextFilesProvider.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Interfaces\IRepositoryPath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RepositoryPath.cs" />
+    <Compile Include="RepositoryProviders\FreelanceFileProvider.cs" />
     <Compile Include="RepositoryProviders\PhotosRepositoryProvider.cs" />
     <Compile Include="RepositoryProviders\TextFilesRepositoryProvider.cs" />
     <Compile Include="SettingFileManager\FilePathSettings.cs" />

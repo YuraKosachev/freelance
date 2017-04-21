@@ -10,50 +10,36 @@ using Freelance.FileManagerProvider.Repositories;
 
 namespace Freelance.FileManagerProvider
 {
-    public abstract class FileProvider<TRepositoryPath>
+    public abstract class FileProvider<TRepositoryPath, TCreateFile>
         where TRepositoryPath:IRepositoryPath,new()
+        where TCreateFile : ICreatable, new()
     {
 
         protected string Path { get; set; }
         protected string AppPath { get; set; }
+        protected ICreatable CreateFile { get; set; }
         protected IRepositoryPath RepositPath { get; set; }
         public FileProvider()
         {
             RepositPath = new TRepositoryPath();
+            CreateFile = new TCreateFile();
             Path = RepositPath.RepositoryPath();
             AppPath = FilePathSettings.Path; 
         }
-        public virtual Guid Create(string content, string userId)
+        public virtual string Create(string base64Content, string folderName,Func<string,byte[]> convert)
         {
-            string userPath;
-            if (RepositPath is AdminRepositoryPath)
-                userPath = PathGeneration(AppPath,Path);
-            else
-                userPath = PathGeneration(AppPath,Path,userId);
-
-            var fileId = Guid.NewGuid();
-            Сheck(userPath);
-
-            using (FileStream stream = new FileStream(PathGeneration(userPath, FileName(fileId,"png")), FileMode.Create))
-            {
-                byte[] array = Convert.FromBase64String(content.Replace("data:image/png;base64,", ""));
-                stream.Write(array, 0, array.Length);
-                return fileId;
-            }
+            byte[] array = convert(Base64ImageContent(base64Content));//Convert.FromBase64String(Base64ImageContent(base64Content));
+            return Create(array, folderName, "png");
         }
       
-        public virtual string Create(string content, string folderName,string fileExtension)
+        public virtual string Create(byte[] content, string folderName,string fileExtension)
         {
 
             var userPath = FolderPath(folderName);
             var fileId = Guid.NewGuid();
             Сheck(userPath);
             var fileName = FileName(fileId, fileExtension);
-            using (FileStream stream = new FileStream(PathGeneration(userPath, fileName), FileMode.Create))
-            {
-                byte[] array = Encoding.Default.GetBytes(content);
-                stream.Write(array, 0, array.Length);
-            }
+            CreateFile.Create(content,PathGeneration(userPath, fileName), fileExtension);
             return fileName;
         }
 
@@ -90,13 +76,18 @@ namespace Freelance.FileManagerProvider
         }
         protected string FolderPath(string folderName)
         {
-            string userPath;
-            if (RepositPath is AdminRepositoryPath)
-                userPath = PathGeneration(AppPath, Path);
-            else
-                userPath = PathGeneration(AppPath, Path, folderName);
-            return userPath;
 
+            if (RepositPath is AdminRepositoryPath)
+            {
+                return PathGeneration(AppPath, Path);
+            }
+            return PathGeneration(AppPath, Path, folderName);
+            
+
+        }
+        protected string Base64ImageContent(string base64Content)//,out string extension)
+        {
+            return base64Content.Replace("data:image/png;base64,", "");
         }
         protected void Сheck(string path)
         { 

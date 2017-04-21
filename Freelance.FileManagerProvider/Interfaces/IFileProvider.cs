@@ -8,8 +8,8 @@ namespace Freelance.FileManagerProvider.Interfaces
 {
     public interface IFileProvider
     {
-        Guid Create(string content, string userId);
-        string Create(string content, string folderName, string fileExtension);
+        //string Create(string base64Content, string folderName);
+        string Create(byte[] content, string fileExtension, Func<string, string> pathGenerator);
         string GetFile(Guid fileId, string userId);
         void Delete(Guid FileId, string userId);
     }

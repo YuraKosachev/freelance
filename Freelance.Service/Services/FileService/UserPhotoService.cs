@@ -7,14 +7,14 @@ using Freelance.Service.Interfaces;
 using Microsoft.Practices.Unity;
 using Freelance.FileManagerProvider.Interfaces;
 
-namespace Freelance.Service.Services
+namespace Freelance.Service.Services.FileService
 {
-    public class TextFileService : FreelanceFileService, ITextFilesService
+    public class UserPhotoService : FreelanceFileService, IPhotoService
     {
         [InjectionConstructor]
-        public TextFileService(ITextFilesProvider fileProvider) : base(fileProvider)
+        public UserPhotoService(IFileProvider fileProvider) :base(fileProvider)
         {
-            Path = PathGeneration(Folders.AppPath, Folders.UserFilesFolder);
+            Path = PathGeneration(Folders.AppPath, Folders.UserImagesFolder);
         }
     }
 }

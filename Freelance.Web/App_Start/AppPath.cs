@@ -11,7 +11,13 @@ namespace Freelance.Web
     {
         public static  void  SetAppPath()
         {
-            FileProviderCfg.AppPath(HttpContext.Current.Server.MapPath(WebConfigurationManager.AppSettings["ImageStoreFolder"]));
+            var folderConfig = new AppFolder();
+            folderConfig.AppPath = HttpContext.Current.Server.MapPath(WebConfigurationManager.AppSettings["ImageStoreFolder"]);
+            folderConfig.AdminFolder = "app";
+            folderConfig.UserFilesFolder = "textfiles";
+            folderConfig.UserImagesFolder = "photos";
+            FilePathConfiguration.SetPathConfiguration(folderConfig);
+            //FileProviderCfg.AppPath(HttpContext.Current.Server.MapPath(WebConfigurationManager.AppSettings["ImageStoreFolder"]));
         } 
     }
 }

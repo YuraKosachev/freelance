@@ -15,9 +15,9 @@ namespace Freelance.Service.Services
         {
             FileProvider = fileProvider;
         }
-        public virtual Guid Create(string content, string userId)
+        public virtual string Create(string base64Content, string userId)
         {
-            return FileProvider.Create(content, userId);
+            return FileProvider.Create(base64Content, userId);
         }
 
         public virtual string GetFile(Guid fileId, string userId)
@@ -31,7 +31,7 @@ namespace Freelance.Service.Services
         }
 
         
-        public string Create(string content, string folderName, string fileExtension)
+        public string Create(byte[] content, string folderName, string fileExtension)
         {
             return FileProvider.Create(content, folderName, fileExtension);
         }

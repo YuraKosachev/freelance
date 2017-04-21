@@ -146,11 +146,13 @@
   <ItemGroup>
     <Compile Include="AuthConfg\FreelanceAuthConfg.cs" />
     <Compile Include="DependencyServiceConfg\UnityConfig.cs" />
+    <Compile Include="FileManagerConfg\FilePathConfiguration.cs" />
     <Compile Include="FileManagerConfg\FileProviderCfg.cs" />
     <Compile Include="Interfaces\AuthServices\IAuthCfgService.cs" />
     <Compile Include="Interfaces\AuthServices\IManagerService.cs" />
     <Compile Include="Interfaces\AuthServices\ISignInManageService.cs" />
     <Compile Include="Interfaces\AuthServices\IUserManageService.cs" />
+    <Compile Include="Services\FileService\FileHelpers\PathGeneration.cs" />
     <Compile Include="Interfaces\FileServices\IAdminFileService.cs" />
     <Compile Include="Interfaces\FileServices\IFileService.cs" />
     <Compile Include="Interfaces\FileServices\IPhotoService.cs" />
@@ -173,7 +175,9 @@
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\FileService\AdminFileService.cs" />
     <Compile Include="Services\FileService\FileService.cs" />
+    <Compile Include="Services\FileService\FreelanceFileService.cs" />
     <Compile Include="Services\FileService\TextFileService.cs" />
+    <Compile Include="Services\FileService\UserPhotoService.cs" />
     <Compile Include="Services\FreelanceService.cs" />
     <Compile Include="Services\OfferService.cs" />
     <Compile Include="Services\ProfileService.cs" />
