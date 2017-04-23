@@ -4,7 +4,7 @@ using Freelance.Extensions;
 
 namespace Freelance.Provider.Providers
 {
-    public class ProfileProvider:FreelanceProvider<Profile>,IProfileProvider
+    public class ProfileProvider : FreelanceProvider<Profile>, IProfileProvider
     {
         public ProfileProvider() : base() { }
         public override Extensions.Interfaces.IAppQuery<Profile> GetList()

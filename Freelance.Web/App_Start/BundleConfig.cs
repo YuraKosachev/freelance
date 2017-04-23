@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Freelance.Web
 {
@@ -43,10 +42,10 @@ namespace Freelance.Web
                     "~/Scripts/exif.js"));
             bundles.Add(new StyleBundle("~/Content/Croppie").Include(
                         "~/Content/croppie.css"));
-           bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/PagedList.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                       "~/Content/bootstrap.css",
+                       "~/Content/site.css",
+                       "~/Content/PagedList.css"));
         }
     }
 }

@@ -7,14 +7,14 @@ using Microsoft.Owin;
 
 namespace Freelance.Provider.Providers
 {
-    public class SignInManageProvider:AuthProvider<FreelanceSignInManager>, ISignInManageProvider
+    public class SignInManageProvider : AuthProvider<FreelanceSignInManager>, ISignInManageProvider
     {
         public SignInManageProvider() : base() { }
         public SignInManageProvider(IOwinContext context, FreelanceSignInManager userManager)
             : base(context, userManager)
         { }
 
-        
+
 
         public Task<SignInStatus> ExternalSignInAsync(ExternalLoginInfo loginInfo, bool isPersistent)
         {

@@ -71,7 +71,7 @@ namespace Freelance.Web.Models
         public string Name { get; set; }
         [Required]
         [Display(Name = "Фамилия")]
-        [RegularExpression(@"^[A-zА-яЁё]+$", ErrorMessage ="Значение должно содержать только буквы")]
+        [RegularExpression(@"^[A-zА-яЁё]+$", ErrorMessage = "Значение должно содержать только буквы")]
         public string Surname { get; set; }
 
         [Required]
@@ -90,7 +90,7 @@ namespace Freelance.Web.Models
         [Display(Name = "Подтверждение пароля")]
         [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
-        [Display(Name="Тип профиля")]
+        [Display(Name = "Тип профиля")]
         public string Role { get; set; }
         public IDictionary<string, string> Roles { get; set; }
     }
@@ -125,3 +125,4 @@ namespace Freelance.Web.Models
     }
 
 }
+

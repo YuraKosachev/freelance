@@ -10,10 +10,10 @@ using Freelance.Service.FileManagerConfg;
 
 namespace Freelance.Service.Services
 {
-    public class AdminFileService: FreelanceFileService, IAdminFileService
+    public class AdminFileService : FreelanceFileService, IAdminFileService
     {
         [InjectionConstructor]
-        public AdminFileService(IFileProvider fileProvider):base(fileProvider)
+        public AdminFileService(IFileProvider fileProvider) : base(fileProvider)
         {
             Path = PathGeneration(Folders.AppPath, Folders.AdminFolder);
         }

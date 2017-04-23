@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Freelance.Provider.Interfaces;
@@ -11,13 +11,13 @@ using Freelance.FileManagerProvider.RepositoryProviders;
 
 namespace Freelance.Service.DependencyServiceConfg
 {
-    
+
     public class UnityDependencyConfig
     {
-       
+
         public static void RegisterTypes(IUnityContainer container)
         {
-           
+
 
             //Provider dependency
             container.RegisterType<IUserManageProvider, UserManageProvider>();
@@ -26,10 +26,8 @@ namespace Freelance.Service.DependencyServiceConfg
             container.RegisterType<ICategoryProvider, CategoryProvider>();
             container.RegisterType<IOfferProvider, OfferProvider>();
             //file repository
-            container.RegisterType<IAdminProvider, AdminRepositoryProvider>();
-            container.RegisterType<ITextFilesProvider, TextFilesRepositoryProvider>();
-            container.RegisterType<IPhotoProvider, PhotosRepositoryProvider>();
-
+            container.RegisterType<IFileProvider, FreelanceFileProvider>();
+        
         }
     }
 }

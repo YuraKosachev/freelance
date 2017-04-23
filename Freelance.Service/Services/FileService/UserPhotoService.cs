@@ -12,7 +12,7 @@ namespace Freelance.Service.Services.FileService
     public class UserPhotoService : FreelanceFileService, IPhotoService
     {
         [InjectionConstructor]
-        public UserPhotoService(IFileProvider fileProvider) :base(fileProvider)
+        public UserPhotoService(IFileProvider fileProvider) : base(fileProvider)
         {
             Path = PathGeneration(Folders.AppPath, Folders.UserImagesFolder);
         }

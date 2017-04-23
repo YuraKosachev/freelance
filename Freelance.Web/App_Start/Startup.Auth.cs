@@ -1,13 +1,6 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
-using Owin;
-using Freelance.Web.Models;
-using Freelance.Service;
+﻿using Owin;
 using Freelance.Service.AuthConfg;
+
 namespace Freelance.Web
 {
     public partial class Startup
@@ -16,7 +9,7 @@ namespace Freelance.Web
         public void ConfigureAuth(IAppBuilder app)
         {
             FreelanceAuthConfg.ConfigureAuth(app, "/Account/Login");
-       
+
         }
     }
 }

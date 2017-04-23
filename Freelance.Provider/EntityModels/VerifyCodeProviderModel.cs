@@ -1,6 +1,4 @@
-﻿
-
-namespace Freelance.Provider.EntityModels
+﻿namespace Freelance.Provider.EntityModels
 {
     public class VerifyCodeProviderModel
     {

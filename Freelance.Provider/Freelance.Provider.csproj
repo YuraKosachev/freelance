@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EAC3A038-A789-4D0A-8AD5-DD25F9E42BFC}</ProjectGuid>
+    <ProjectGuid>{D7AA0EAA-0834-470D-86AB-E88C96571D3A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Freelance.Provider</RootNamespace>
     <AssemblyName>Freelance.Provider</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,17 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core">
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
@@ -64,10 +66,6 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
@@ -83,130 +81,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityModels\IModel.cs" />
-    <Compile Include="EntityModels\IModelContainDateTime.cs" />
-    <Compile Include="EntityModels\Offer.cs" />
-    <Compile Include="Interfaces\IAuthConfig.cs" />
-    <Compile Include="Interfaces\IOfferProvider.cs" />
-    <Compile Include="Interfaces\IProfileProvider.cs" />
-    <Compile Include="Migrations\201703241045261_Added_table_categories.cs" />
-    <Compile Include="Migrations\201703241045261_Added_table_categories.Designer.cs">
-      <DependentUpon>201703241045261_Added_table_categories.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703241251189_Added_key.cs" />
-    <Compile Include="Migrations\201703241251189_Added_key.Designer.cs">
-      <DependentUpon>201703241251189_Added_key.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703241306456_Change_name_key_in_Category.cs" />
-    <Compile Include="Migrations\201703241306456_Change_name_key_in_Category.Designer.cs">
-      <DependentUpon>201703241306456_Change_name_key_in_Category.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.cs" />
-    <Compile Include="Migrations\201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.Designer.cs">
-      <DependentUpon>201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703251504285_Added_navi_setting_bettwean_Profile_and_User.cs" />
-    <Compile Include="Migrations\201703251504285_Added_navi_setting_bettwean_Profile_and_User.Designer.cs">
-      <DependentUpon>201703251504285_Added_navi_setting_bettwean_Profile_and_User.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703271113001_Added_table_Profile.cs" />
-    <Compile Include="Migrations\201703271113001_Added_table_Profile.Designer.cs">
-      <DependentUpon>201703271113001_Added_table_Profile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703271217405_Change_key_for_table_category_profile.cs" />
-    <Compile Include="Migrations\201703271217405_Change_key_for_table_category_profile.Designer.cs">
-      <DependentUpon>201703271217405_Change_key_for_table_category_profile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703271222473_Change_key.cs" />
-    <Compile Include="Migrations\201703271222473_Change_key.Designer.cs">
-      <DependentUpon>201703271222473_Change_key.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703271303194_FK_to_table_category.cs" />
-    <Compile Include="Migrations\201703271303194_FK_to_table_category.Designer.cs">
-      <DependentUpon>201703271303194_FK_to_table_category.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703280629496_change_attr_for_dbo_Profile.cs" />
-    <Compile Include="Migrations\201703280629496_change_attr_for_dbo_Profile.Designer.cs">
-      <DependentUpon>201703280629496_change_attr_for_dbo_Profile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703281407391_Added_table_offers.cs" />
-    <Compile Include="Migrations\201703281407391_Added_table_offers.Designer.cs">
-      <DependentUpon>201703281407391_Added_table_offers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703301428158_Change_setting_freelancerconfirm_to_table_offer.cs" />
-    <Compile Include="Migrations\201703301428158_Change_setting_freelancerconfirm_to_table_offer.Designer.cs">
-      <DependentUpon>201703301428158_Change_setting_freelancerconfirm_to_table_offer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703301432395_Change_name_table.cs" />
-    <Compile Include="Migrations\201703301432395_Change_name_table.Designer.cs">
-      <DependentUpon>201703301432395_Change_name_table.cs</DependentUpon>
-    </Compile>
     <Compile Include="Context\FreelanceDbContext.cs" />
     <Compile Include="EntityModels\Category.cs" />
     <Compile Include="EntityModels\IdentityModels.cs" />
+    <Compile Include="EntityModels\IModel.cs" />
+    <Compile Include="EntityModels\IModelContainDateTime.cs" />
     <Compile Include="EntityModels\LoginProviderModel.cs" />
+    <Compile Include="EntityModels\Offer.cs" />
     <Compile Include="EntityModels\Profile.cs" />
     <Compile Include="EntityModels\VerifyCodeProviderModel.cs" />
     <Compile Include="Interfaces\AuthInterfaces\IManagerProvider.cs" />
     <Compile Include="Interfaces\AuthInterfaces\ISignInManageProvider.cs" />
     <Compile Include="Interfaces\AuthInterfaces\IUserManageProvider.cs" />
     <Compile Include="Interfaces\ICategoryProvider.cs" />
+    <Compile Include="Interfaces\IOfferProvider.cs" />
+    <Compile Include="Interfaces\IProfileProvider.cs" />
     <Compile Include="Interfaces\IProvider.cs" />
-    <Compile Include="Migrations\201703200643126_initial.cs" />
-    <Compile Include="Migrations\201703200643126_initial.Designer.cs">
-      <DependentUpon>201703200643126_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201704222102555_initial_added_tbs_user_role_claim.cs" />
+    <Compile Include="Migrations\201704222102555_initial_added_tbs_user_role_claim.Designer.cs">
+      <DependentUpon>201704222102555_initial_added_tbs_user_role_claim.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703200826391_customazing_User_added_setting_UserSurname.cs" />
-    <Compile Include="Migrations\201703200826391_customazing_User_added_setting_UserSurname.Designer.cs">
-      <DependentUpon>201703200826391_customazing_User_added_setting_UserSurname.cs</DependentUpon>
+    <Compile Include="Migrations\201704222113420_added_tb_category.cs" />
+    <Compile Include="Migrations\201704222113420_added_tb_category.Designer.cs">
+      <DependentUpon>201704222113420_added_tb_category.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703200846083_customazing_identity_tables.cs" />
-    <Compile Include="Migrations\201703200846083_customazing_identity_tables.Designer.cs">
-      <DependentUpon>201703200846083_customazing_identity_tables.cs</DependentUpon>
+    <Compile Include="Migrations\201704222119163_added_tb_profile.cs" />
+    <Compile Include="Migrations\201704222119163_added_tb_profile.Designer.cs">
+      <DependentUpon>201704222119163_added_tb_profile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703210752321_renamed_property_UserName_to_UserLogin.cs" />
-    <Compile Include="Migrations\201703210752321_renamed_property_UserName_to_UserLogin.Designer.cs">
-      <DependentUpon>201703210752321_renamed_property_UserName_to_UserLogin.cs</DependentUpon>
+    <Compile Include="Migrations\201704222121319_added_tb_offer.cs" />
+    <Compile Include="Migrations\201704222121319_added_tb_offer.Designer.cs">
+      <DependentUpon>201704222121319_added_tb_offer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703210801547_added_new_property_UserFirstName_into_table_User.cs" />
-    <Compile Include="Migrations\201703210801547_added_new_property_UserFirstName_into_table_User.Designer.cs">
-      <DependentUpon>201703210801547_added_new_property_UserFirstName_into_table_User.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703211248459_added_roles.cs" />
-    <Compile Include="Migrations\201703211248459_added_roles.Designer.cs">
-      <DependentUpon>201703211248459_added_roles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703220833000_added_admin_role.cs" />
-    <Compile Include="Migrations\201703220833000_added_admin_role.Designer.cs">
-      <DependentUpon>201703220833000_added_admin_role.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704031016069_changed_rel.cs" />
-    <Compile Include="Migrations\201704031016069_changed_rel.Designer.cs">
-      <DependentUpon>201704031016069_changed_rel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704102013085_added_setting_DateOfCreate_into_Offer.cs" />
-    <Compile Include="Migrations\201704102013085_added_setting_DateOfCreate_into_Offer.Designer.cs">
-      <DependentUpon>201704102013085_added_setting_DateOfCreate_into_Offer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704111234325_changed_attr_for_setting_freelanceConfirm_table_Offer.cs" />
-    <Compile Include="Migrations\201704111234325_changed_attr_for_setting_freelanceConfirm_table_Offer.Designer.cs">
-      <DependentUpon>201704111234325_changed_attr_for_setting_freelanceConfirm_table_Offer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704181148588_added_setting_imageId_into_table_category.cs" />
-    <Compile Include="Migrations\201704181148588_added_setting_imageId_into_table_category.Designer.cs">
-      <DependentUpon>201704181148588_added_setting_imageId_into_table_category.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704181151185_added_setting_imageId_into_table_user.cs" />
-    <Compile Include="Migrations\201704181151185_added_setting_imageId_into_table_user.Designer.cs">
-      <DependentUpon>201704181151185_added_setting_imageId_into_table_user.cs</DependentUpon>
+    <Compile Include="Migrations\201704222125359_created_rel_bt_tables.cs" />
+    <Compile Include="Migrations\201704222125359_created_rel_bt_tables.Designer.cs">
+      <DependentUpon>201704222125359_created_rel_bt_tables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\AuthManagers\FreelanceSignInManager.cs" />
+    <Compile Include="Providers\AuthManagers\FreelanceUserManager.cs" />
     <Compile Include="Providers\AuthProviders\AuthProvider.cs" />
     <Compile Include="Providers\AuthProviders\SignInManageProvider.cs" />
     <Compile Include="Providers\AuthProviders\UserManageProvider.cs" />
-    <Compile Include="Providers\AuthManagers\FreelanceUserManager.cs" />
-    <Compile Include="Providers\AuthManagers\FreelanceSignInManager.cs" />
     <Compile Include="Providers\CategoryProvider.cs" />
     <Compile Include="Providers\FreelanceProvider.cs" />
     <Compile Include="Providers\OfferProvider.cs" />
@@ -214,108 +131,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703200643126_initial.resx">
-      <DependentUpon>201703200643126_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704222102555_initial_added_tbs_user_role_claim.resx">
+      <DependentUpon>201704222102555_initial_added_tbs_user_role_claim.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703200826391_customazing_User_added_setting_UserSurname.resx">
-      <DependentUpon>201703200826391_customazing_User_added_setting_UserSurname.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704222113420_added_tb_category.resx">
+      <DependentUpon>201704222113420_added_tb_category.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703200846083_customazing_identity_tables.resx">
-      <DependentUpon>201703200846083_customazing_identity_tables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704222119163_added_tb_profile.resx">
+      <DependentUpon>201704222119163_added_tb_profile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703210752321_renamed_property_UserName_to_UserLogin.resx">
-      <DependentUpon>201703210752321_renamed_property_UserName_to_UserLogin.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704222121319_added_tb_offer.resx">
+      <DependentUpon>201704222121319_added_tb_offer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703210801547_added_new_property_UserFirstName_into_table_User.resx">
-      <DependentUpon>201703210801547_added_new_property_UserFirstName_into_table_User.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703211248459_added_roles.resx">
-      <DependentUpon>201703211248459_added_roles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703220833000_added_admin_role.resx">
-      <DependentUpon>201703220833000_added_admin_role.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703241045261_Added_table_categories.resx">
-      <DependentUpon>201703241045261_Added_table_categories.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703241251189_Added_key.resx">
-      <DependentUpon>201703241251189_Added_key.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703241306456_Change_name_key_in_Category.resx">
-      <DependentUpon>201703241306456_Change_name_key_in_Category.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.resx">
-      <DependentUpon>201703251459478_Changed_attributes_for_tables_User_and_Category_added_Table_Profile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703251504285_Added_navi_setting_bettwean_Profile_and_User.resx">
-      <DependentUpon>201703251504285_Added_navi_setting_bettwean_Profile_and_User.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703271113001_Added_table_Profile.resx">
-      <DependentUpon>201703271113001_Added_table_Profile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703271217405_Change_key_for_table_category_profile.resx">
-      <DependentUpon>201703271217405_Change_key_for_table_category_profile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703271222473_Change_key.resx">
-      <DependentUpon>201703271222473_Change_key.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703271303194_FK_to_table_category.resx">
-      <DependentUpon>201703271303194_FK_to_table_category.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703280629496_change_attr_for_dbo_Profile.resx">
-      <DependentUpon>201703280629496_change_attr_for_dbo_Profile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703281407391_Added_table_offers.resx">
-      <DependentUpon>201703281407391_Added_table_offers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703301428158_Change_setting_freelancerconfirm_to_table_offer.resx">
-      <DependentUpon>201703301428158_Change_setting_freelancerconfirm_to_table_offer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703301432395_Change_name_table.resx">
-      <DependentUpon>201703301432395_Change_name_table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704031016069_changed_rel.resx">
-      <DependentUpon>201704031016069_changed_rel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704102013085_added_setting_DateOfCreate_into_Offer.resx">
-      <DependentUpon>201704102013085_added_setting_DateOfCreate_into_Offer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704111234325_changed_attr_for_setting_freelanceConfirm_table_Offer.resx">
-      <DependentUpon>201704111234325_changed_attr_for_setting_freelanceConfirm_table_Offer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704181148588_added_setting_imageId_into_table_category.resx">
-      <DependentUpon>201704181148588_added_setting_imageId_into_table_category.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704181151185_added_setting_imageId_into_table_user.resx">
-      <DependentUpon>201704181151185_added_setting_imageId_into_table_user.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704222125359_created_rel_bt_tables.resx">
+      <DependentUpon>201704222125359_created_rel_bt_tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Freelance.Extensions\Freelance.Extensions.csproj">
-      <Project>{6fd24f11-b149-4e6e-8b3b-10b3d674809c}</Project>
+      <Project>{c8411fde-94f0-4ca6-ac33-b36f3224fada}</Project>
       <Name>Freelance.Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\Freelance.FreelanceException\Freelance.FreelanceException.csproj">
-      <Project>{66b305c3-3718-4337-8235-903ee9020d21}</Project>
+      <Project>{f6006584-0af9-4f70-8451-8e143606eee2}</Project>
       <Name>Freelance.FreelanceException</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

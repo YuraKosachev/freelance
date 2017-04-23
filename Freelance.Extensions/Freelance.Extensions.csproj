@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6FD24F11-B149-4E6E-8B3B-10B3D674809C}</ProjectGuid>
+    <ProjectGuid>{C8411FDE-94F0-4CA6-AC33-B36F3224FADA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Freelance.Extensions</RootNamespace>
@@ -52,9 +52,6 @@
     <Compile Include="ExtOptions\SortingOptions.cs" />
     <Compile Include="ExtOptions\Utility.cs" />
     <Compile Include="Interfaces\IAppQuery.cs" />
-    <Compile Include="Interfaces\IFilteringOptions.cs" />
-    <Compile Include="Interfaces\IPagingOptions.cs" />
-    <Compile Include="Interfaces\ISortingOptions.cs" />
     <Compile Include="QueryProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

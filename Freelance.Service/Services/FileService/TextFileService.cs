@@ -12,7 +12,7 @@ namespace Freelance.Service.Services
     public class TextFileService : FreelanceFileService, ITextFilesService
     {
         [InjectionConstructor]
-        public TextFileService(ITextFilesProvider fileProvider) : base(fileProvider)
+        public TextFileService(IFileProvider fileProvider) : base(fileProvider)
         {
             Path = PathGeneration(Folders.AppPath, Folders.UserFilesFolder);
         }

@@ -11,7 +11,7 @@ namespace Freelance.Service.ServicesModel
         public string FreelancerName { get; set; }
         public string CategoryName { get; set; }
         public string PhoneNumber { get; set; }
-        
+        public string FileName { get; set; }
         public string DescriptionProfile { get; set; }
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }

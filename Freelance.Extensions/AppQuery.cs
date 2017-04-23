@@ -35,7 +35,7 @@ namespace Freelance.Extensions
             return this;
         }
 
-        public IAppQuery<TModel> Filter(string predicate,object[] values )
+        public IAppQuery<TModel> Filter(string predicate, object[] values)
         {
             Filtering = new FilteringOptions<TModel>(predicate, values);
             return this;
@@ -50,7 +50,7 @@ namespace Freelance.Extensions
 
             return this;
         }
-        
+
         public IAppQuery<TModel> OrElseFilter(string predicate, object[] values)
         {
             if (Filtering == null)
@@ -61,7 +61,7 @@ namespace Freelance.Extensions
             return this;
         }
 
-    
+
         public IEnumerator<TModel> GetEnumerator()
         {
             return Query.Filter(Filtering).Sort(Sorting).TakePage(Paging).GetEnumerator();
@@ -73,6 +73,6 @@ namespace Freelance.Extensions
         }
 
 
-     
+
     }
 }

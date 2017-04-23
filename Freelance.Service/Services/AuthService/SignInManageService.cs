@@ -5,9 +5,7 @@ using Freelance.Service.Interfaces.AuthServices;
 using Microsoft.AspNet.Identity.Owin;
 using Freelance.Service.ServicesModel;
 using Freelance.Provider.Interfaces;
-using Freelance.Provider;
 using Microsoft.Owin;
-using Microsoft.Practices.Unity;
 using Freelance.Provider.Providers;
 
 namespace Freelance.Service.Services
@@ -23,10 +21,10 @@ namespace Freelance.Service.Services
 
     }
 
-   public class SignInManageService: ISignInManageService
+    public class SignInManageService : ISignInManageService
     {
-        
-        private  ISignInManageProvider SignInManager { get; set; }
+
+        private ISignInManageProvider SignInManager { get; set; }
         public IOwinContext Context
         {
             get

@@ -13,7 +13,7 @@
 @Html.Partial("_OfferCreatePartial")
 <div class="row">
     <div class="col-lg-5 col-xs-12">
-        @Html.Partial("_FilterMenuPartial",Model.IndexState)
+        @Html.Partial("_FilterMenuPartial", Model.IndexState)
     </div>
     <div class="col-lg-7 col-xs-12">
         <table class="table">
@@ -21,8 +21,8 @@
                 <th>
                     Категории
                     <a href="@Url.Link("Index", Model.IndexState, "Category.NameCategory")" class="btn btn-default btn-xs active" role="button">
-                    <span class="@Html.GetSortClass(Model.IndexState, "Category.NameCategory")"></span>
-                </a>
+                        <span class="@Html.GetSortClass(Model.IndexState, "Category.NameCategory")"></span>
+                    </a>
                 </th>
                 <th>
                 </th>
@@ -30,7 +30,7 @@
                     Время доступности
                     <a href="@Url.Link("Index", Model.IndexState, "TimeFrom")" class="btn btn-default btn-xs active" role="button">
                         <span class="@Html.GetSortClass(Model.IndexState, "TimeFrom")"></span>
-</th>
+                </th>
                 <th></th>
             </tr>
 
@@ -78,10 +78,18 @@
 
         </table>
     </div>
-    </div>
-    <br />
+</div>
+@Html.ActionLink("GetFile", "GetFile", Model.IndexState, new { filename = "17068070-cdcf-498f-873b-c72dcac5d6d4.doc", userId="241f0079-6624-488b-9b40-35c832c863d8" })
+
+<br />
     Страница @(Model.PageList.PageCount < Model.PageList.PageNumber ? 0 : Model.PageList.PageNumber) из @Model.PageList.PageCount
 
     @Html.PagedListPager(Model.PageList, page => Url.ActionToPage("Index", Model.IndexState, page))
+
+
+
+
+
+
 
 

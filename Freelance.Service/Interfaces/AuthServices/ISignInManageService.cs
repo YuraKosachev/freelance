@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace Freelance.Service.Interfaces.AuthServices
 {
-    public interface ISignInManageService:IManagerService
+    public interface ISignInManageService : IManagerService
     {
         Task<SignInStatus> ExternalSignInAsync(ExternalLoginInfo loginInfo, bool isPersistent);
         Task<string> GetVerifiedUserIdAsync();

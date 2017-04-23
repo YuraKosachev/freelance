@@ -20,15 +20,11 @@ namespace Freelance.Web.Extensions
             var result = request.Files.Get(0);
             file.FileExtension = GetExtension(result.FileName);
             file.FileContent = new byte[result.InputStream.Length];
-            result.InputStream.Read(file.FileContent, 0, file.FileContent.Length);
-            //using (StreamReader reader = new StreamReader(result.InputStream))
-            //{
-            //    //byte[] array = new byte[result.InputStream.]
-            //    var CurrentEncoding = reader.CurrentEncoding;
-            //    file.FileContent = reader.ReadToEnd();
+            using (Stream stream = result.InputStream)
+            {
+                stream.Read(file.FileContent, 0, file.FileContent.Length);
+            }
 
-            //}
-           
             return file;
         }
         private static string GetExtension(string fileName)

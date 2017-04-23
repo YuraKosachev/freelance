@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
 
 namespace Freelance.Extensions
 {
     public class FilteringOptions<TModel>
-        
+
     {
-        
+
         public Expression<Func<TModel, bool>> Predicate { get; private set; }
-        public FilteringOptions(string predicate,params object[] values)
+        public FilteringOptions(string predicate, params object[] values)
         {
             Predicate = GetExpression(predicate, values);
         }

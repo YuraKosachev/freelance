@@ -4,7 +4,6 @@ using Microsoft.Practices.Unity.Mvc;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Freelance.Web.App_Start.UnityWebActivator), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(Freelance.Web.App_Start.UnityWebActivator), "Shutdown")]
-
 namespace Freelance.Web.App_Start
 {
     /// <summary>Provides the bootstrapping for integrating Unity with ASP.NET MVC.</summary>

@@ -22,7 +22,7 @@ namespace Freelance.Web.Extensions
             return freelanceList;
         }
         //Sorting helper
-        public static IFreelanceList<TModel> Sort<TModel>(this IFreelanceList<TModel> freelanceList, IndexState state,string defaultName,bool asceding = true)
+        public static IFreelanceList<TModel> Sort<TModel>(this IFreelanceList<TModel> freelanceList, IndexState state, string defaultName, bool asceding = true)
         {
             if (string.IsNullOrEmpty(state.SortProperty))
                 freelanceList.SortPage(defaultName, asceding);
@@ -32,10 +32,10 @@ namespace Freelance.Web.Extensions
             return freelanceList;
         }
         //List helper
-        public static StaticPagedList<TViewModel> StaticList<TViewModel,TModel>(this IFreelanceList<TModel> freelanceList,IndexState state)
+        public static StaticPagedList<TViewModel> StaticList<TViewModel, TModel>(this IFreelanceList<TModel> freelanceList, IndexState state)
         {
             var list = freelanceList.List().Select(model => Mapper.Map<TViewModel>(model)).ToList();
-           
+
             return new StaticPagedList<TViewModel>(list, (int)state.Page, Settings.Default.CountItemInPage, freelanceList.ItemCount());
 
         }

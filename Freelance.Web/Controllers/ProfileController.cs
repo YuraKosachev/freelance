@@ -22,15 +22,15 @@ using System.IO;
 
 namespace Freelance.Web.Controllers
 {
-    public class ProfileControllerMapperProfile:Profile
+    public class ProfileControllerMapperProfile : Profile
     {
         public ProfileControllerMapperProfile()
         {
-            CreateMap<ProfileServiceModel,ProfileViewModel>()
-                .ForMember(item => item.TimeAvailability, exp => exp.MapFrom(src => String.Format("{0} - {1}", src.TimeFrom,src.TimeTo))).ReverseMap();
-            //CreateMap<ProfileCreateEditViewModel, ProfileServiceModel>().ReverseMap();
+            CreateMap<ProfileServiceModel, ProfileViewModel>()
+                .ForMember(item => item.TimeAvailability, exp => exp.MapFrom(src => String.Format("{0} - {1}", src.TimeFrom, src.TimeTo))).ReverseMap();
+            
 
-           
+
         }
 
     }
@@ -40,13 +40,13 @@ namespace Freelance.Web.Controllers
 
     public class ProfileController : Controller
     {
-        
-        private  ICategoryService CategoryService { get; set; }
+
+        private ICategoryService CategoryService { get; set; }
         private IProfileService ProfileService { get; set; }
         private ITextFilesService TextFileService { get; set; }
 
         [InjectionConstructor]
-        public ProfileController(ICategoryService categoryService, IProfileService profileService,ITextFilesService textFileService)
+        public ProfileController(ICategoryService categoryService, IProfileService profileService, ITextFilesService textFileService)
         {
             CategoryService = categoryService;
             ProfileService = profileService;
@@ -58,17 +58,17 @@ namespace Freelance.Web.Controllers
         // GET: Profile
         public ActionResult Index(IndexState state)
         {
-            var listSetting = ProfileService.GetList();       
+            var listSetting = ProfileService.GetList();
             if (!string.IsNullOrEmpty(state.SearchString))
             {
                 state.SearchString.Trim();
-                listSetting.Filter("User.UserFirstName.Contains(@0) OR User.UserSurname.Contains(@0) OR DescriptionProfile.Contains(@0)",state.SearchString);
+                listSetting.Filter("User.UserFirstName.Contains(@0) OR User.UserSurname.Contains(@0) OR DescriptionProfile.Contains(@0)", state.SearchString);
             }
             if (state.TimeAvailability != null)
             {
                 listSetting.FilterAnd("TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailability);//"TimeFrom <= @0 AND TimeTo >= @0", (TimeSpan)state.TimeAvailabilityFilter);
             }
-            if ((state.CategoryId != null) && (state.CategoryId != Guid.Empty) )
+            if ((state.CategoryId != null) && (state.CategoryId != Guid.Empty))
             {
                 listSetting.FilterAnd("CategoryId == @0", (Guid)state.CategoryId);
             }
@@ -114,10 +114,11 @@ namespace Freelance.Web.Controllers
         public ActionResult Create(IndexState state)
         {
             state.Categories = CategoryService.Lookup();
-            var profile = new ProfileViewModel {
+            var profile = new ProfileViewModel
+            {
                 IndexState = state
             };
-            
+
             return View(profile);
         }
         [Authorize(Roles = "freelancer")]
@@ -133,16 +134,16 @@ namespace Freelance.Web.Controllers
             try
             {
                 // TODO: Add insert logic here
-                
+
                 if (Request.Files.Get(0).ContentLength > 0)
                 {
                     var result = Request.GetFileData();
                     model.FileName = TextFileService.Create(result.FileContent, User.Identity.GetUserId(), result.FileExtension);
                 }
-                
-               
+
+
                 ProfileService.Create(Mapper.Map<ProfileServiceModel>(model));
- 
+
                 return RedirectToAction("FreelancerProfiles", state);
             }
             catch
@@ -152,7 +153,7 @@ namespace Freelance.Web.Controllers
         }
         [Authorize(Roles = "freelancer")]
         // GET: Profile/Edit/5
-        public ActionResult Edit(Guid id,IndexState state)
+        public ActionResult Edit(Guid id, IndexState state)
         {
             try
             {
@@ -165,17 +166,17 @@ namespace Freelance.Web.Controllers
             {
                 return View();
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
-            
+
         }
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Edit/5
         [HttpPost]
-       
-        public ActionResult Edit(ProfileViewModel model,IndexState state)
+
+        public ActionResult Edit(ProfileViewModel model, IndexState state)
         {
             if (!ModelState.IsValid)
             {
@@ -196,7 +197,7 @@ namespace Freelance.Web.Controllers
         }
         [Authorize(Roles = "freelancer")]
         // GET: Profile/Delete/5
-        public ActionResult Delete(Guid id,IndexState state)
+        public ActionResult Delete(Guid id, IndexState state)
         {
             var item = ProfileService.GetItem(id);
             return View(Mapper.Map<ProfileViewModel>(item));
@@ -204,7 +205,7 @@ namespace Freelance.Web.Controllers
         [Authorize(Roles = "freelancer")]
         // POST: Profile/Delete/5
         [HttpPost]
-        public ActionResult Delete(ProfileViewModel model,IndexState state)
+        public ActionResult Delete(ProfileViewModel model, IndexState state)
         {
             try
             {
@@ -216,6 +217,18 @@ namespace Freelance.Web.Controllers
             {
                 return View();
             }
+        }
+        public FileResult GetFile(string fileName, string userId)
+        {
+            
+            // Объект Stream
+           
+            string file_type = String.Format("application/{0}",GetExtension(fileName));
+            return File(TextFileService.GetFileStream(fileName,userId), file_type, fileName);
+        }
+        private string GetExtension(string file)
+        {
+            return file.Split('.').Last();
         }
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.Owin;
 
 namespace Freelance.Provider.Interfaces
 {
-    public interface ISignInManageProvider: IManagerProvider
+    public interface ISignInManageProvider : IManagerProvider
     {
         Task<SignInStatus> ExternalSignInAsync(ExternalLoginInfo loginInfo, bool isPersistent);
         Task<string> GetVerifiedUserIdAsync();

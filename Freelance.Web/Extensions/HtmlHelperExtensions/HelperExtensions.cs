@@ -46,7 +46,7 @@ namespace Freelance.Web.HtmlHelperExtensions
             return helper.Action(action, indexStateRoutes);
         }
 
-       
+
         public static MvcHtmlString ActionLink(this HtmlHelper helper, string linkText, string action, IndexState indexState)
         {
             return helper.ActionLink(linkText, action, indexState, new RouteValueDictionary(), new Dictionary<string, object>());

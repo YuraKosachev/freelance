@@ -21,6 +21,6 @@ namespace Freelance.Web.Models
         [DataType(DataType.MultilineText)]
         [RegularExpression(@"[^<>]+$", ErrorMessage = "Введен недопустимый символ")]
         public string DescriptionCategory { get; set; }
-        public Guid? ImageId { get; set; }
+        public string ImageName { get; set; }
     }
 }

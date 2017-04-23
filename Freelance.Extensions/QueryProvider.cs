@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Freelance.Extensions.Interfaces;
+﻿using System.Linq;
+
 
 namespace Freelance.Extensions
 {
@@ -23,6 +19,6 @@ namespace Freelance.Extensions
         {
             return paging != null ? paging.TakePage(source) : source;
         }
-      
+
     }
 }

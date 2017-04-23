@@ -22,7 +22,7 @@ namespace Freelance.Web.Controllers
     {
         public CategoryControllerMapperProfile()
         {
-            CreateMap<CategoryServiceModel,CategoryViewModel>()
+            CreateMap<CategoryServiceModel, CategoryViewModel>()
                 .ForMember(item => item.CategoryId, exp => exp.MapFrom(src => src.Id))
                 .ReverseMap()
                 .ForMember(item => item.Id, exp => exp.MapFrom(src => src.CategoryId));
@@ -37,7 +37,7 @@ namespace Freelance.Web.Controllers
         private ICategoryService Service { get; set; }
         private IAdminFileService FileService { get; set; }
         [InjectionConstructor]
-        public CategoryController(ICategoryService service,IAdminFileService fileService)
+        public CategoryController(ICategoryService service, IAdminFileService fileService)
         {
             Service = service;
             FileService = fileService;
@@ -52,7 +52,7 @@ namespace Freelance.Web.Controllers
             //add filter
             listSetting.Sort(state, "NameCategory").Page(state);
             var list = listSetting.StaticList<CategoryViewModel, CategoryServiceModel>(state);
-            var pagginationList = new PagginationModelList<CategoryViewModel>(state,list);
+            var pagginationList = new PagginationModelList<CategoryViewModel>(state, list);
 
             return View(pagginationList);
         }
@@ -79,32 +79,32 @@ namespace Freelance.Web.Controllers
                 model.IndexState = indexState;
                 return View(model);
             }
-           
+
             try
             {
                 if (model.Image != null)
                 {
-                    var id = FileService.Create(model.Image, User.Identity.GetUserId());
-                    model.ImageId = id;
+                    var fileName = FileService.Create(model.Image, User.Identity.GetUserId(), img => Convert.FromBase64String(img));
+                    model.ImageName = fileName;
                 }
-               
-               Service.Create(Mapper.Map<CategoryServiceModel>(model));
-               return RedirectToAction("Index");
+
+                Service.Create(Mapper.Map<CategoryServiceModel>(model));
+                return RedirectToAction("Index");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View();
             }
         }
 
         // GET: Category/Edit/5
-        public ActionResult Edit(Guid id,IndexState state)
+        public ActionResult Edit(Guid id, IndexState state)
         {
             try
             {
                 var category = Service.GetItem(id);
                 var model = Mapper.Map<CategoryViewModel>(category);
-                    model.IndexState = state;
+                model.IndexState = state;
                 return View(model);
             }
             catch (ItemNotFoundException e)
@@ -115,8 +115,8 @@ namespace Freelance.Web.Controllers
             {
                 return View();
             }
-            
-               
+
+
         }
 
         // POST: Category/Edit/5
@@ -129,12 +129,15 @@ namespace Freelance.Web.Controllers
             }
             try
             {
-                    var imageId = FileService.Create(model.Image, User.Identity.GetUserId());
-                    model.ImageId = imageId;
-                    Service.Update(Mapper.Map<CategoryServiceModel>(model));
-                    return RedirectToAction("Index",model.IndexState);
+                if (model.Image != null)
+                {
+                    var fileName = FileService.Create(model.Image, User.Identity.GetUserId(), img => Convert.FromBase64String(img));
+                    model.ImageName = fileName;
+                }
+                Service.Update(Mapper.Map<CategoryServiceModel>(model));
+                return RedirectToAction("Index", model.IndexState);
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
@@ -157,7 +160,7 @@ namespace Freelance.Web.Controllers
             {
                 return View();
             }
-            
+
         }
 
         // POST: Category/Delete/5

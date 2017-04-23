@@ -1,13 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel;
-using System.Collections.Generic;
 
 
 namespace Freelance.Provider.EntityModels
 {
-    public class Offer:IModel,IModelContainDateTime
+    public class Offer : IModel, IModelContainDateTime
     {
         [Key]
         public Guid Id { get; set; }
@@ -20,6 +18,7 @@ namespace Freelance.Provider.EntityModels
         public string Description { get; set; }
         public DateTime DateOfCreate { get; set; }
         public bool FreelancerConfirm { get; set; }
+        public string FileName { get; set; }
 
         //navi setting
 

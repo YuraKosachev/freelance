@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 
 namespace Freelance.Provider.Interfaces
 {

@@ -11,7 +11,7 @@
     <h4>ProfileViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.FreelancerName)
         </dt>
@@ -54,12 +54,14 @@
 
     </dl>
 
-    @using (Html.BeginForm(new { Id = Model.Id })) {
+    @using (Html.BeginForm(new { Id = Model.Id }))
+    {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>
+

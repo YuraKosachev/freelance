@@ -8,7 +8,7 @@ using Freelance.Provider.Context;
 
 namespace Freelance.Provider.Providers
 {
-    
+
     public class FreelanceUserManager : UserManager<User>
     {
         public FreelanceUserManager(IUserStore<User> store)
@@ -40,7 +40,7 @@ namespace Freelance.Provider.Providers
             manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
-            
+
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.

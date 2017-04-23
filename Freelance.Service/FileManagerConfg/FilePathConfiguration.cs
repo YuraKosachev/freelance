@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Freelance.Service.FileManagerConfg
+﻿namespace Freelance.Service.FileManagerConfg
 {
     public class AppFolder
     {
@@ -20,6 +14,6 @@ namespace Freelance.Service.FileManagerConfg
         {
             Folders = appFolders;
         }
-        
+
     }
 }

@@ -9,7 +9,7 @@ namespace Freelance.Web.Models
 {
     public class PagginationModelList<TViewModel>
     {
-        
+
         public IndexState IndexState { get; set; }
         public IPagedList<TViewModel> PageList { get; set; }
         public PagginationModelList(IndexState indexState, IPagedList<TViewModel> pageList)
@@ -17,6 +17,6 @@ namespace Freelance.Web.Models
             IndexState = indexState;
             PageList = pageList;
         }
-        
+
     }
 }

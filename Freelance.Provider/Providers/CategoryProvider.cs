@@ -6,9 +6,9 @@ using Freelance.Provider.EntityModels;
 
 namespace Freelance.Provider.Providers
 {
-    public class CategoryProvider:FreelanceProvider<Category>,ICategoryProvider
+    public class CategoryProvider : FreelanceProvider<Category>, ICategoryProvider
     {
-        public CategoryProvider():base() { }
+        public CategoryProvider() : base() { }
 
         public IDictionary<Guid, string> Lookup()
         {

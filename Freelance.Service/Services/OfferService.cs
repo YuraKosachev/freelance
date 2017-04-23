@@ -14,16 +14,16 @@ namespace Freelance.Service.Services
         {
             CreateMap<OfferServiceModel, Offer>().ReverseMap()
                 .ForMember(item => item.FreelancerName, exp => exp.MapFrom(src => String.Format("{0} {1}", src.User.UserFirstName, src.User.UserSurname)))
-                .ForMember(item => item.PhoneNumber, exp => exp.MapFrom(src=>src.User.PhoneNumber));
-                
+                .ForMember(item => item.PhoneNumber, exp => exp.MapFrom(src => src.User.PhoneNumber));
+
 
 
         }
 
     }
-    public class OfferService:FreelanceService<OfferServiceModel, Offer>, IOfferService
+    public class OfferService : FreelanceService<OfferServiceModel, Offer>, IOfferService
     {
-         [InjectionConstructor]
+        [InjectionConstructor]
         public OfferService(IOfferProvider provider) : base(provider) { }
 
     }

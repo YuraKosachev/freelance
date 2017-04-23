@@ -59,11 +59,11 @@ namespace Freelance.Web.Controllers
 
 
             var result = await SignInManageService.PassSignInAsync(Mapper.Map<LoginServiceModel>(model), false);
-            
+
             switch (result)
             {
                 case SignInStatus.Success:
-                    
+
                     SetUserName(model.Email, isRegistred: true);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
@@ -76,20 +76,21 @@ namespace Freelance.Web.Controllers
                     return View(model);
             }
         }
-        private void SetUserName(string name,bool isRegistred)
+        private void SetUserName(string name, bool isRegistred)
         {
-           Session["UserName"] = isRegistred ? UserManageService.GetUserFirstName(name) : name; 
+            Session["UserName"] = isRegistred ? UserManageService.GetUserFirstName(name) : name;
         }
         private void ClearSession()
         {
             Session["UserName"] = null;
         }
         //return roles dictionary for dropdownlist
-        private IDictionary<string, string> GetRoles() {
+        private IDictionary<string, string> GetRoles()
+        {
             var roles = new Dictionary<string, string>();
             roles.Add("client", "Клиент");
             roles.Add("freelancer", "Фрилансер");
-            //roles.Add("admin", "Администратор");
+            roles.Add("admin", "Администратор");
             return roles;
         }
         //
@@ -151,8 +152,8 @@ namespace Freelance.Web.Controllers
         {
 
             //Delete this
-            
-            return View(new RegisterViewModel{ Roles = GetRoles() });
+
+            return View(new RegisterViewModel { Roles = GetRoles() });
         }
 
         //
@@ -168,7 +169,7 @@ namespace Freelance.Web.Controllers
                 var result = await UserManageService.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                   
+
                     SetUserName(user.UserFirstName, isRegistred: false);
                     await UserManageService.AddToRoleAsync(user.Id, model.Role);
                     await SignInManageService.SignInAsync(user, isPersistent: false, rememberBrowser: false);//SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -182,7 +183,7 @@ namespace Freelance.Web.Controllers
                 }
                 AddErrors(result);
             }
-            
+
             model.Roles = GetRoles();
             return View(model);
         }
@@ -251,7 +252,7 @@ namespace Freelance.Web.Controllers
         {
             return code == null ? View("Error") : View();
         }
-    
+
         //
         // POST: /Account/ResetPassword
         [HttpPost]
@@ -418,10 +419,10 @@ namespace Freelance.Web.Controllers
             return View();
         }
 
-        
+
         #region Вспомогательные приложения
-        
-       
+
+
 
         private void AddErrors(IdentityResult result)
         {

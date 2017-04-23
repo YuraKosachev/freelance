@@ -7,9 +7,9 @@ using Microsoft.Owin;
 
 namespace Freelance.Provider.Providers
 {
-    public class UserManageProvider : AuthProvider<FreelanceUserManager>,IUserManageProvider
+    public class UserManageProvider : AuthProvider<FreelanceUserManager>, IUserManageProvider
     {
-    
+
         public UserManageProvider() : base() { }
         public UserManageProvider(IOwinContext context, FreelanceUserManager userManager)
             : base(context, userManager)
@@ -24,10 +24,10 @@ namespace Freelance.Provider.Providers
         {
             return Manager.AddToRoleAsync(userId, role);
         }
-       
+
         public Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo loginInfo)
         {
-           
+
             return Manager.AddLoginAsync(userId, loginInfo);
         }
 
@@ -92,13 +92,13 @@ namespace Freelance.Provider.Providers
 
         public Task<IdentityResult> ChangePasswordAsync(string userId, string oldPassword, string newPassword)
         {
-            return Manager.ChangePasswordAsync( userId, oldPassword,  newPassword);
+            return Manager.ChangePasswordAsync(userId, oldPassword, newPassword);
         }
         public User FindById(string userId)
         {
             return Manager.FindById(userId);
         }
-        public Task<IdentityResult> AddPasswordAsync(string userId,string newPassword)
+        public Task<IdentityResult> AddPasswordAsync(string userId, string newPassword)
         {
             return Manager.AddPasswordAsync(userId, newPassword);
         }

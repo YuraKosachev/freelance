@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Freelance.Web.Models;
-using Freelance.Service;
 using Freelance.Service.Interfaces.AuthServices;
-using Microsoft.Practices.Unity;
+
 
 using Freelance.Service.ServicesModel;
 
@@ -24,7 +15,7 @@ namespace Freelance.Web.Controllers
         public AuthControllerMapperProfile()
         {
             CreateMap<VerifyCodeViewModel, VerifyCodeServiceModel>();
-            CreateMap<LoginViewModel,LoginServiceModel>();
+            CreateMap<LoginViewModel, LoginServiceModel>();
             CreateMap<RegisterViewModel, UserServiceModel>()
                 .ForMember(item => item.UserName, exp => exp.MapFrom(src => src.Email))
                 .ForMember(item => item.UserSurname, exp => exp.MapFrom(src => src.Surname))
@@ -35,8 +26,8 @@ namespace Freelance.Web.Controllers
         }
 
     }
-   
-    public abstract class AuthController:Controller
+
+    public abstract class AuthController : Controller
     {
         protected IUserManageService _userManageService;
         protected ISignInManageService _signInManageService;

@@ -43,12 +43,13 @@
                 </button>
             </span>
             @{var list = Model.Categories;}
-            @Html.DropDownListFor(model=>model.CategoryId, new SelectList(Model.Categories, "key", "value", Model.CategoryId), new { @class = "form-control dropdown-select" })
-       </div>
-    </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-default">Фильтр</button>
+            @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "key", "value", Model.CategoryId), new { @class = "form-control dropdown-select" })
         </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Фильтр</button>
+    </div>
 
 
-        }
+                }
+

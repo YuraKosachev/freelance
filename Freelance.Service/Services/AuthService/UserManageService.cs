@@ -6,9 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Freelance.Provider.EntityModels;
 using Freelance.Provider.Interfaces;
-using Freelance.Provider;
 using AutoMapper;
-using Microsoft.Practices.Unity;
 using Freelance.Provider.Providers;
 
 
@@ -18,7 +16,7 @@ namespace Freelance.Service.Services
 {
     public class UserManageService : IUserManageService, IManagerService
     {
-      
+
         private IUserManageProvider UserProvider { get; set; }
         public IOwinContext Context
         {
@@ -35,7 +33,7 @@ namespace Freelance.Service.Services
         {
             UserProvider = new UserManageProvider();
         }
-        
+
         public string GetUserFirstName(string name)
         {
             return UserProvider.GetUserFirstName(name);
@@ -59,19 +57,19 @@ namespace Freelance.Service.Services
 
         public Task<IdentityResult> CreateAsync(UserServiceModel user, string password)
         {
-          
+
             return UserProvider.CreateAsync(Mapper.Map<User>(user), password);
         }
 
         public Task<IdentityResult> CreateAsync(UserServiceModel user)
         {
-         
+
             return UserProvider.CreateAsync(Mapper.Map<User>(user));
         }
         public async Task<UserServiceModel> FindByName(string name)
         {
             var user = await UserProvider.FindByNameAsync(name);
-        
+
             return Mapper.Map<UserServiceModel>(user);
         }
 
@@ -99,12 +97,12 @@ namespace Freelance.Service.Services
         }
         public Task<IdentityResult> RemoveLoginAsync(string userId, string loginProvider, string providerKey)
         {
-            return UserProvider.RemoveLoginAsync(userId,loginProvider,providerKey);
+            return UserProvider.RemoveLoginAsync(userId, loginProvider, providerKey);
         }
         public async Task<UserServiceModel> FindByIdAsync(string userId)
         {
             var user = await UserProvider.FindByIdAsync(userId);
-            
+
             return Mapper.Map<UserServiceModel>(user);
         }
         public Task<IList<UserLoginInfo>> GetLoginsAsync(string userId)

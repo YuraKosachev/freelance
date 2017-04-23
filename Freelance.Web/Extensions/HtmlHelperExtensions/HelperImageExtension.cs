@@ -24,19 +24,19 @@ namespace Freelance.Web.HtmlHelperExtensions
         {
             return helper.Image(src, null);
         }
-        public static MvcHtmlString Image(this HtmlHelper helper, Guid? imageId, string typeExtesion, string folderPath, string holder,object htmlAttributes)
+        public static MvcHtmlString Image(this HtmlHelper helper, string imageName, string folderPath, string holder, object htmlAttributes)
         {
-            if (imageId != null)
+            if (imageName != null)
             {
-                var path = String.Format(@"/{0}/{1}.{2}", folderPath, imageId, typeExtesion);
+                var path = String.Format(@"/{0}/{1}", folderPath, imageName);
                 return helper.Image(path, htmlAttributes: htmlAttributes);
             }
 
-            return helper.Image( holder, htmlAttributes: htmlAttributes);
+            return helper.Image(holder, htmlAttributes: htmlAttributes);
         }
         public static string Holder(int width, int height)
         {
-            return String.Format("holder.js/{0}x{1}", width,height);
+            return String.Format("holder.js/{0}x{1}", width, height);
         }
     }
 

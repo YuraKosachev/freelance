@@ -8,7 +8,7 @@ using Freelance.Provider.EntityModels;
 
 namespace Freelance.Provider.Providers
 {
-    public class FreelanceSignInManager: SignInManager<User, string>
+    public class FreelanceSignInManager : SignInManager<User, string>
     {
         public FreelanceSignInManager(FreelanceUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)

@@ -5,13 +5,13 @@ using Freelance.Service.ServicesModel;
 using AutoMapper;
 namespace Freelance.Service.Services
 {
-    public abstract class FreelanceService<TModelService,TProviderModel> : IService<TModelService>
+    public abstract class FreelanceService<TModelService, TProviderModel> : IService<TModelService>
         where TModelService : class
         where TProviderModel : class
-   
+
     {
         protected IProvider<TProviderModel> Provider { get; set; }
-        
+
         public FreelanceService()
         {
 
@@ -21,10 +21,10 @@ namespace Freelance.Service.Services
             Provider = provider;
 
         }
-        
+
         public virtual Guid Create(TModelService item)
         {
-           return Provider.Create(Mapper.Map<TProviderModel>(item));
+            return Provider.Create(Mapper.Map<TProviderModel>(item));
         }
 
         public virtual void Delete(Guid id)
@@ -39,7 +39,7 @@ namespace Freelance.Service.Services
 
         public virtual IFreelanceList<TModelService> GetList()
         {
-            return new FreelanceList<TModelService,TProviderModel>(Provider.GetList());
+            return new FreelanceList<TModelService, TProviderModel>(Provider.GetList());
         }
 
         public virtual void Update(TModelService item)

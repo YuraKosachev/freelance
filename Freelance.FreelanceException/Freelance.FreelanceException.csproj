@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{66B305C3-3718-4337-8235-903EE9020D21}</ProjectGuid>
+    <ProjectGuid>{F6006584-0AF9-4F70-8451-8E143606EEE2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Freelance.FreelanceException</RootNamespace>

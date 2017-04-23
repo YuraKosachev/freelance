@@ -9,10 +9,10 @@ namespace Freelance.Provider.EntityModels
 {
     public class User : IdentityUser
     {
-      
+
         public string UserFirstName { get; set; }
         public string UserSurname { get; set; }
-        public Guid? ImageId { get; set; }
+        public string ImageName { get; set; }
         //navi setting
         public virtual ICollection<Profile> Profiles { get; set; }
         public virtual ICollection<Offer> Offers { get; set; }

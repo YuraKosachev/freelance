@@ -4,13 +4,13 @@ using Freelance.Extensions;
 
 namespace Freelance.Provider.Providers
 {
-    public class OfferProvider: FreelanceProvider<Offer>, IOfferProvider
+    public class OfferProvider : FreelanceProvider<Offer>, IOfferProvider
     {
         public OfferProvider() : base() { }
         public override Extensions.Interfaces.IAppQuery<Offer> GetList()
         {
             return new AppQuery<Offer>(Context.Set<Offer>().Include("Profile").Include("User"));
         }
-      
+
     }
 }

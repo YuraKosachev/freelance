@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Freelance.Service.Interfaces.AuthServices
 {
-    public interface IUserManageService:IManagerService
+    public interface IUserManageService : IManagerService
     {
         string GetUserFirstName(string name);
         Task<IdentityResult> AddToRoleAsync(string userId, string role);
@@ -13,7 +13,7 @@ namespace Freelance.Service.Interfaces.AuthServices
         Task<IdentityResult> ConfirmEmailAsync(string userId, string code);
         Task<IdentityResult> CreateAsync(UserServiceModel user, string password);
         Task<IdentityResult> CreateAsync(UserServiceModel user);
-         Task<UserServiceModel> FindByName(string name);
+        Task<UserServiceModel> FindByName(string name);
 
         Task<IList<string>> GetValidTwoFactorProvidersAsync(string userId);
         Task<bool> IsEmailConfirmedAsync(string userId);

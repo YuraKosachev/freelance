@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Freelance.Provider.Interfaces;
 using Freelance.Provider.Context;
 using System.Data.Entity;
@@ -9,7 +8,7 @@ using Freelance.FreelanceException;
 namespace Freelance.Provider.Providers
 {
     public abstract class FreelanceProvider<TModel> : IProvider<TModel>, IDisposable
-        where TModel :class,IModel
+        where TModel : class, IModel
     {
         protected FreelanceDbContext Context { get; set; }
         public FreelanceProvider()
@@ -40,7 +39,7 @@ namespace Freelance.Provider.Providers
             var item = Context.Set<TModel>().Find(id);
             if (item == null)
                 throw new ItemNotFoundException("Искомый элемент не найден");
-                return item; 
+            return item;
         }
 
         public virtual Extensions.Interfaces.IAppQuery<TModel> GetList()
@@ -49,11 +48,11 @@ namespace Freelance.Provider.Providers
         }
 
         public virtual void Update(TModel item)
-         {
+        {
             Context.Entry<TModel>(item).State = EntityState.Modified;
             Context.SaveChanges();
         }
-     
+
 
         private bool disposed = false;
 
@@ -75,6 +74,6 @@ namespace Freelance.Provider.Providers
             GC.SuppressFinalize(this);
         }
 
-        
+
     }
 }

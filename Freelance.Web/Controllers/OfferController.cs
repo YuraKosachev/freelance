@@ -23,7 +23,7 @@ namespace Freelance.Web.Controllers
                 .ForMember(item => item.Date, exp => exp.MapFrom(src => src.Date.Add(src.Time)))
                 .ReverseMap()
                 .ForMember(item => item.Time, exp => exp.MapFrom(src => src.Date.ConvertToTimeSpan()));
-              
+
         }
 
     }
@@ -33,13 +33,13 @@ namespace Freelance.Web.Controllers
         private IOfferService OfferService { get; set; }
         private IProfileService ProfileService { get; set; }
         [InjectionConstructor]
-        public OfferController(IOfferService offerService,IProfileService profileService)
+        public OfferController(IOfferService offerService, IProfileService profileService)
         {
             OfferService = offerService;
             ProfileService = profileService;
         }
 
-      
+
         // GET: Offer
         [Authorize(Roles = "freelancer, client")]
         public ActionResult Index(IndexState state)
@@ -50,7 +50,7 @@ namespace Freelance.Web.Controllers
             //filtring
             if (User.IsInRole("client"))
                 listSetting.Filter("UserId == @0", userId);
-            if(User.IsInRole("freelancer"))
+            if (User.IsInRole("freelancer"))
                 listSetting.Filter("Profile.UserId == @0", userId);
 
 
@@ -76,8 +76,8 @@ namespace Freelance.Web.Controllers
             {
                 // TODO: Add insert logic here
                 model.UserId = User.Identity.GetUserId();
-               var offerId = OfferService.Create(Mapper.Map<OfferServiceModel>(model));
-                return new JsonResult {Data = new {OfferId = offerId } };
+                var offerId = OfferService.Create(Mapper.Map<OfferServiceModel>(model));
+                return new JsonResult { Data = new { OfferId = offerId } };
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace Freelance.Web.Controllers
             try
             {
                 // TODO: Add update logic here
-               
+
                 model.FreelancerConfirm = true;
                 OfferService.Update(Mapper.Map<OfferServiceModel>(model));
                 return new JsonResult { Data = new { OfferId = model.Id } };
@@ -129,13 +129,13 @@ namespace Freelance.Web.Controllers
         // POST: Offer/Delete/5
         [Authorize(Roles = "client")]
         [HttpPost]
-        public ActionResult Delete(Guid id,IndexState state)
+        public ActionResult Delete(Guid id, IndexState state)
         {
             try
             {
                 // TODO: Add delete logic here
                 OfferService.Delete(id);
-                return RedirectToAction("Index",state);
+                return RedirectToAction("Index", state);
             }
             catch
             {

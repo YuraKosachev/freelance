@@ -8,8 +8,8 @@ namespace Freelance.Provider.Providers
 
 
 
-    public abstract class AuthProvider<TManager> : IManagerProvider,IDisposable
-        where TManager: class,IDisposable
+    public abstract class AuthProvider<TManager> : IManagerProvider, IDisposable
+        where TManager : class, IDisposable
     {
         protected TManager _manager;
         public IOwinContext Context { get; set; }
@@ -18,10 +18,10 @@ namespace Freelance.Provider.Providers
 
         public AuthProvider(IOwinContext context, TManager manager)
         {
-           Manager = manager;
+            Manager = manager;
             Context = context;
         }
-        public  TManager Manager
+        public TManager Manager
         {
             get
             {
@@ -48,7 +48,7 @@ namespace Freelance.Provider.Providers
                     _manager = null;
                 }
 
-                
+
             }
 
             disposed = true;

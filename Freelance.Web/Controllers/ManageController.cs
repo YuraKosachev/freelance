@@ -292,11 +292,11 @@ namespace Freelance.Web.Controllers
             var result = await UserManageService.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
-//---------------------------------------------------------------------------------------------------------------------------------------------
-      
-#region Вспомогательные приложения
+        //---------------------------------------------------------------------------------------------------------------------------------------------
+
+        #region Вспомогательные приложения
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
-      
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -336,6 +336,6 @@ namespace Freelance.Web.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{11260548-7B28-4771-AD9C-F9A297857E01}</ProjectGuid>
+    <ProjectGuid>{0B8267BA-89D6-465F-B8FA-4776CBBCD9F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Freelance.FileManagerProvider</RootNamespace>
@@ -32,7 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,23 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileManagerMethods\CreateFile.cs" />
-    <Compile Include="FileManagerMethods\ICreatable.cs" />
-    <Compile Include="Interfaces\IAdminProvider.cs" />
-    <Compile Include="Interfaces\IPhotoProvider.cs" />
-    <Compile Include="Interfaces\ITextFilesProvider.cs" />
-    <Compile Include="RepositoryProviders\AdminRepositoryProvider.cs" />
-    <Compile Include="RepositoryProviders\FileProvider.cs" />
     <Compile Include="Interfaces\IFileProvider.cs" />
-    <Compile Include="Interfaces\IRepositoryPath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\RepositoryPath.cs" />
     <Compile Include="RepositoryProviders\FreelanceFileProvider.cs" />
-    <Compile Include="RepositoryProviders\PhotosRepositoryProvider.cs" />
-    <Compile Include="RepositoryProviders\TextFilesRepositoryProvider.cs" />
-    <Compile Include="SettingFileManager\FilePathSettings.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Freelance.FreelanceException\Freelance.FreelanceException.csproj">
+      <Project>{f6006584-0af9-4f70-8451-8e143606eee2}</Project>
+      <Name>Freelance.FreelanceException</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

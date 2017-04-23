@@ -41,7 +41,7 @@ namespace Freelance.Service.ServicesModel
 
         public void Filter(string predicate, params object[] values)
         {
-            ProviderList.Filter(predicate,values);
+            ProviderList.Filter(predicate, values);
         }
         public void FilterAnd(string predicate, params object[] values)
         {

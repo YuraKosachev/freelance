@@ -21,11 +21,12 @@
                     </div>
 
                     <a href="#" class="thumbnail">
-                        @Html.Image(Model.ImageId, "png", "upload/app", HelperImageExtension.Holder(146, 155), new { data_element_role = "imageContainer" })
+                        @Html.Image(Model.ImageName, "upload/app", HelperImageExtension.Holder(146, 155), new { data_element_role = "imageContainer" })
                     </a>
                 </div>
 
 
+                  @Html.HiddenFor(model => model.CategoryId);
                 <div class="form-horizontal col-md-8 col-xs-12">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -58,6 +59,10 @@
     </a>
 </div>
 @section Scripts {
-@Scripts.Render("~/bundles/Exif")
-@Scripts.Render("~/bundles/Croppie")
+    @Scripts.Render("~/bundles/Exif")
+    @Scripts.Render("~/bundles/Croppie")
 }
+
+
+
+

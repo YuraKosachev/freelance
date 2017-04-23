@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+
 
 namespace Freelance.Service.Interfaces
 {
     public interface IFileService
     {
-        string Create(string base64Content, string userId, Func<string,byte[]> convert);
+        string Create(string base64Content, string userId, Func<string, byte[]> Convert);
         string Create(byte[] content, string userId, string fileExtension);
-        string GetFile(Guid fileId, string userId);
-        void Delete(Guid fileId, string userId);
+        string GetFileString(string fileName, string userId,Func<byte[],string> Convert);
+        FileStream GetFileStream(string fileName, string userId);
+        byte[] GetFileBytes(string fileName, string userId);
+        void Delete(string fileName, string userId);
     }
 }
+

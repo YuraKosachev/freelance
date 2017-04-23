@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Dynamic;
 
 namespace Freelance.Extensions
@@ -19,8 +16,9 @@ namespace Freelance.Extensions
         }
         public IQueryable<TModel> Sort<TModel>(IQueryable<TModel> source)
         {
-            return source.OrderBy(String.Format("{0} {1}",Property, Ascending ? "ASC" :"DESC"));
+            return source.OrderBy(String.Format("{0} {1}", Property, Ascending ? "ASC" : "DESC"));
         }
 
     }
 }
+

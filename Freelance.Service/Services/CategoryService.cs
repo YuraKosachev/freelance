@@ -4,8 +4,7 @@ using Freelance.Service.ServicesModel;
 using Freelance.Provider.EntityModels;
 using Freelance.Provider.Interfaces;
 using Freelance.Service.Interfaces;
-using Freelance.Provider;
-using mapper =  AutoMapper;
+using mapper = AutoMapper;
 using Microsoft.Practices.Unity;
 
 namespace Freelance.Service.Services
@@ -15,7 +14,7 @@ namespace Freelance.Service.Services
         public CategoryServiceMapperProfile()
         {
             CreateMap<CategoryServiceModel, Category>().ReverseMap();
-               
+
 
         }
 
@@ -26,7 +25,7 @@ namespace Freelance.Service.Services
         [InjectionConstructor]
         public CategoryService(ICategoryProvider provider) : base(provider) { }
 
-       
+
 
         public IDictionary<Guid, string> Lookup()
         {

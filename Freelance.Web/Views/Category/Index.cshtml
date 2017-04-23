@@ -1,59 +1,62 @@
 ﻿@model PagginationModelList<CategoryViewModel>
-
+@using PagedList;
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Категории</h2>
 
+
 <p>
-    @Html.ActionLink("Create New", "Create",Model.IndexState)
+    @Html.ActionLink("Create New", "Create", Model.IndexState)
 </p>
-<hr/>
-    <a href="@Url.Link("Index", Model.IndexState, "NameCategory")" class="btn btn-default btn-xs active" role="button">
-            <span class="@Html.GetSortClass(Model.IndexState, "NameCategory")"></span>
-    </a>
-<hr/>
+<hr />
+<a href="@Url.Link("Index", Model.IndexState, "NameCategory")" class="btn btn-default btn-xs active" role="button">
+    <span class="@Html.GetSortClass(Model.IndexState, "NameCategory")"></span>
+</a>
+<hr />
 
 <table class="table">
+    <tr>
+        <th>
+        </th>
+        <th>
+            Name Category
+            <a href="@Url.Link("Index", Model.IndexState, "NameCategory")" class="btn btn-default btn-xs active" role="button">
+                <span class="@Html.GetSortClass(Model.IndexState, "NameCategory")"></span>
+            </a>
+
+        </th>
+        <th>
+            Description Category
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.PageList)
+    {
         <tr>
-            <th>
-            </th>
-            <th>
-                Name Category
-                <a href="@Url.Link("Index", Model.IndexState, "NameCategory")" class="btn btn-default btn-xs active" role="button">
-                    <span class="@Html.GetSortClass(Model.IndexState, "NameCategory")"></span>
-                </a>
-               
-            </th>
-            <th>
-                Description Category
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model.PageList)
-        {
-            <tr>
-               
-                <td>
-                   @Html.Image(item.ImageId,"png","upload/app",HelperImageExtension.Holder(64,73),new { width = 64, height = 73}) 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NameCategory)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DescriptionCategory)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId })
-                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            <td>
+                @Html.Image(item.ImageName, "upload/app", HelperImageExtension.Holder(64, 73), new { width = 64, height = 73 })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionCategory)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId })
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })*@
-                </td>
-            </tr>
-        }
+            </td>
+        </tr>
+    }
 
-    </table>
-    <br />
+</table>
+<br />
     Страница @(Model.PageList.PageCount < Model.PageList.PageNumber ? 0 : Model.PageList.PageNumber) из @Model.PageList.PageCount
 
     @Html.PagedListPager(Model.PageList, page => Url.ActionToPage("Index", Model.IndexState, page))
+
+

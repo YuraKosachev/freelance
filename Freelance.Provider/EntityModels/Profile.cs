@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Freelance.Provider.EntityModels
 {
-    public class Profile:IModel
+    public class Profile : IModel
     {
         [Key]
         public Guid Id { get; set; }
@@ -17,8 +17,9 @@ namespace Freelance.Provider.EntityModels
         public string DescriptionProfile { get; set; }
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }
+        public string FileName { get; set; }
         //navi setting
-      
+
         public virtual User User { get; set; }
         public virtual Category Category { get; set; }
         public ICollection<Offer> Offers { get; set; }

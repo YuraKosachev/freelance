@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Freelance.Provider.EntityModels;
-using Freelance.Provider.Interfaces;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 
 namespace Freelance.Provider.Interfaces
 {
-    public interface IUserManageProvider: IManagerProvider
+    public interface IUserManageProvider : IManagerProvider
     {
         string GetUserFirstName(string name);
         Task<IdentityResult> AddToRoleAsync(string userId, string role);
@@ -20,7 +14,7 @@ namespace Freelance.Provider.Interfaces
         Task<IdentityResult> CreateAsync(User user, string password);
         Task<IdentityResult> CreateAsync(User user);
         Task<User> FindByNameAsync(string name);
-        
+
         Task<IList<string>> GetValidTwoFactorProvidersAsync(string userId);
         Task<bool> IsEmailConfirmedAsync(string userId);
         Task<IdentityResult> ResetPasswordAsync(string userId, string token, string newPassword);

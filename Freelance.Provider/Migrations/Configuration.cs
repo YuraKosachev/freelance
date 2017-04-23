@@ -1,13 +1,9 @@
-
 namespace Freelance.Provider.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-  
+
     internal sealed class Configuration : DbMigrationsConfiguration<Freelance.Provider.Context.FreelanceDbContext>
     {
         public Configuration()

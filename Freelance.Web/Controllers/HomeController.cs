@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Configuration;
-
 
 namespace Freelance.Web.Controllers
 {
@@ -12,7 +10,6 @@ namespace Freelance.Web.Controllers
     {
         public ActionResult Index()
         {
-            
             return View();
         }
 
